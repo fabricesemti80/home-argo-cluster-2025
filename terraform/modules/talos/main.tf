@@ -30,16 +30,16 @@ resource "proxmox_virtual_environment_download_file" "talos_iso" {
           proxmox_node = node.proxmox_node
         }
       ]
-    ]) : "${combo.proxmox_node}-${combo.schematic_id}" => combo
+    ]) : "${combo.proxmox_node}-${combo.schematic_id}" => combo...
   }
 
   content_type = "iso"
   datastore_id = "local"
-  node_name    = each.value.proxmox_node
+  node_name    = each.value[0].proxmox_node
 
-  url = "https://factory.talos.dev/image/${each.value.schematic_id}/${var.talos_version}/${var.talos_image_type}-amd64.iso"
+  url = "https://factory.talos.dev/image/${each.value[0].schematic_id}/${var.talos_version}/${var.talos_image_type}-amd64.iso"
 
-  file_name           = "talos-${each.value.schematic_id}.img"
+  file_name           = "talos-${each.value[0].schematic_id}.img"
   overwrite           = false
   overwrite_unmanaged = true
 }

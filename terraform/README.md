@@ -166,7 +166,21 @@ task tofu:init
 task tofu:validate
 ```
 
-### 4. Plan Deployment
+### 3. Initialize OpenTofu
+
+```bash
+task tofu:init
+```
+
+This creates the `.terraform` directory and downloads required providers.
+
+### 4. Validate Configuration
+
+```bash
+task tofu:validate
+```
+
+### 5. Plan Deployment
 
 ```bash
 task tofu:plan
@@ -199,7 +213,7 @@ This will:
 - Bootstrap the cluster
 - Export kubeconfig
 
-### 6. Verify Cluster
+### 7. Verify Cluster
 
 After deployment completes:
 
@@ -214,7 +228,7 @@ kubectl --kubeconfig=kubeconfig.yaml get nodes
 talosctl --talosconfig=<(terraform output -raw talos_client_configuration) health
 ```
 
-### 7. Destroy Resources
+### 8. Destroy Resources
 
 ```bash
 task tofu:destroy
