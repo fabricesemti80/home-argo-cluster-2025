@@ -45,11 +45,24 @@ There are **5 stages** outlined below for completing this project, make sure you
 
 3. Flash the Talos ISO or RAW image to a USB drive and boot from it on your nodes.
 
-4. Verify with `nmap` that your nodes are available on the network. (Replace `192.168.1.0/24` with the network your nodes are on.)
+4. Verify with `nmap` that your nodes are available on the network. (Replace `192.168.1.0/24` with the network your nodes are on, e.g., `10.0.40.0/24` for Proxmox environments.)
 
     ```sh
-    nmap -Pn -n -p 50000 192.168.1.0/24 -vv | grep 'Discovered'
+    nmap -p 50000 --open 192.168.1.0/24
     ```
+
+### Alternative: Automated VM Provisioning with Terraform
+
+If you prefer automated VM provisioning instead of manual setup, this project includes Terraform configuration for deploying Talos Linux VMs on Proxmox infrastructure with automatic static IP configuration.
+
+See the [Terraform README](./terraform/README.md) for detailed setup instructions, including:
+
+- Proxmox API token configuration
+- Node definitions with static IPs
+- Multi-host VM distribution
+- Automatic cluster bootstrap
+
+This approach is ideal for Proxmox environments and eliminates the need for manual ISO flashing and IP configuration.
 
 ### Stage 2: Local Workstation
 
