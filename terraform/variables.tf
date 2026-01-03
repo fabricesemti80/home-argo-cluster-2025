@@ -144,5 +144,5 @@ variable "talos_image_type" {
 variable "storage_pool" {
   description = "Proxmox storage pool for VM disks"
   type        = string
-  default     = "vm-storage"
+  default     = "ceph-proxmox-rbd"
 }

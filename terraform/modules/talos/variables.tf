@@ -98,5 +98,5 @@ variable "proxmox_token_secret" {
 variable "storage_pool" {
   description = "Proxmox storage pool for VM disks"
   type        = string
-  default     = "vm-storage"
+  default     = "ceph-proxmox-rbd"
 }
