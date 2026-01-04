@@ -19,3 +19,11 @@ talosconfig
 .venv/
 .DS_Store
 Thumbs.db
+.kiro/
+# OpenTofu / Terraform
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/tfplan
+terraform/*.auto.tfvars
+!terraform/*.auto.tfvars.example

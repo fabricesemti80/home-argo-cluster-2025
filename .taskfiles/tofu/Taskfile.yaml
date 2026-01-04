@@ -1,0 +1,50 @@
+---
+version: '3'
+
+# OpenTofu tasks for Talos VM deployment
+# These tasks manage the provisioning and destruction of VMs on Proxmox
+
+tasks:
+
+  init:
+    desc: Initialize OpenTofu working directory
+    dir: '{{.ROOT_DIR}}/terraform'
+    cmd: tofu init
+    preconditions:
+      - which tofu
+
+  validate:
+    desc: Validate OpenTofu configuration syntax
+    dir: '{{.ROOT_DIR}}/terraform'
+    cmd: tofu validate
+    preconditions:
+      - which tofu
+      - test -f {{.ROOT_DIR}}/terraform/versions.tf
+
+  plan:
+    desc: Generate OpenTofu execution plan
+    dir: '{{.ROOT_DIR}}/terraform'
+    cmd: tofu plan -out=tfplan
+    preconditions:
+      - which tofu
+      - test -d {{.ROOT_DIR}}/terraform/.terraform
+
+  apply:
+    desc: Apply OpenTofu configuration to create VMs (includes plan step)
+    dir: '{{.ROOT_DIR}}/terraform'
+    cmd: |
+      echo "Generating execution plan..."
+      tofu plan -out=tfplan
+      echo "Applying configuration..."
+      tofu apply tfplan
+    preconditions:
+      - which tofu
+      - test -d {{.ROOT_DIR}}/terraform/.terraform
+
+  destroy:
+    desc: Destroy VMs and clean up resources
+    dir: '{{.ROOT_DIR}}/terraform'
+    cmd: tofu destroy
+    preconditions:
+      - which tofu
+      - test -d {{.ROOT_DIR}}/terraform/.terraform
