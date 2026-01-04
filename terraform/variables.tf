@@ -93,7 +93,7 @@ variable "cluster_name" {
 variable "talos_version" {
   description = "Talos version to deploy (must match talosctl version)"
   type        = string
-  default     = "v1.7.7"
+  default     = "v1.12.0"
 
   validation {
     condition     = can(regex("^v1\\.[0-9]+\\.[0-9]+$", var.talos_version))
@@ -105,7 +105,7 @@ variable "talos_version" {
 variable "kubernetes_version" {
   description = "Kubernetes version to deploy"
   type        = string
-  default     = "v1.31.0"
+  default     = "v1.35.0"
 }
 
 # Cluster API address (VIP or first control plane IP)
