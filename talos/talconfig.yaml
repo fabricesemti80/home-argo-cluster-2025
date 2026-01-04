@@ -1,0 +1,142 @@
+---
+clusterName: kubernetes
+
+talosVersion: "${talosVersion}"
+kubernetesVersion: "${kubernetesVersion}"
+
+endpoint: https://10.0.40.101:6443
+additionalApiServerCertSans: &sans
+  - "127.0.0.1"
+  - "10.0.40.101"
+additionalMachineCertSans: *sans
+
+clusterPodNets: ["10.42.0.0/16"]
+clusterSvcNets: ["10.43.0.0/16"]
+
+# Disable built-in CNI to use Cilium
+cniConfig:
+  name: none
+
+nodes:
+  - hostname: "k8s-ctrl-01"
+    ipAddress: "10.0.40.90"
+    installDisk: "/dev/sda"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:92:c4:0a"
+        dhcp: false
+        addresses:
+          - "10.0.40.90/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.0.40.1"
+        mtu: 1500
+        vip:
+          ip: "10.0.40.101"
+  - hostname: "k8s-ctrl-02"
+    ipAddress: "10.0.40.91"
+    installDisk: "/dev/sda"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:17:3f:bb"
+        dhcp: false
+        addresses:
+          - "10.0.40.91/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.0.40.1"
+        mtu: 1500
+        vip:
+          ip: "10.0.40.101"
+  - hostname: "k8s-ctrl-03"
+    ipAddress: "10.0.40.92"
+    installDisk: "/dev/sda"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:f5:a7:d1"
+        dhcp: false
+        addresses:
+          - "10.0.40.92/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.0.40.1"
+        mtu: 1500
+        vip:
+          ip: "10.0.40.101"
+  - hostname: "k8s-wrkr-01"
+    ipAddress: "10.0.40.93"
+    installDisk: "/dev/sda"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:2c:67:71"
+        dhcp: false
+        addresses:
+          - "10.0.40.93/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.0.40.1"
+        mtu: 1500
+  - hostname: "k8s-wrkr-02"
+    ipAddress: "10.0.40.94"
+    installDisk: "/dev/sda"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:97:6e:0e"
+        dhcp: false
+        addresses:
+          - "10.0.40.94/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.0.40.1"
+        mtu: 1500
+  - hostname: "k8s-wrkr-03"
+    ipAddress: "10.0.40.95"
+    installDisk: "/dev/sda"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:52:7e:a8"
+        dhcp: false
+        addresses:
+          - "10.0.40.95/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.0.40.1"
+        mtu: 1500
+
+# Global patches
+patches:
+  - "@./patches/global/machine-files.yaml"
+  - "@./patches/global/machine-kubelet.yaml"
+  - "@./patches/global/machine-network.yaml"
+  - "@./patches/global/machine-sysctls.yaml"
+  - "@./patches/global/machine-time.yaml"
+
+# Controller patches
+controlPlane:
+  patches:
+    - "@./patches/controller/cluster.yaml"
+

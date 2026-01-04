@@ -39,15 +39,15 @@ variable "proxmox_token_secret" {
 variable "nodes" {
   description = "List of Talos nodes to provision"
   type = list(object({
-    name         = string       # VM name (alphanumeric with hyphens)
-    address      = string       # Static IP address (must be in the network CIDR)
-    controller   = bool         # true for control plane nodes, false for worker nodes
-    mac_address  = string       # MAC address (leave empty for auto-generation)
-    schematic_id = string       # Talos schematic ID from https://factory.talos.dev/
-    cpu_cores    = number       # Number of CPU cores
-    memory_mb    = number       # Memory in MB
-    disk_size_gb = number       # Disk size in GB
-    mtu          = number       # Network MTU (typically 1500)
+    name         = string           # VM name (alphanumeric with hyphens)
+    address      = string           # Static IP address (must be in the network CIDR)
+    controller   = bool             # true for control plane nodes, false for worker nodes
+    mac_address  = string           # MAC address (leave empty for auto-generation)
+    schematic_id = string           # Talos schematic ID from https://factory.talos.dev/
+    cpu_cores    = number           # Number of CPU cores
+    memory_mb    = number           # Memory in MB
+    disk_size_gb = number           # Disk size in GB
+    mtu          = number           # Network MTU (typically 1500)
     vm_id        = optional(number) # Proxmox VM ID (auto-assigned if omitted)
     proxmox_node = optional(string) # Proxmox node name for VM placement (for multi-host distribution)
     subnet_mask  = optional(number) # Subnet mask for static IP (defaults to cidr_prefix if not specified)

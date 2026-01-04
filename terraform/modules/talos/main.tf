@@ -15,8 +15,8 @@ terraform {
 
 # Configure Proxmox provider
 provider "proxmox" {
-  endpoint = var.proxmox_endpoint
-  insecure = var.proxmox_insecure
+  endpoint  = var.proxmox_endpoint
+  insecure  = var.proxmox_insecure
   api_token = "${var.proxmox_token_id}=${var.proxmox_token_secret}"
 }
 
@@ -138,12 +138,12 @@ locals {
   vm_network_details = {
     for vm_name, vm in proxmox_virtual_environment_vm.talos_node :
     vm_name => {
-      ipv4_addresses = vm.ipv4_addresses
-      ipv6_addresses = vm.ipv6_addresses
-      mac_addresses  = vm.mac_addresses
+      ipv4_addresses       = vm.ipv4_addresses
+      ipv6_addresses       = vm.ipv6_addresses
+      mac_addresses        = vm.mac_addresses
       network_device_names = vm.network_interface_names
-      vm_id = vm.vm_id
-      node_name = vm.node_name
+      vm_id                = vm.vm_id
+      node_name            = vm.node_name
       # Extract first MAC address if available
       primary_mac = length(vm.mac_addresses) > 0 ? vm.mac_addresses[0] : null
       # Extract first IP if available

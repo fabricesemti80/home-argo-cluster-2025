@@ -1,0 +1,28 @@
+fullnameOverride: k8s-gateway
+domain: k8s.krapulax.dev
+ttl: 1
+service:
+  type: LoadBalancer
+  port: 53
+  annotations:
+    io.cilium/lb-ipam-ips: 10.0.40.153
+  externalTrafficPolicy: Cluster
+watchedResources:
+  - HTTPRoute
+  - Service
+sops:
+  age:
+    - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBUSU03Y1VEVmRmQUdxb2hp
+        dzl5M0dFMkJqZ25sdm5QRENYRkpRN1VJN25FCndXVld6Y043N0tTSTVXTXVpRitq
+        RXBwSFhMWE1ocVBhTzdrRjNMVTBsOVkKLS0tIFdZbFFiWWlHUjczRU5MM3dBbUlK
+        OWVkRURjRHB1a2orZW5mNGtvcUhGeWcK2LyGM+5Tcxl5GdtqDGoLRv9rzM/hpgbR
+        P38YCb3pjFhbU4o/sR9NpdB5Wpxc5hC30zAoUtNCV3+f4eONo2UAEA==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2026-01-04T15:03:55Z"
+  mac: ENC[AES256_GCM,data:Q5hU178tFYVrCKznnlR4e2vLww7IzOnPfJvpjHIzXifMyM0kqccmPGsSDBx5tz+VwGx6ivGFMi4+0X5ZDUfSxr9eiZKk+amMCduKpU+pB3BmnWLdLYbxzbEVyAthh7rosZssYFQZJ/VLAr1/dxZvBL3uhMnzfCpWzyF1u3g7UDs=,iv:t8Uza9rugwO4uM8ddYtw7fnvWxwlVWk6h9wjZNgotFg=,tag:pNk0njRDlIqiCOGRrqxi5A==,type:str]
+  encrypted_regex: ^(data|stringData)$
+  mac_only_encrypted: true
+  version: 3.11.0

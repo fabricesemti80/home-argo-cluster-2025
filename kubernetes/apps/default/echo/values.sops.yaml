@@ -1,0 +1,91 @@
+controllers:
+  echo:
+    strategy: RollingUpdate
+    containers:
+      app:
+        image:
+          repository: ghcr.io/mendhak/http-https-echo
+          tag: 37
+        env:
+          HTTP_PORT: 8080
+          LOG_WITHOUT_NEWLINE: true
+          LOG_IGNORE_PATH: /healthz
+          PROMETHEUS_ENABLED: true
+        probes:
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /healthz
+                port: 8080
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+          readiness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /healthz
+                port: 8080
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              timeoutSeconds: 1
+              failureThreshold: 3
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - ALL
+        resources:
+          requests:
+            cpu: 10m
+          limits:
+            memory: 64Mi
+defaultPodOptions:
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 65534
+    runAsGroup: 65534
+service:
+  app:
+    controller: echo
+    ports:
+      http:
+        port: 8080
+serviceMonitor:
+  app:
+    serviceName: echo
+    endpoints:
+      - port: http
+route:
+  app:
+    hostnames:
+      - echo.k8s.krapulax.dev
+    parentRefs:
+      - name: envoy-external
+        namespace: kube-system
+        sectionName: https
+    rules:
+      - backendRefs:
+          - identifier: app
+            port: 8080
+sops:
+  age:
+    - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB6Qmc0VFk4MEtvaVFlS3RX
+        R01HVzNOd3NJUzZNWkxmL2l6ZEVvQWF2L253Cnh3TmxabjVOaXozaGhBaU1lSVhF
+        T0pnTGVNRXJpL1YzbnU2cHNaVFJ5R1UKLS0tIFl2M3h1Q1NzQXlmWXhPN0thOGRI
+        ZW1YMjVvcTlybDk5SUVUT3V6YU5ubWMKQkXBsvIi5Pmn0t4bw8HDDrdz2C/3/bFO
+        9W4l3Ry74YLVyuCGz1OJhogTgAZgF3eSYNfOG8D+u8igW3HPWmNwIA==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2026-01-04T15:03:55Z"
+  mac: ENC[AES256_GCM,data:3IULLVm2n+rW5bqTs4Wh+FUuQaeGCOdjC55FaMDv1OdGjWyyUG8pkhSklJjxv8yAuSsYWbtpoSNV2RxWYU5k8hYDmPlSlanVbEt/ZcJ+C8TKGH9Kt+OtAIUTb2fG/QYnfTk5BchuPWz5BVKx0om5pgdz0Wk1WWsy//wSURnUt4o=,iv:1r+Z2O+Jctf/5OMPAk7OziJx3+ztxYxyFzwtIP8maXw=,tag:Wn6teVYOyCUGHB+10qAmmQ==,type:str]
+  encrypted_regex: ^(data|stringData)$
+  mac_only_encrypted: true
+  version: 3.11.0
