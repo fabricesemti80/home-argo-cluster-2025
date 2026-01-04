@@ -9,7 +9,7 @@ releases:
   - name: cilium
     namespace: kube-system
     chart: oci://ghcr.io/home-operations/charts-mirror/cilium
-    version: 1.18.4
+    version: 1.18.5
     values: ['../../kubernetes/apps/kube-system/cilium/values.yaml']
 
   - name: coredns
@@ -22,7 +22,7 @@ releases:
   - name: spegel
     namespace: kube-system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
-    version: 0.5.1
+    version: 0.6.0
     values: ['../../kubernetes/apps/kube-system/spegel/values.yaml']
     needs: ['kube-system/coredns']
   #% endif %#
@@ -30,7 +30,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: oci://quay.io/jetstack/charts/cert-manager
-    version: v1.19.1
+    version: v1.19.2
     values: ['../../kubernetes/apps/cert-manager/cert-manager/values.yaml']
     #% if spegel_enabled %#
     needs: ['kube-system/spegel']
@@ -41,7 +41,7 @@ releases:
   - name: argo-cd
     namespace: argo-system
     chart: oci://ghcr.io/argoproj/argo-helm/argo-cd
-    version: 9.1.4
+    version: 9.2.3
     values: ['../../kubernetes/apps/argo-system/argo-cd/values.yaml']
     secrets: ['../../kubernetes/apps/argo-system/argo-cd/values.sops.yaml']
 
