@@ -17,6 +17,7 @@ releases:
     chart: oci://ghcr.io/coredns/charts/coredns
     version: 1.45.2
     values: ['../../kubernetes/apps/kube-system/coredns/values.yaml']
+    needs: ['kube-system/cilium']
 
   - name: spegel
     namespace: kube-system
@@ -38,4 +39,5 @@ releases:
     version: 9.4.4
     values: ['../../kubernetes/apps/argo-system/argo-cd/values.yaml']
     secrets: ['../../kubernetes/apps/argo-system/argo-cd/values.sops.yaml']
+    needs: ['cert-manager/cert-manager']
 
