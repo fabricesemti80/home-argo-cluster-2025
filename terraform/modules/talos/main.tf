@@ -79,6 +79,11 @@ resource "proxmox_virtual_environment_vm" "talos_node" {
     mtu         = each.value.mtu
   }
 
+  network_device {
+    bridge  = var.ceph_network.bridge
+    vlan_id = var.ceph_network.vlan_id
+  }
+
   boot_order = ["ide3", "scsi0"]
 
   agent {
@@ -95,6 +100,12 @@ resource "proxmox_virtual_environment_vm" "talos_node" {
       ipv4 {
         address = "${each.value.address}/${each.value.subnet_mask}"
         gateway = var.gateway
+      }
+    }
+
+    ip_config {
+      ipv4 {
+        address = "10.0.${var.ceph_network.vlan_id}.${split(".", each.value.address)[3]}/24"
       }
     }
 

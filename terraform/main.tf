@@ -21,6 +21,7 @@ module "talos" {
   dns_servers        = var.dns_servers
   ntp_servers        = var.ntp_servers
   talos_image_type   = var.talos_image_type
+  ceph_network       = var.ceph_network
 
   proxmox_endpoint     = var.proxmox_endpoint
   proxmox_insecure     = var.proxmox_insecure

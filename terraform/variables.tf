@@ -146,3 +146,18 @@ variable "storage_pool" {
   type        = string
   default     = "ceph-proxmox-rbd"
 }
+
+# Ceph network configuration (for storage traffic)
+variable "ceph_network" {
+  description = "Ceph network configuration for storage access"
+  type = object({
+    vlan_id      = number
+    network_cidr = string
+    bridge       = string
+  })
+  default = {
+    vlan_id      = 70
+    network_cidr = "10.0.70.0/24"
+    bridge       = "vmbr0"
+  }
+}

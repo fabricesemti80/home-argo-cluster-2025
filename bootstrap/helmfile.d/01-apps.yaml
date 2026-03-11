@@ -4,21 +4,19 @@ helmDefaults:
   cleanupOnFail: true
   wait: true
   waitForJobs: true
-  timeout: 600
 
 releases:
   - name: cilium
     namespace: kube-system
-    chart: oci://ghcr.io/home-operations/charts-mirror/cilium
-    version: 1.18.5
+    chart: oci://quay.io/cilium/charts/cilium
+    version: 1.19.1
     values: ['../../kubernetes/apps/kube-system/cilium/values.yaml']
 
   - name: coredns
     namespace: kube-system
     chart: oci://ghcr.io/coredns/charts/coredns
-    version: 1.45.0
+    version: 1.45.2
     values: ['../../kubernetes/apps/kube-system/coredns/values.yaml']
-    needs: ['kube-system/cilium']
 
   - name: spegel
     namespace: kube-system
@@ -30,15 +28,14 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: oci://quay.io/jetstack/charts/cert-manager
-    version: v1.19.2
+    version: v1.19.3
     values: ['../../kubernetes/apps/cert-manager/cert-manager/values.yaml']
     needs: ['kube-system/spegel']
 
   - name: argo-cd
     namespace: argo-system
     chart: oci://ghcr.io/argoproj/argo-helm/argo-cd
-    version: 9.2.3
+    version: 9.4.4
     values: ['../../kubernetes/apps/argo-system/argo-cd/values.yaml']
     secrets: ['../../kubernetes/apps/argo-system/argo-cd/values.sops.yaml']
-    needs: ['cert-manager/cert-manager']
 

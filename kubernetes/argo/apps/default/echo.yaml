@@ -15,10 +15,11 @@ spec:
       ref: repo
     - repoURL: ghcr.io/bjw-s-labs/helm
       chart: app-template
-      targetRevision: 4.5.0
+      targetRevision: 4.6.2
       helm:
         releaseName: echo
         valueFiles:
+          - $repo/kubernetes/apps/default/echo/values.yaml
           - $repo/kubernetes/apps/default/echo/values.sops.yaml
   destination:
     name: in-cluster

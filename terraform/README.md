@@ -76,7 +76,7 @@ nodes = [
     memory_mb    = 2048
     disk_size_gb = 10
     mtu          = 1500
-    vm_id        = 1090
+    vm_id        = 4090
     proxmox_node = "pve-0"
   },
   {
@@ -89,7 +89,7 @@ nodes = [
     memory_mb    = 2048
     disk_size_gb = 10
     mtu          = 1500
-    vm_id        = 1091
+    vm_id        = 4091
     proxmox_node = "pve-1"
   },
   {
@@ -102,7 +102,7 @@ nodes = [
     memory_mb    = 2048
     disk_size_gb = 10
     mtu          = 1500
-    vm_id        = 1092
+    vm_id        = 4092
     proxmox_node = "pve-2"
   }
 ]

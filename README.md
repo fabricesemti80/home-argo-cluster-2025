@@ -469,6 +469,10 @@ If this repo is too hot to handle or too cold to hold check out these following 
 
 </div>
 
+## 🔧 Troubleshooting
+
+Having issues with your cluster? Check the [Troubleshooting Guide](./docs/troubleshooting.md) for common problems and solutions.
+
 ## 🤝 Thanks
 
 Big shout out to [onedr0p](https://github.com/onedr0p)

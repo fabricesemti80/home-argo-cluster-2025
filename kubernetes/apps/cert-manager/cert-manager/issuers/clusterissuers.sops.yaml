@@ -4,9 +4,10 @@ metadata:
   name: letsencrypt-production
 spec:
   acme:
-    server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-production
+    profile: shortlived
+    server: https://acme-v02.api.letsencrypt.org/directory
     solvers:
       - dns01:
           cloudflare:
@@ -21,14 +22,14 @@ sops:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBSeEIyS0FuZ245eE40M3VK
-        ZUhLcVJiYjRJWXNzWlMrb01NV0dzMnQrRUdZCnEyY0hxT3Y5Y0lnWFdUbGsyUm9S
-        bVZ4RnZKdVFhcVdRT1FEMU1ReGVwdEkKLS0tIEtFTDErRGR4emE1ZmpESHFzS0xa
-        TzV2TkI2MUo3MFBpUCtJazF3T2RZVU0KK5vRRJP9HyoAShIiTvKJmBsXO3HH8ReA
-        b5otDPKz7ey3X302k+EbOBRROH86M/djyok5luZBGo6h+yNtPHIz4Q==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBmQ09hWkdCdStEclpTbVFy
+        bFplQXJKM0VNT2UzNHZOV01Eb21PWXF4T1dvCnVJUzVEMVZRVVR2a21nQk11ekhQ
+        RWtCQWtHbjJ4V0gyOFg0WUg0QVJQZ2sKLS0tIEtJbitDZTNScm9zVUZzdVZicnBa
+        dzJGNU4vcHUrQlFEZ215L2tjeTZNYUEKyvdeJMdFUMibCdOmuMu0W/eaBryd8NhR
+        119Jm+mrmChKFfrNSu2TOWCvNw6X4b5RqcJZPhdOCM7MpcoVqcATZQ==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-11T17:05:56Z"
-  mac: ENC[AES256_GCM,data:b62Cgguywg68EpqKBmCkdfAmbl2fQrrF17ZTqpm5ypWAtAFeG1lzSkZ/l1gdBUnPeeYvhPmNh+RTvJgQJ5E1rufEB5H4XqmjqzhkaY9BkLTBxQii1Oc8BSAd7gsX9+V3BeKUJqairtGOt3iiuibClRZVayXoiTgtGvY1Q0nqE48=,iv:1s1AnTgBDZEghSE6AOEwLlU9iyTF0USWvKUjSEASaAQ=,tag:bIldUzQwa467X7LS/N2Lgg==,type:str]
+  lastmodified: "2026-03-11T19:15:56Z"
+  mac: ENC[AES256_GCM,data:PalP0KhbLXZAvSm9oRQ5p2vEWqlzyNNXLr4Wvo+5LuUSBnPQXP7HExpopmzq8Y0FY9PxrK/PoWGOFR6Md/z29rMIO6CCzFgW0CNGCOolvMb5X50kTfRIdC65DuUDc1J1rX50yQfzgoPLYE0QeOPSuj3SFgnbWCq3EQrsSKcT/Dg=,iv:6WyUcyZDjzrJONP5ElOv/C1ub/e3JrU1QrygZ9b2ooc=,tag:k4Q7g+7krkLuLsPkHQRREA==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
-  version: 3.11.0
+  version: 3.12.1
