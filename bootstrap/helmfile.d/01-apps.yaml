@@ -4,6 +4,7 @@ helmDefaults:
   cleanupOnFail: true
   wait: true
   waitForJobs: true
+  timeout: 600
 
 releases:
   - name: cilium
@@ -17,6 +18,7 @@ releases:
     chart: oci://ghcr.io/coredns/charts/coredns
     version: 1.45.0
     values: ['../../kubernetes/apps/kube-system/coredns/values.yaml']
+    needs: ['kube-system/cilium']
 
   - name: spegel
     namespace: kube-system
@@ -38,4 +40,5 @@ releases:
     version: 9.2.3
     values: ['../../kubernetes/apps/argo-system/argo-cd/values.yaml']
     secrets: ['../../kubernetes/apps/argo-system/argo-cd/values.sops.yaml']
+    needs: ['cert-manager/cert-manager']
 
