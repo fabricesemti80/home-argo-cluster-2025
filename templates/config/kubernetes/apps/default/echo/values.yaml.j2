@@ -1,31 +1,24 @@
----
 controllers:
-  cloudflare-tunnel:
+  echo:
     strategy: RollingUpdate
-    annotations:
-      reloader.stakater.com/auto: "true"
     containers:
       app:
         image:
-          repository: docker.io/cloudflare/cloudflared
-          tag: 2026.2.0
+          repository: ghcr.io/mendhak/http-https-echo
+          tag: 39
         env:
-          NO_AUTOUPDATE: true
-          TUNNEL_METRICS: 0.0.0.0:8080
-          TUNNEL_POST_QUANTUM: true # disable when using http2
-          TUNNEL_TRANSPORT_PROTOCOL: quic # or http2
-        envFrom:
-          - secretRef:
-              name: cloudflare-tunnel-secret
-        args: ["tunnel", "run"]
+          HTTP_PORT: &port 8080
+          LOG_WITHOUT_NEWLINE: true
+          LOG_IGNORE_PATH: /healthz
+          PROMETHEUS_ENABLED: true
         probes:
           liveness: &probes
             enabled: true
             custom: true
             spec:
               httpGet:
-                path: /ready
-                port: &port 8080
+                path: /healthz
+                port: *port
               initialDelaySeconds: 0
               periodSeconds: 10
               timeoutSeconds: 1
@@ -39,7 +32,7 @@ controllers:
           requests:
             cpu: 10m
           limits:
-            memory: 256Mi
+            memory: 64Mi
 defaultPodOptions:
   securityContext:
     runAsNonRoot: true
@@ -47,20 +40,12 @@ defaultPodOptions:
     runAsGroup: 65534
 service:
   app:
-    controller: cloudflare-tunnel
+    controller: echo
     ports:
       http:
         port: *port
 serviceMonitor:
   app:
-    serviceName: cloudflare-tunnel
+    serviceName: echo
     endpoints:
       - port: http
-persistence:
-  config-file:
-    type: configMap
-    name: cloudflare-tunnel-configmap
-    globalMounts:
-      - path: /etc/cloudflared/config.yaml
-        subPath: config.yaml
-        readOnly: true

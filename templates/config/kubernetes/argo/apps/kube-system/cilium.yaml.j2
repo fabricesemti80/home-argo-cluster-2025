@@ -13,9 +13,9 @@ spec:
       path: kubernetes/apps/kube-system/cilium
       targetRevision: #{ repository_branch }#
       ref: repo
-    - repoURL: https://helm.cilium.io
+    - repoURL: quay.io/cilium/charts
       chart: cilium
-      targetRevision: 1.18.5
+      targetRevision: 1.19.1
       helm:
         releaseName: cilium
         valueFiles:
