@@ -197,6 +197,9 @@ This approach is ideal for Proxmox environments and eliminates the need for manu
     task bootstrap:apps
     ```
 
+   > [!NOTE]
+   > During bootstrap you will see `CrashLoopBackOff` on kube-scheduler and kube-controller-manager, `Init:0/6` on cilium pods, and `Pending` on coredns and argo pods. The VIP (`kubectl`) may also become temporarily unreachable. **This is all expected** — once cilium finishes initializing, networking comes up and everything else cascades into a healthy state. If `kubectl` times out, connect directly to a control plane node: `kubectl get pods -A --server=https://<control-plane-ip>:6443`.
+
 4. Watch the rollout of your cluster happen:
 
     ```sh
