@@ -169,6 +169,20 @@ This approach is ideal for Proxmox environments and eliminates the need for manu
     task bootstrap:talos
     ```
 
+   > [!NOTE]
+   > This is idempotent, you can re-run it safely if interrupted or if errors occur during bootstrap.
+
+    Verify the cluster is ready before proceeding:
+
+    ```sh
+    # Check all nodes are available and ready
+    kubectl get nodes
+    # Validate Talos cluster health (etcd, kubelet, API server)
+    talosctl health
+    # Ensure no pods are stuck in a bad state
+    kubectl get pods -A
+    ```
+
 2. Push your changes to git:
 
     ```sh
