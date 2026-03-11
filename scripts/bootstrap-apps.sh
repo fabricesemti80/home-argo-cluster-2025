@@ -92,6 +92,7 @@ function apply_crds() {
         log fatal "File does not exist" "file" "${helmfile_file}"
     fi
 
+
     if ! all_resources=$(helmfile --file "${helmfile_file}" template --quiet); then
         log fatal "Failed to render resources from Helmfile" "file" "${helmfile_file}"
     fi
@@ -99,6 +100,7 @@ function apply_crds() {
     if ! crds=$(echo "${all_resources}" | yq eval-all 'select(.kind == "CustomResourceDefinition")' - 2>/dev/null) || [[ -z "${crds}" ]]; then
         log warn "No CRDs found in the rendered templates" "file" "${helmfile_file}"
         return
+
     fi
 
     if echo "${crds}" | kubectl diff --filename - &>/dev/null; then
