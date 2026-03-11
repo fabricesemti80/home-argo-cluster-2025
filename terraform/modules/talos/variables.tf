@@ -8,7 +8,7 @@ variable "cluster_name" {
 variable "talos_version" {
   description = "Talos version to deploy"
   type        = string
-  default     = "v1.7.7"
+  default     = "v1.12.0"
 }
 
 variable "talos_image_type" {
@@ -24,7 +24,7 @@ variable "talos_image_type" {
 variable "kubernetes_version" {
   description = "Kubernetes version to deploy"
   type        = string
-  default     = "v1.31.0"
+  default     = "v1.35.0"
 }
 
 variable "nodes" {

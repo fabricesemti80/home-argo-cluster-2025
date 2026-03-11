@@ -19,6 +19,8 @@ kubeconform_args=(
     "-skip"
     "Gateway,HTTPRoute,Secret"
     "-schema-location"
+    "https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json"
+    "-schema-location"
     "default"
     "-schema-location"
     "https://kubernetes-schemas.pages.dev/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json"
