@@ -133,6 +133,48 @@ talosctl -n 10.0.40.90 etcd members
 
 ---
 
+## CoreDNS CrashLoopBackOff — Wrong Container Image
+
+**Symptom:**
+
+```
+exec: "-conf": executable file not found in $PATH
+```
+
+Both CoreDNS pods enter `CrashLoopBackOff`.
+
+**Cause:** The `image.repository` in `kubernetes/apps/kube-system/coredns/values.yaml` was set to the Helm **chart** OCI artifact (`ghcr.io/coredns/charts/coredns`) instead of the actual CoreDNS **container** image. The chart artifact contains no `/coredns` binary, so the container args `["-conf", "/etc/coredns/Corefile"]` fail because there's no command to run.
+
+**Diagnosis:**
+
+```sh
+kubectl -n kube-system describe pod -l k8s-app=kube-dns
+# Look for: exec: "-conf": executable file not found in $PATH
+
+kubectl -n kube-system get deploy coredns -o jsonpath='{.spec.template.spec.containers[0].image}'
+# If it shows ghcr.io/coredns/charts/coredns:*, that's the chart image, not the runtime image
+```
+
+**Fix:** Update `kubernetes/apps/kube-system/coredns/values.yaml`:
+
+```yaml
+image:
+  repository: registry.k8s.io/coredns/coredns
+  tag: v1.12.0
+```
+
+> **Note:** Use `registry.k8s.io` instead of `docker.io/coredns/coredns` to avoid Docker Hub unauthenticated pull rate limits (429 Too Many Requests).
+
+If DNS is already broken (preventing ArgoCD sync and image pulls), patch the live deployment directly:
+
+```sh
+kubectl -n kube-system set image deployment/coredns coredns=registry.k8s.io/coredns/coredns:v1.12.0
+```
+
+Then commit and push the values.yaml fix so ArgoCD keeps it in sync.
+
+---
+
 ## General Tips
 
 - **Always check release status first:** `helm list -A` shows the state of all releases.

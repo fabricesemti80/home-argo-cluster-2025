@@ -27,3 +27,4 @@ terraform/terraform.tfstate.backup
 terraform/tfplan
 terraform/*.auto.tfvars
 !terraform/*.auto.tfvars.example
+CLAUDE.md
