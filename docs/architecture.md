@@ -7,68 +7,94 @@ This document provides a visual overview of the cluster architecture, explaining
 This cluster is a **GitOps-managed Kubernetes homelab** built on Talos Linux, with all infrastructure defined as code in this repository. Changes pushed to Git automatically sync to the cluster via Argo CD.
 
 ```mermaid
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#1a1a2e', 'primaryTextColor': '#eee', 'primaryBorderColor': '#0f3460', 'lineColor': '#e94560', 'secondaryColor': '#16213e', 'tertiaryColor': '#0f3460'}}}%%
 flowchart TB
-    subgraph Git["Git Repository (This Repo)"]
+    %% Styling
+    classDef repo fill:#2d6a4f,stroke:#40916c,stroke-width:2px,color:#fff
+    classDef cluster fill:#1a1a2e,stroke:#e94560,stroke-width:2px,color:#fff
+    classDef controlplane fill:#7b2cbf,stroke:#9d4edd,stroke-width:2px,color:#fff
+    classDef worker fill:#023e8a,stroke:#0077b6,stroke-width:2px,color:#fff
+    classDef system fill:#9d0208,stroke:#d00000,stroke-width:2px,color:#fff
+    classDef app fill:#1a1a2e,stroke:#00b4d8,stroke-width:2px,color:#fff
+    classDef external fill:#e85d04,stroke:#f48c06,stroke-width:2px,color:#fff
+    classDef user fill:#6c757d,stroke:#adb5bd,stroke-width:2px,color:#fff
+    
+    subgraph Git["🗂️ Git Repository"]
         direction TB
-        Code[("YAML<br/>Configurations")]
-        Secrets[("SOPS<br/>Secrets")]
+        Code["📄 YAML Configs"]
+        Secrets["🔐 SOPS Secrets"]
     end
-
-    subgraph Cluster["Kubernetes Cluster"]
-        subgraph ControlPlane["Control Plane"]
-            API[Kube API]
-            etcd[etcd]
-            Scheduler
-            ControllerMgr
-        end
-        
-        subgraph Workers["Worker Nodes"]
-            W1[k8s-wrkr-01]
-            W2[k8s-wrkr-02]
-            W3[k8s-wrkr-03]
-        end
-        
-        subgraph System["System Pods"]
-            CNI[Cilium]
-            DNS[CoreDNS]
-            Ingress[Envoy Gateway]
-        end
-        
-        subgraph Apps["User Applications"]
-            Argo[Argo CD]
-            UserApp[Your Apps]
-        end
-    end
+    class Git,Code,Secrets repo
     
-    subgraph External["External Network"]
-        Users[("Users")]
-        Cloudflare[("Cloudflare")]
-        Internet[("Internet")]
+    subgraph Cluster["☸️ Kubernetes Cluster"]
+        direction TB
+        
+        subgraph ControlPlane["🎛️ Control Plane"]
+            direction LR
+            API["API Server"]
+            etcd["etcd"]
+            Scheduler["Scheduler"]
+            ControllerMgr["Controller\nManager"]
+        end
+        class ControlPlane,API,etcd,Scheduler,ControllerMgr controlplane
+        
+        subgraph Workers["⚙️ Worker Nodes"]
+            direction LR
+            W1["k8s-wrkr-01"]
+            W2["k8s-wrkr-02"]
+            W3["k8s-wrkr-03"]
+        end
+        class Workers,W1,W2,W3 worker
+        
+        subgraph System["🔧 System Pods"]
+            direction LR
+            CNI["🕸️ Cilium"]
+            DNS["📡 CoreDNS"]
+            Ingress["🚪 Envoy\nGateway"]
+        end
+        class System,CNI,DNS,Ingress system
+        
+        subgraph Apps["📦 Applications"]
+            direction LR
+            Argo["⚡ Argo CD"]
+            UserApp["📱 Your Apps"]
+        end
+        class Apps,Argo,UserApp app
     end
+    class Cluster cluster
     
-    Git -->|Push| Argo
-    Argo -->|Sync| Cluster
-    Users -->|HTTPS| Cloudflare
-    Cloudflare -->|Tunnel| Ingress
-    Ingress -->|Route| UserApp
+    subgraph External["🌍 External Network"]
+        Users["👤 Users"]
+        Cloudflare["☁️ Cloudflare"]
+    end
+    class External,Users,Cloudflare external
+    class Users user
+    
+    Git --"Push"--> Argo
+    Argo --"Sync"--> Cluster
+    Users --"HTTPS"--> Cloudflare
+    Cloudflare --"Tunnel"--> Ingress
+    Ingress --"Route"--> UserApp
 ```
 
 ## High-Level Data Flow
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 sequenceDiagram
-    participant U as User
-    participant CF as Cloudflare
-    participant CT as Cloudflared
-    participant EG as Envoy Gateway
-    participant SVC as Service
-    participant POD as Pod
+    participant U as 👤 User
+    participant CF as ☁️ Cloudflare
+    participant CT as 🌐 Cloudflared
+    participant EG as 🚪 Envoy Gateway
+    participant SVC as 🔗 Service
+    participant POD as 📦 Pod
 
-    U->>CF: Request https://argo.krapulax.dev
+    U->>CF: Request<br/>https://argo.krapulax.dev
     CF->>CT: Forward via Tunnel
-    CT->>EG: HTTPS -> Envoy External LB
-    EG->>SVC: Route to argocd-server:80
-    SVC->>POD: Forward to Pod Port 8080
+    CT->>EG: HTTPS Request
+    Note over EG: Routes to<br/>argocd-server:80
+    EG->>SVC: Forward to Service
+    SVC->>POD: Connect to Pod<br/>Port 8080
     POD-->>SVC: Response
     SVC-->>EG: Response
     EG-->>CT: Response
@@ -98,44 +124,57 @@ sequenceDiagram
 | Nodes | `10.0.40.0/24` |
 
 ```mermaid
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#1a1a2e'}}}%%
 flowchart LR
-    subgraph NodeNetwork["10.0.40.0/24"]
-        VIP[VIP<br/>10.0.40.101]
-        IG[Internal<br/>Gateway<br/>10.0.40.102]
-        EG[External<br/>Gateway<br/>10.0.40.103]
-        DNS[DNS<br/>Gateway<br/>10.0.40.153]
+    %% Styles
+    classDef node fill:#023e8a,stroke:#0077b6,stroke-width:3px,color:#fff,rx:10,ry:10
+    classDef vip fill:#7b2cbf,stroke:#9d4edd,stroke-width:3px,color:#fff,rx:10,ry:10
+    classDef gateway fill:#9d0208,stroke:#d00000,stroke-width:3px,color:#fff,rx:10,ry:10
+    classDef network fill:#1a1a2e,stroke:#00b4d8,stroke-width:2px,color:#fff
+    classDef cidr fill:#2d6a4f,stroke:#40916c,stroke-width:2px,color:#fff,rx:5
+    
+    subgraph NodeNetwork["🏠 Node Network 10.0.40.0/24"]
+        direction TB
+        VIP["🎯 VIP<br/>10.0.40.101<br/>Kube API"]:::vip
+        IG["🏠 Internal GW<br/>10.0.40.102"]:::gateway
+        EG["🌍 External GW<br/>10.0.40.103"]:::gateway
+        DNS["📡 DNS GW<br/>10.0.40.153"]:::gateway
         
-        subgraph Ctrl["Controllers"]
-            C1[10.0.40.90]
-            C2[10.0.40.91]
-            C3[10.0.40.92]
+        subgraph Ctrl["🎛️ Controllers"]
+            direction LR
+            C1["10.0.40.90"]:::node
+            C2["10.0.40.91"]:::node
+            C3["10.0.40.92"]:::node
         end
         
-        subgraph Wrkr["Workers"]
-            W1[10.0.40.93]
-            W2[10.0.40.94]
-            W3[10.0.40.95]
+        subgraph Wrkr["⚙️ Workers"]
+            direction LR
+            W1["10.0.40.93"]:::node
+            W2["10.0.40.94"]:::node
+            W3["10.0.40.95"]:::node
         end
     end
     
-    subgraph Pods["10.42.0.0/16"]
-        P1[Pod 1]
-        P2[Pod 2]
-        P3[Pod 3]
+    subgraph Pods["📦 Pods 10.42.0.0/16":::cidr]
+        direction TB
+        P1["Pod"]:::network
+        P2["Pod"]:::network
+        P3["Pod"]:::network
     end
     
-    subgraph Services["10.43.0.0/16"]
-        S1[Service 1]
-        S2[Service 2]
+    subgraph Services["🔗 Services 10.43.0.0/16":::cidr]
+        direction TB
+        S1["Service"]:::network
+        S2["Service"]:::network
     end
     
-    EG -->|HTTPS/443| Internet
-    IG -->|HTTP/443| HomeNet
-    DNS -->|DNS/53| HomeNet
+    EG -.->|"HTTPS/443"| Internet["🌐 Internet"]
+    IG -.->|"HTTPS"| Home["🏠 Home"]
+    DNS -.->|"DNS/53"| Home
     
-    C1 & C2 & C3 --> Pods
-    W1 & W2 & W3 --> Pods
-    Pods --> Services
+    C1 & C2 & C3 --> P1 & P2 & P3
+    W1 & W2 & W3 --> P1 & P2 & P3
+    P1 & P2 & P3 --> S1 & S2
 ```
 
 ## Component Architecture
@@ -143,85 +182,108 @@ flowchart LR
 ### GitOps Pipeline
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TB
-    subgraph GitOps["GitOps Flow"]
-        Git[(Git Repo)]
-        Commit[("Commit<br/>Push")]
-        Argo[Argo CD]
-        Reconcile[Reconcile]
-        Cluster[K8s Cluster]
+    %% Styles
+    classDef git fill:#2d6a4f,stroke:#40916c,stroke-width:3px,color:#fff,rx:10
+    classDef argocd fill:#7b2cbf,stroke:#9d4edd,stroke-width:3px,color:#fff,rx:10
+    classDef source fill:#023e8a,stroke:#0077b6,stroke-width:2px,color:#fff,rx:5
+    classDef process fill:#9d0208,stroke:#d00000,stroke-width:2px,color:#fff,rx:5
+    
+    subgraph Deploy["🚀 Deployment Pipeline"]
+        Git["📤 Git Push"]:::git
+        Argo["⚡ Argo CD<br/>Detects Change"]:::argocd
+        Sync["🔄 Sync &<br/>Apply"]:::process
+        Cluster["☸️ Cluster"]:::git
     end
     
-    subgraph Sources["Sources"]
-        Helm[Helm Charts]
-        Kustomize[Kustomize]
-        SOPS[SOPS Secrets]
+    subgraph Sources["📋 Sources"]
+        direction LR
+        Helm["🎯 Helm<br/>Charts"]:::source
+        Kustomize["🔧 Kustomize"]:::source
+        SOPS["🔐 SOPS<br/>Secrets"]:::source
     end
     
-    Git -->|1. Push| Commit
-    Commit -->|2. Detect| Argo
-    Argo -->|3. Read| Sources
-    Argo -->|4. Apply| Reconcile
-    Reconcile -->|5. Sync| Cluster
+    Git -->|"1. Push"| Argo
+    Argo -->|"2. Read"| Sources
+    Argo -->|"3. Apply"| Sync
+    Sync -->|"4. Sync"| Cluster
 ```
 
 ### Ingress Architecture
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TB
-    subgraph External["External Access"]
-        CF[Cloudflare]
-        Tunnel[Cloudflared<br/>Tunnel]
+    %% Styles
+    classDef cloud fill:#e85d04,stroke:#f48c06,stroke-width:3px,color:#fff,rx:10
+    classDef tunnel fill:#f48c06,stroke:#fca311,stroke-width:2px,color:#fff,rx:5
+    classDef gateway fill:#9d0208,stroke:#d00000,stroke-width:3px,color:#fff,rx:10
+    classDef route fill:#7b2cbf,stroke:#9d4edd,stroke-width:2px,color:#fff,rx:5
+    classDef service fill:#023e8a,stroke:#0077b6,stroke-width:2px,color:#fff,rx:5
+    
+    subgraph External["☁️ External Access"]
+        CF["☁️ Cloudflare"]:::cloud
+        Tunnel["🌐 Cloudflared<br/>Tunnel"]:::tunnel
     end
     
-    subgraph Gateway["Envoy Gateway"]
-        ExtLB["External LB<br/>10.0.40.103"]
-        IntLB["Internal LB<br/>10.0.40.102"]
+    subgraph Gateway["🚪 Envoy Gateway"]
+        ExtLB["🌍 External LB<br/>10.0.40.103"]:::gateway
+        IntLB["🏠 Internal LB<br/>10.0.40.102"]:::gateway
         
-        subgraph Routes["HTTPRoutes"]
-            PubRoute[Public Routes]
-            PrivRoute[Private Routes]
+        subgraph Routes["🛤️ HTTPRoutes"]
+            direction LR
+            Pub["🔓 Public"]:::route
+            Priv["🔒 Private"]:::route
         end
         
         ExtLB --> Routes
         IntLB --> Routes
     end
     
-    subgraph Services["Cluster Services"]
-        ArgoSVC[Argo CD<br/>Server]
-        EchoSVC[Echo<br/>App]
-        CustomSVC[Your App]
+    subgraph ClusterServices["📦 Cluster Services"]
+        direction LR
+        ArgoSVC["⚡ Argo CD"]:::service
+        EchoSVC["📢 Echo App"]:::service
+        CustomSVC["📱 Your App"]:::service
     end
     
-    Tunnel -->|HTTPS| ExtLB
-    Routes -->|Route| ArgoSVC
-    Routes -->|Route| EchoSVC
-    Routes -->|Route| CustomSVC
+    CF -->|"HTTPS"| Tunnel
+    Tunnel -->|"HTTPS"| ExtLB
+    Routes -->|"Route"| ArgoSVC
+    Routes -->|"Route"| EchoSVC
+    Routes -->|"Route"| CustomSVC
 ```
 
 ### DNS Resolution
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart LR
-    subgraph ExternalDNS["External DNS"]
-        ExtDNS[Cloudflare<br/>DNS]
+    %% Styles
+    classDef dns fill:#7b2cbf,stroke:#9d4edd,stroke-width:3px,color:#fff,rx:10
+    classDef client fill:#6c757d,stroke:#adb5bd,stroke-width:2px,color:#fff,rx:5
+    classDef cloud fill:#e85d04,stroke:#f48c06,stroke-width:2px,color:#fff,rx:5
+    
+    subgraph ExternalDNS["☁️ External DNS"]
+        ExtDNS["☁️ Cloudflare<br/>DNS"]:::cloud
     end
     
-    subgraph ClusterDNS["Cluster DNS"]
-        CoreDNS[CoreDNS]
-        K8sGW["k8s-gateway<br/>10.0.40.153"]
+    subgraph ClusterDNS["🔧 Cluster DNS"]
+        CoreDNS["📡 CoreDNS"]:::dns
+        K8sGW["🕸️ k8s-gateway<br/>10.0.40.153"]:::dns
     end
     
-    subgraph Clients["Clients"]
-        Home[Home Network<br/>Using k8s-gateway]
-        Pub[Public Internet<br/>Using Cloudflare]
+    subgraph Clients["👤 Clients"]
+        Home["🏠 Home Network"]:::client
+        Pub["🌍 Public Internet"]:::client
     end
     
-    Pub -->|Query| ExtDNS
-    Home -->|Query| K8sGW
-    K8sGW -->|Forward| CoreDNS
-    ExtDNS -->|Serve| Pub
-    CoreDNS -->|Serve| Home
+    Pub --"DNS Query"--> ExtDNS
+    Home --"DNS Query"--> K8sGW
+    K8sGW --"Forward"--> CoreDNS
+    ExtDNS --"A Record"--> Pub
+    CoreDNS --"A Record"--> Home
 ```
 
 ## Repository Structure
@@ -248,26 +310,33 @@ flowchart LR
 ```
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TB
-    subgraph Template["Templates"]
-        T1[cluster.yaml]
-        T2[nodes.yaml]
+    %% Styles
+    classDef input fill:#2d6a4f,stroke:#40916c,stroke-width:3px,color:#fff,rx:10
+    classDef render fill:#7b2cbf,stroke:#9d4edd,stroke-width:2px,color:#fff,rx:5
+    classDef output fill:#023e8a,stroke:#0077b6,stroke-width:3px,color:#fff,rx:10
+    
+    subgraph Input["📥 Input Files"]
+        T1["📝 cluster.yaml"]
+        T2["📝 nodes.yaml"]
+    end
+    class Input,T1,T2 input
+    
+    subgraph Render["⚙️ makejinja Render"]
+        Config["⚡ Rendered<br/>Config Files"]:::render
     end
     
-    subgraph Render["makejinja Render"]
-        Config[("Config Files")]
+    subgraph GitOps["📤 GitOps Output"]
+        Apps["📦 App Values"]:::output
+        Argo["⚡ Argo Apps"]:::output
+        Talos["🖥️ Talos Config"]:::output
     end
     
-    subgraph GitOps["GitOps"]
-        Apps[("App Values")]
-        Argo[("Argo Apps")]
-        Talos[("Talos Config")]
-    end
-    
-    T1 & T2 -->|render| Config
-    Config -->|deploy| Apps
-    Config -->|deploy| Argo
-    Config -->|deploy| Talos
+    T1 & T2 -->|"render"| Config
+    Config -->|"deploy"| Apps
+    Config -->|"deploy"| Argo
+    Config -->|"deploy"| Talos
 ```
 
 ## Security Model
@@ -275,126 +344,154 @@ flowchart TB
 ### Secrets Management
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart LR
-    subgraph Editor["Editor"]
-        Dev[Developer]
+    %% Styles
+    classDef dev fill:#2d6a4f,stroke:#40916c,stroke-width:3px,color:#fff,rx:10
+    classDef encrypt fill:#7b2cbf,stroke:#9d4edd,stroke-width:2px,color:#fff,rx:5
+    classDef deploy fill:#023e8a,stroke:#0077b6,stroke-width:2px,color:#fff,rx:5
+    classDef runtime fill:#9d0208,stroke:#d00000,stroke-width:2px,color:#fff,rx:5
+    
+    subgraph Editor["👨‍💻 Editor"]
+        Dev["Developer"]:::dev
     end
     
-    subgraph Encrypt["Encrypt with SOPS"]
-        Age[age key]
-        Plain[Plaintext YAML]
-        Enc[Encrypted YAML]
+    subgraph Encrypt["🔐 Encrypt with SOPS"]
+        Age["🔑 age Key"]:::encrypt
+        Plain["📄 Plaintext<br/>YAML"]:::encrypt
+        Enc["🔒 Encrypted<br/>YAML"]:::encrypt
     end
     
-    subgraph Deploy["Deploy"]
-        Argo[Argo CD]
-        Cluster[K8s Cluster]
+    subgraph Deploy["🚀 Deploy"]
+        Argo["⚡ Argo CD"]:::deploy
+        Cluster["☸️ Cluster"]:::deploy
     end
     
-    subgraph Runtime["Runtime"]
-        Decrypt[Decrypt]
-        Pod[Pod with<br/>Secrets]
+    subgraph Runtime["⏱️ Runtime"]
+        Decrypt["🔓 Decrypt"]:::runtime
+        Pod["📦 Pod with<br/>Secrets"]:::runtime
     end
     
-    Dev -->|Edit| Plain
-    Age -->|Encrypt| Plain
-    Plain -->|→| Enc
-    Enc -->|Git Push| Argo
-    Argo -->|Apply| Cluster
-    Cluster -->|Decrypt| Decrypt
-    Decrypt -->|Mount| Pod
+    Dev --"Edit"--> Plain
+    Age --"Encrypt"--> Plain
+    Plain --"→"--> Enc
+    Enc --"Git Push"--> Argo
+    Argo --"Apply"--> Cluster
+    Cluster --"Decrypt"--> Decrypt
+    Decrypt --"Mount"--> Pod
 ```
-
-### Network Policies
-
-- **Cilium** handles pod-to-pod communication and network policies
-- **DSR (Direct Server Return)** mode for efficient load balancing
-- **kube-proxy** is replaced by Cilium
 
 ## Access Paths
 
 ### External Access (Internet)
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart LR
-    User[("User<br/>Browser")]
-    CF[("Cloudflare")]
-    Tunnel[Cloudflared]
-    EG[Envoy<br/>External]
-    SVC[Service]
-    Pod[Pod]
+    %% Styles
+    classDef user fill:#6c757d,stroke:#adb5bd,stroke-width:2px,color:#fff,rx:10
+    classDef cloud fill:#e85d04,stroke:#f48c06,stroke-width:3px,color:#fff,rx:10
+    classDef tunnel fill:#f48c06,stroke:#fca311,stroke-width:2px,color:#fff,rx:5
+    classDef gateway fill:#9d0208,stroke:#d00000,stroke-width:3px,color:#fff,rx:10
+    classDef service fill:#023e8a,stroke:#0077b6,stroke-width:2px,color:#fff,rx:5
     
-    User -->|HTTPS| CF
-    CF -->|Tunnel| Tunnel
-    Tunnel -->|HTTPS| EG
-    EG -->|HTTP| SVC
-    SVC -->|Connect| Pod
+    User["👤 User<br/>Browser"]:::user
+    CF["☁️ Cloudflare"]:::cloud
+    Tunnel["🌐 Cloudflared"]:::tunnel
+    EG["🚪 Envoy<br/>External"]:::gateway
+    SVC["🔗 Service"]:::service
+    Pod["📦 Pod"]:::service
+    
+    User --"HTTPS"--> CF
+    CF --"Tunnel"--> Tunnel
+    Tunnel --"HTTPS"--> EG
+    EG --"HTTP"--> SVC
+    SVC --"Connect"--> Pod
 ```
 
 ### Internal Access (Home Network)
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart LR
-    Laptop[("Laptop")]
-    DNS[("k8s-gateway<br/>10.0.40.153")]
-    EGInt[Envoy<br/>Internal]
-    SVC[Service]
-    Pod[Pod]
+    %% Styles
+    classDef user fill:#6c757d,stroke:#adb5bd,stroke-width:2px,color:#fff,rx:10
+    classDef dns fill:#7b2cbf,stroke:#9d4edd,stroke-width:3px,color:#fff,rx:10
+    classDef gateway fill:#9d0208,stroke:#d00000,stroke-width:3px,color:#fff,rx:10
+    classDef service fill:#023e8a,stroke:#0077b6,stroke-width:2px,color:#fff,rx:5
     
-    Laptop -->|DNS Query| DNS
-    DNS -->|A Record| EGInt
-    Laptop -->|HTTPS| EGInt
-    EGInt -->|HTTP| SVC
-    SVC -->|Connect| Pod
+    Laptop["💻 Laptop"]:::user
+    DNS["🕸️ k8s-gateway<br/>10.0.40.153"]:::dns
+    EGInt["🚪 Envoy<br/>Internal"]:::gateway
+    SVC["🔗 Service"]:::service
+    Pod["📦 Pod"]:::service
+    
+    Laptop --"DNS Query"--> DNS
+    DNS --"A Record"--> EGInt
+    Laptop --"HTTPS"--> EGInt
+    EGInt --"HTTP"--> SVC
+    SVC --"Connect"--> Pod
 ```
 
 ### Admin Access
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart LR
-    Admin[("Admin<br/>Local Machine")]
-    VIP[VIP<br/>10.0.40.101]
-    API[Kube API]
-    Talos[Talos API]
+    %% Styles
+    classDef admin fill:#2d6a4f,stroke:#40916c,stroke-width:2px,color:#fff,rx:10
+    classDef vip fill:#7b2cbf,stroke:#9d4edd,stroke-width:3px,color:#fff,rx:10
+    classDef api fill:#023e8a,stroke:#0077b6,stroke-width:2px,color:#fff,rx:5
     
-    Admin -->|kubectl| VIP
-    Admin -->|talosctl| Talos
-    VIP -->|Auth| API
-    Talos -->|Auth| API
+    Admin["👨‍💻 Admin<br/>Local Machine"]:::admin
+    VIP["🎯 VIP<br/>10.0.40.101"]:::vip
+    API["☸️ Kube API"]:::api
+    Talos["🖥️ Talos API"]:::api
+    
+    Admin --"kubectl"--> VIP
+    Admin --"talosctl"--> Talos
+    VIP --"Auth"--> API
+    Talos --"Auth"--> API
 ```
 
 ## Application Deployment Flow
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TB
-    Start[("Add New<br/>Application")] --> Step1
+    %% Styles
+    classDef startend fill:#7b2cbf,stroke:#9d4edd,stroke-width:3px,color:#fff,rx:10
+    classDef step fill:#023e8a,stroke:#0077b6,stroke-width:2px,color:#fff,rx:10
+    classDef action fill:#2d6a4f,stroke:#40916c,stroke-width:2px,color:#fff,rx:5
     
-    subgraph Step1["1. Create App Files"]
-        D1[mkdir apps/ns/app]
-        V1[values.yaml]
-        S1[values.sops.yaml]
+    Start[("🚀 Add New<br/>Application")]:::startend
+    
+    subgraph Step1["📁 1. Create App Files"]
+        D1["mkdir apps/ns/app"]:::action
+        V1["values.yaml"]:::action
+        S1["values.sops.yaml"]:::action
     end
     
     Step1 --> Step2
     
-    subgraph Step2["2. Create Argo App"]
-        A1[argo/apps/ns/app.yaml]
+    subgraph Step2["⚡ 2. Create Argo App"]
+        A1["argo/apps/ns/app.yaml"]:::action
     end
     
     Step2 --> Step3
     
-    subgraph Step3["3. Expose (Optional)"]
-        R1[HTTPRoute<br/>envoy-external]
-        R2[HTTPRoute<br/>envoy-internal]
+    subgraph Step3["🚪 3. Expose (Optional)"]
+        R1["HTTPRoute<br/>envoy-external"]:::action
+        R2["HTTPRoute<br/>envoy-internal"]:::action
     end
     
     Step3 --> Step4
     
-    subgraph Step4["4. Commit & Push"]
-        Git[("git add<br/>git commit<br/>git push")]
+    subgraph Step4["📤 4. Commit & Push"]
+        Git["git add<br/>git commit<br/>git push"]:::action
     end
     
-    Step4 --> End[("Auto Deploy<br/>by Argo CD")]
+    Step4 --> End[("✅ Auto Deploy<br/>by Argo CD")]:::startend
 ```
 
 ## Key Components
@@ -415,30 +512,37 @@ flowchart TB
 ## Troubleshooting Paths
 
 ```mermaid
+%%{init: {'theme': 'dark'}}%%
 flowchart TB
-    Issue[("Issue<br/>Reported")] --> Check
+    %% Styles
+    classDef issue fill:#d00000,stroke:#ff0000,stroke-width:3px,color:#fff,rx:10
+    classDef check fill:#7b2cbf,stroke:#9d4edd,stroke-width:2px,color:#fff,rx:5
+    classDef analyze fill:#e85d04,stroke:#f48c06,stroke-width:2px,color:#fff,rx:5
+    classDef fix fill:#2d6a4f,stroke:#40916c,stroke-width:2px,color:#fff,rx:5
     
-    subgraph Check["Diagnostic Steps"]
-        C1["kubectl get pods -A"]
-        C2["kubectl get events --sort-by=.timestamp"]
-        C3["argocd app list"]
-        C4["cilium status"]
+    Issue[("❌ Issue<br/>Reported")]:::issue
+    
+    subgraph Check["🔍 Diagnostic Steps"]
+        C1["kubectl get pods -A"]:::check
+        C2["kubectl get events"]:::check
+        C3["argocd app list"]:::check
+        C4["cilium status"]:::check
     end
     
     Check --> Analyze
     
-    subgraph Analyze["Common Causes"]
-        A1[Pod Crash]
-        A2[Network Policy]
-        A3[Sync Error]
-        A4[Config Issue]
+    subgraph Analyze["⚠️ Common Causes"]
+        A1["Pod Crash"]:::analyze
+        A2["Network Policy"]:::analyze
+        A3["Sync Error"]:::analyze
+        A4["Config Issue"]:::analyze
     end
     
     Analyze --> Fix
     
-    subgraph Fix["Resolution"]
-        F1["kubectl logs<br/>kubectl describe"]
-        F2["argocd app sync"]
-        F3["Check YAML<br/>Check Secrets"]
+    subgraph Fix["✅ Resolution"]
+        F1["kubectl logs<br/>kubectl describe"]:::fix
+        F2["argocd app sync"]:::fix
+        F3["Check YAML<br/>Check Secrets"]:::fix
     end
 ```
