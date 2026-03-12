@@ -1,22 +1,22 @@
 fullnameOverride: argocd
 configs:
   secret:
-    argocdServerAdminPassword: $2a$10$/yjCJHXwNA33f5.Jco8lPuKe9eTBgPtPwAs1ATIH.gOKjVNJTvLFq%
-    argocdServerAdminPasswordMtime: 2026-03-12T09:30:00
+    argocdServerAdminPassword: $2a$10$r0U.A7.56h6wtSWetPZVM.r/Ez4YlCbmjMTE5ZUdyoxJrNu44Zde.
+    argocdServerAdminPasswordMtime: 2026-03-12T11:22:49
     githubSecret: aaebd543422ed4c2f5c8e89ad47fee36
 sops:
   age:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBxTlg3M3hya2VIVk0wYTF0
-        MDJwVVpCVmcreU1YOEpxenU3NmFmb0plQkg4Ck1qK0xjNTFoSm9JeE04MExNVFVP
-        MThydzBsUk9ZdXFBL0h5UEFzbSs0Q0kKLS0tIGUvRDNCK2ZmdkJNSW5kd3BNdURn
-        L3ZMZDk4WTNodjJ3T09OZzlFOGlxTzQKyLyvkUiQd0j3thl+tp5O6N8e3AR14LNh
-        40MrP6BejijiMjx1R0uo14wuV/uK89/tR1hjQps9ScxRRRERtxR6KA==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBUanAxYmRtSWpwMzhMZDVJ
+        TzJqcmNwMkdRSFdFM0w0QlB2T3dpYlZzVlNJCks5Mms0NUFkSE1NQmc2QWJFSTky
+        MHVKc092MHkrcFFGOFNPY0ZHNWF2L1kKLS0tIE83aUJkblprZUNuUG1RM3FRVDNO
+        MjUwUjBtV1pzTndydVcxaWZJb2NKeDAKUKN9uR0/7WHBHmssPclBSPyCK+sUij+e
+        oQNaEZ/3Hf/x++jmyQYCfePUHD/IPbM2iZUresXjoPWwVv4frVP/Zw==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-12T10:45:25Z"
-  mac: ENC[AES256_GCM,data:YnixVfUEQrQ/vpWVHTky2ceShlYHPDRZzxrc1DdaPQmUI3qrdzvvyopW8sdHIJqIXY1CoH9tPqCI9f1OAJ3QAOuIvNxX2Dh+AqaBLbH4lu2FEC5OboGFivLJ+vKlgyxqBYbAFok7XCSPY62ZZN/G0oR5aCL+2AE6ngoKo+6ZWlw=,iv:SdBvpTggOzlcH9hPFgb8uoFsIoHZ0oMepcz8dk9PkQo=,tag:D9SVm9n3Q523zmrBzoYsEQ==,type:str]
+  lastmodified: "2026-03-12T11:22:49Z"
+  mac: ENC[AES256_GCM,data:YZVgzOaBegWex6XP5BmZ+gk5Eh0giBi8/Qmu5K0DotQCoc6FCxdZjapTGvGpeHInUzLj2tf+guZfTUFi09XZ5M9E5tHBHt3Pt7qL4dJHzpUJeutHt+eEcnyRhKEd2sZgoyBVX8ilFwT/2Adqf0qSld1cc0UD4QGZh7EWqb7CTP0=,iv:+/b4dcTqsEd6Xm9Gj2z3FFcmtTj+UkavqFmkBjLXFKI=,tag:XwitHkk6vHCxH9dE7hYtYA==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1
