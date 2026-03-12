@@ -216,16 +216,27 @@ This approach is ideal for Proxmox environments and eliminates the need for manu
     cilium status
     ```
 
-2. Check the status of Argo and if the Argo resources are up-to-date and in a ready state:
+2. Log in to the Argo CD CLI and verify the cluster state:
 
-   📍 _Run `task reconcile` to force Argo to sync your Git repository state_
+   📍 _Replace the variables with your actual values from `cluster.yaml`_
 
     ```sh
-    argocd login argo.${cloudflare_domain} --username admin --password ${argo_password} --insecure
+    # Log in to Argo CD (required before running any argocd commands)
+    argocd login argo.${cloudflare_domain} --username admin --password '${argo_password}' --insecure
+    # Verify cluster, repos, and applications
     argocd cluster list
     argocd repo list --output wide
     argocd app list -A --output wide
     ```
+
+   📍 _Once logged in, you can force Argo to sync your Git repository state:_
+
+    ```sh
+    task reconcile
+    ```
+
+   > [!NOTE]
+   > `task reconcile` requires the `argocd` CLI to be logged in first. If you see `Argo CD server address unspecified`, run the `argocd login` command above.
 
 3. Check TCP connectivity to both the internal and external gateways:
 
@@ -363,7 +374,7 @@ Below is a general guide on trying to debug an issue with an resource or applica
 
 1. Check if the Argo resources are up-to-date and in a ready state:
 
-   📍 _Run `task reconcile` to force Argo to sync your Git repository state_
+   📍 _Ensure you are logged in first (see [Post installation](#-post-installation)), then run `task reconcile` to force Argo to sync your Git repository state_
 
     ```sh
     argocd repo list --output wide

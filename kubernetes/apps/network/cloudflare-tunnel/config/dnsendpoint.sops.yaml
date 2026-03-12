@@ -4,7 +4,7 @@ metadata:
   name: cloudflare-tunnel
 spec:
   endpoints:
-    - dnsName: external.k8s.krapulax.dev
+    - dnsName: external.krapulax.dev
       recordType: CNAME
       targets:
         - 096b810f-27c7-493b-9b9c-5e5e4749830a.cfargotunnel.com
@@ -13,14 +13,14 @@ sops:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBiR2YyU01EbmVITjk5SER5
-        c2U3WjRGUGRJZy8yR3JCWVFPbGloQjNRZUJjCm1hQ3kvR0NPbFl4V2pRNHdBOFFQ
-        STUvYmNZQWtmbVVSS2grbHA3Q1dZQkEKLS0tIFMwemZnUWgvU0ZQSTNZcmhNMFhu
-        a0E0NUx3bHAvWFljWTc0OXpKUkZnNUUKXbqTyN35ihMMu4DEo54WA3krVhjZtmAL
-        67MIZYnN79a++Hd4S0FnckVEL1VQljrTuNEIqQ6nThw8Oi94l8OfKw==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAwdWtGN2RMakxYcWxFTW0r
+        WVk0WFlTTXFtb2NZNVRIQUFWMSt0NThkWDA0CmVtcDhQb3AwZHd4Qyt1Snh0V28y
+        TWJCa0dmdmNPbTVDU1hKRllaMmE3YmsKLS0tIE5XL3NEcHpMVUg0Y2tCR1UzOU9w
+        VTB6andEdXBxQ1VFU3FNMUROV3hLcjQKZGOKsJJ/8ABeatOrlDfnHnPPena3OrAz
+        KI8iUivYcvF17qd/6nbQZ8LfKBHaYzvzRR3j+aYtB/pNHjq/jIOoVQ==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-12T11:22:49Z"
-  mac: ENC[AES256_GCM,data:rTM8PdCQAONY2o99gznCgWferjmg9vXwgpo+sWDqwzjjRBd7m2OOLymSUvgXhRzB4OR/OVNcW9nn1T/qkeqRnW6pGnWYkAHi1Bg1gmpJfnkDhT8dONMJoCoCdDAHxEjW09gz8LfE40lt+OTLRh1rB1kDQdxzTTCXuocA4OAT3MM=,iv:Is7lch1DHss5y2YOAG0GPdJhHL1UDgKXrH7IfDEtDfg=,tag:riQgvl2NpYoWJhbb2FZCNw==,type:str]
+  lastmodified: "2026-03-12T11:36:10Z"
+  mac: ENC[AES256_GCM,data:XZe6GFTRZruvX2pZ2NRPDmWwMN4XHGZQ2BA7qXVk8ozGO5RGDeeV2fy3AWWbL84qU5b3XrdRdUH82pweTOHLNSVWB8Y1nC74p0PFdEG3DMjm9Vi26K8BAmzo8oVhauut0ThM1zcR5dT2T7wv+KAKdPE9vzdrPpz+97p+TWhNZYU=,iv:ctWw2twU7G9NMiGq/ixI0ScxbHfvnLZA7uYW6gLLzrw=,tag:XlevtW0+kgH9XLo/XJH4vQ==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1

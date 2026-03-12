@@ -32,14 +32,14 @@ sops:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHQjhFYVU4dXM1b1U1Q21U
-        enJqSVlwcmpUOFYvek1lUFd0d1BVUzhWR0hJCkxNWXR1NGlxTHFaSnNJSks5eU5a
-        b1ljODNxTzgzY2R3aC8wNVdEVkIwQlkKLS0tIExDckM0OVo0U1hHemZvd0pXLzJn
-        dEhiTlRpQUQzRlNRakttNENGV3F2bWcKoAYVPlI2Zx5jyss6PC+0MkSyl6CpGX78
-        t7hoKpaEWTTaNhgohxUmkzybOQsDc3vgqdaGJtZzb0jcwTS+5MxyRQ==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBFVTRwWWQwSHdtU2o1ZURi
+        NnVSbjlVNEhoNXZkNnBpWlAzS20wb2JNNEQ4CnUxbXZtSnBsY0NCOW1rTTd5ZVNn
+        TXVpdFNVQW5qUkx3eGFJMTE3M0ZHNmsKLS0tIDZxSzFLZmZUdWRJQ2N5a0hRU1h0
+        L2NGTjVwMkxvdE5zanZBY0hMUTFyTzQK16kyoEDUrcx8L10jdNaMqs1BIe5HT2VO
+        E6ZuLIVJ8AcfhAQtHp/nx2nvimVf7leFzgGkgehnAeUnpjxThV26ng==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-12T11:22:49Z"
-  mac: ENC[AES256_GCM,data:MCCuFGSobIwoaup3rO2AFDUI27fTg9KjMRYrNpwntjjE7EkXxIIAKfMTO1b+qg45oI6O7sdtZ+Lo0JTdHT47yJ3WgkCQlGN3xbEHi1HraVGWYCGENJvG8x4O/0YSgvFzEiPoRsp3PVRJZqltOkZEo4HXRZO4g1TpMqYfGADTvCs=,iv:9LlfKnY1cFh4isEbgnt0vqoKWyL7laE7ZIs/jjTLrAg=,tag:zF/W2T5mGY4PEiUic+twOQ==,type:str]
+  lastmodified: "2026-03-12T11:36:10Z"
+  mac: ENC[AES256_GCM,data:8k/oyS7qTS/zmVOF25TS8vdbdZzdHZWumt/7fr6uAJ/PHWT+vW3BRf+l4Vr43lk7N3vq2W/thZvfxKkF++d35DpfJqmAFq/FURt9ah/wbPhBYRvMlqdruUrRF3IobyH1Vb6vhBatPMANL6EiTT+B/wb1qcKNZ/O2lWnOxRtWaWY=,iv:IthT8Z5iaYowcp9PmrrkD6YtcKCUv1I6EZDJW5k3NEI=,tag:9hgQ3RM+PjD8u74bCn4gnw==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1
@@ -60,14 +60,14 @@ sops:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHQjhFYVU4dXM1b1U1Q21U
-        enJqSVlwcmpUOFYvek1lUFd0d1BVUzhWR0hJCkxNWXR1NGlxTHFaSnNJSks5eU5a
-        b1ljODNxTzgzY2R3aC8wNVdEVkIwQlkKLS0tIExDckM0OVo0U1hHemZvd0pXLzJn
-        dEhiTlRpQUQzRlNRakttNENGV3F2bWcKoAYVPlI2Zx5jyss6PC+0MkSyl6CpGX78
-        t7hoKpaEWTTaNhgohxUmkzybOQsDc3vgqdaGJtZzb0jcwTS+5MxyRQ==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBFVTRwWWQwSHdtU2o1ZURi
+        NnVSbjlVNEhoNXZkNnBpWlAzS20wb2JNNEQ4CnUxbXZtSnBsY0NCOW1rTTd5ZVNn
+        TXVpdFNVQW5qUkx3eGFJMTE3M0ZHNmsKLS0tIDZxSzFLZmZUdWRJQ2N5a0hRU1h0
+        L2NGTjVwMkxvdE5zanZBY0hMUTFyTzQK16kyoEDUrcx8L10jdNaMqs1BIe5HT2VO
+        E6ZuLIVJ8AcfhAQtHp/nx2nvimVf7leFzgGkgehnAeUnpjxThV26ng==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-12T11:22:49Z"
-  mac: ENC[AES256_GCM,data:MCCuFGSobIwoaup3rO2AFDUI27fTg9KjMRYrNpwntjjE7EkXxIIAKfMTO1b+qg45oI6O7sdtZ+Lo0JTdHT47yJ3WgkCQlGN3xbEHi1HraVGWYCGENJvG8x4O/0YSgvFzEiPoRsp3PVRJZqltOkZEo4HXRZO4g1TpMqYfGADTvCs=,iv:9LlfKnY1cFh4isEbgnt0vqoKWyL7laE7ZIs/jjTLrAg=,tag:zF/W2T5mGY4PEiUic+twOQ==,type:str]
+  lastmodified: "2026-03-12T11:36:10Z"
+  mac: ENC[AES256_GCM,data:8k/oyS7qTS/zmVOF25TS8vdbdZzdHZWumt/7fr6uAJ/PHWT+vW3BRf+l4Vr43lk7N3vq2W/thZvfxKkF++d35DpfJqmAFq/FURt9ah/wbPhBYRvMlqdruUrRF3IobyH1Vb6vhBatPMANL6EiTT+B/wb1qcKNZ/O2lWnOxRtWaWY=,iv:IthT8Z5iaYowcp9PmrrkD6YtcKCUv1I6EZDJW5k3NEI=,tag:9hgQ3RM+PjD8u74bCn4gnw==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1
@@ -77,12 +77,12 @@ kind: Gateway
 metadata:
   name: envoy-external
   annotations:
-    external-dns.alpha.kubernetes.io/target: external.k8s.krapulax.dev
+    external-dns.alpha.kubernetes.io/target: external.krapulax.dev
 spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: external.k8s.krapulax.dev
+      external-dns.alpha.kubernetes.io/hostname: external.krapulax.dev
       lbipam.cilium.io/ips: 10.0.40.103
   listeners:
     - name: http
@@ -100,20 +100,20 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: k8s-krapulax-dev-production-tls
+            name: krapulax-dev-production-tls
 sops:
   age:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHQjhFYVU4dXM1b1U1Q21U
-        enJqSVlwcmpUOFYvek1lUFd0d1BVUzhWR0hJCkxNWXR1NGlxTHFaSnNJSks5eU5a
-        b1ljODNxTzgzY2R3aC8wNVdEVkIwQlkKLS0tIExDckM0OVo0U1hHemZvd0pXLzJn
-        dEhiTlRpQUQzRlNRakttNENGV3F2bWcKoAYVPlI2Zx5jyss6PC+0MkSyl6CpGX78
-        t7hoKpaEWTTaNhgohxUmkzybOQsDc3vgqdaGJtZzb0jcwTS+5MxyRQ==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBFVTRwWWQwSHdtU2o1ZURi
+        NnVSbjlVNEhoNXZkNnBpWlAzS20wb2JNNEQ4CnUxbXZtSnBsY0NCOW1rTTd5ZVNn
+        TXVpdFNVQW5qUkx3eGFJMTE3M0ZHNmsKLS0tIDZxSzFLZmZUdWRJQ2N5a0hRU1h0
+        L2NGTjVwMkxvdE5zanZBY0hMUTFyTzQK16kyoEDUrcx8L10jdNaMqs1BIe5HT2VO
+        E6ZuLIVJ8AcfhAQtHp/nx2nvimVf7leFzgGkgehnAeUnpjxThV26ng==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-12T11:22:49Z"
-  mac: ENC[AES256_GCM,data:MCCuFGSobIwoaup3rO2AFDUI27fTg9KjMRYrNpwntjjE7EkXxIIAKfMTO1b+qg45oI6O7sdtZ+Lo0JTdHT47yJ3WgkCQlGN3xbEHi1HraVGWYCGENJvG8x4O/0YSgvFzEiPoRsp3PVRJZqltOkZEo4HXRZO4g1TpMqYfGADTvCs=,iv:9LlfKnY1cFh4isEbgnt0vqoKWyL7laE7ZIs/jjTLrAg=,tag:zF/W2T5mGY4PEiUic+twOQ==,type:str]
+  lastmodified: "2026-03-12T11:36:10Z"
+  mac: ENC[AES256_GCM,data:8k/oyS7qTS/zmVOF25TS8vdbdZzdHZWumt/7fr6uAJ/PHWT+vW3BRf+l4Vr43lk7N3vq2W/thZvfxKkF++d35DpfJqmAFq/FURt9ah/wbPhBYRvMlqdruUrRF3IobyH1Vb6vhBatPMANL6EiTT+B/wb1qcKNZ/O2lWnOxRtWaWY=,iv:IthT8Z5iaYowcp9PmrrkD6YtcKCUv1I6EZDJW5k3NEI=,tag:9hgQ3RM+PjD8u74bCn4gnw==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1
@@ -128,7 +128,7 @@ spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: internal.k8s.krapulax.dev
+      external-dns.alpha.kubernetes.io/hostname: internal.krapulax.dev
       lbipam.cilium.io/ips: 10.0.40.102
   listeners:
     - name: http
@@ -146,20 +146,20 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: k8s-krapulax-dev-production-tls
+            name: krapulax-dev-production-tls
 sops:
   age:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHQjhFYVU4dXM1b1U1Q21U
-        enJqSVlwcmpUOFYvek1lUFd0d1BVUzhWR0hJCkxNWXR1NGlxTHFaSnNJSks5eU5a
-        b1ljODNxTzgzY2R3aC8wNVdEVkIwQlkKLS0tIExDckM0OVo0U1hHemZvd0pXLzJn
-        dEhiTlRpQUQzRlNRakttNENGV3F2bWcKoAYVPlI2Zx5jyss6PC+0MkSyl6CpGX78
-        t7hoKpaEWTTaNhgohxUmkzybOQsDc3vgqdaGJtZzb0jcwTS+5MxyRQ==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBFVTRwWWQwSHdtU2o1ZURi
+        NnVSbjlVNEhoNXZkNnBpWlAzS20wb2JNNEQ4CnUxbXZtSnBsY0NCOW1rTTd5ZVNn
+        TXVpdFNVQW5qUkx3eGFJMTE3M0ZHNmsKLS0tIDZxSzFLZmZUdWRJQ2N5a0hRU1h0
+        L2NGTjVwMkxvdE5zanZBY0hMUTFyTzQK16kyoEDUrcx8L10jdNaMqs1BIe5HT2VO
+        E6ZuLIVJ8AcfhAQtHp/nx2nvimVf7leFzgGkgehnAeUnpjxThV26ng==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-12T11:22:49Z"
-  mac: ENC[AES256_GCM,data:MCCuFGSobIwoaup3rO2AFDUI27fTg9KjMRYrNpwntjjE7EkXxIIAKfMTO1b+qg45oI6O7sdtZ+Lo0JTdHT47yJ3WgkCQlGN3xbEHi1HraVGWYCGENJvG8x4O/0YSgvFzEiPoRsp3PVRJZqltOkZEo4HXRZO4g1TpMqYfGADTvCs=,iv:9LlfKnY1cFh4isEbgnt0vqoKWyL7laE7ZIs/jjTLrAg=,tag:zF/W2T5mGY4PEiUic+twOQ==,type:str]
+  lastmodified: "2026-03-12T11:36:10Z"
+  mac: ENC[AES256_GCM,data:8k/oyS7qTS/zmVOF25TS8vdbdZzdHZWumt/7fr6uAJ/PHWT+vW3BRf+l4Vr43lk7N3vq2W/thZvfxKkF++d35DpfJqmAFq/FURt9ah/wbPhBYRvMlqdruUrRF3IobyH1Vb6vhBatPMANL6EiTT+B/wb1qcKNZ/O2lWnOxRtWaWY=,iv:IthT8Z5iaYowcp9PmrrkD6YtcKCUv1I6EZDJW5k3NEI=,tag:9hgQ3RM+PjD8u74bCn4gnw==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1
@@ -193,14 +193,14 @@ sops:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHQjhFYVU4dXM1b1U1Q21U
-        enJqSVlwcmpUOFYvek1lUFd0d1BVUzhWR0hJCkxNWXR1NGlxTHFaSnNJSks5eU5a
-        b1ljODNxTzgzY2R3aC8wNVdEVkIwQlkKLS0tIExDckM0OVo0U1hHemZvd0pXLzJn
-        dEhiTlRpQUQzRlNRakttNENGV3F2bWcKoAYVPlI2Zx5jyss6PC+0MkSyl6CpGX78
-        t7hoKpaEWTTaNhgohxUmkzybOQsDc3vgqdaGJtZzb0jcwTS+5MxyRQ==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBFVTRwWWQwSHdtU2o1ZURi
+        NnVSbjlVNEhoNXZkNnBpWlAzS20wb2JNNEQ4CnUxbXZtSnBsY0NCOW1rTTd5ZVNn
+        TXVpdFNVQW5qUkx3eGFJMTE3M0ZHNmsKLS0tIDZxSzFLZmZUdWRJQ2N5a0hRU1h0
+        L2NGTjVwMkxvdE5zanZBY0hMUTFyTzQK16kyoEDUrcx8L10jdNaMqs1BIe5HT2VO
+        E6ZuLIVJ8AcfhAQtHp/nx2nvimVf7leFzgGkgehnAeUnpjxThV26ng==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-12T11:22:49Z"
-  mac: ENC[AES256_GCM,data:MCCuFGSobIwoaup3rO2AFDUI27fTg9KjMRYrNpwntjjE7EkXxIIAKfMTO1b+qg45oI6O7sdtZ+Lo0JTdHT47yJ3WgkCQlGN3xbEHi1HraVGWYCGENJvG8x4O/0YSgvFzEiPoRsp3PVRJZqltOkZEo4HXRZO4g1TpMqYfGADTvCs=,iv:9LlfKnY1cFh4isEbgnt0vqoKWyL7laE7ZIs/jjTLrAg=,tag:zF/W2T5mGY4PEiUic+twOQ==,type:str]
+  lastmodified: "2026-03-12T11:36:10Z"
+  mac: ENC[AES256_GCM,data:8k/oyS7qTS/zmVOF25TS8vdbdZzdHZWumt/7fr6uAJ/PHWT+vW3BRf+l4Vr43lk7N3vq2W/thZvfxKkF++d35DpfJqmAFq/FURt9ah/wbPhBYRvMlqdruUrRF3IobyH1Vb6vhBatPMANL6EiTT+B/wb1qcKNZ/O2lWnOxRtWaWY=,iv:IthT8Z5iaYowcp9PmrrkD6YtcKCUv1I6EZDJW5k3NEI=,tag:9hgQ3RM+PjD8u74bCn4gnw==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1
@@ -231,14 +231,14 @@ sops:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHQjhFYVU4dXM1b1U1Q21U
-        enJqSVlwcmpUOFYvek1lUFd0d1BVUzhWR0hJCkxNWXR1NGlxTHFaSnNJSks5eU5a
-        b1ljODNxTzgzY2R3aC8wNVdEVkIwQlkKLS0tIExDckM0OVo0U1hHemZvd0pXLzJn
-        dEhiTlRpQUQzRlNRakttNENGV3F2bWcKoAYVPlI2Zx5jyss6PC+0MkSyl6CpGX78
-        t7hoKpaEWTTaNhgohxUmkzybOQsDc3vgqdaGJtZzb0jcwTS+5MxyRQ==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBFVTRwWWQwSHdtU2o1ZURi
+        NnVSbjlVNEhoNXZkNnBpWlAzS20wb2JNNEQ4CnUxbXZtSnBsY0NCOW1rTTd5ZVNn
+        TXVpdFNVQW5qUkx3eGFJMTE3M0ZHNmsKLS0tIDZxSzFLZmZUdWRJQ2N5a0hRU1h0
+        L2NGTjVwMkxvdE5zanZBY0hMUTFyTzQK16kyoEDUrcx8L10jdNaMqs1BIe5HT2VO
+        E6ZuLIVJ8AcfhAQtHp/nx2nvimVf7leFzgGkgehnAeUnpjxThV26ng==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-12T11:22:49Z"
-  mac: ENC[AES256_GCM,data:MCCuFGSobIwoaup3rO2AFDUI27fTg9KjMRYrNpwntjjE7EkXxIIAKfMTO1b+qg45oI6O7sdtZ+Lo0JTdHT47yJ3WgkCQlGN3xbEHi1HraVGWYCGENJvG8x4O/0YSgvFzEiPoRsp3PVRJZqltOkZEo4HXRZO4g1TpMqYfGADTvCs=,iv:9LlfKnY1cFh4isEbgnt0vqoKWyL7laE7ZIs/jjTLrAg=,tag:zF/W2T5mGY4PEiUic+twOQ==,type:str]
+  lastmodified: "2026-03-12T11:36:10Z"
+  mac: ENC[AES256_GCM,data:8k/oyS7qTS/zmVOF25TS8vdbdZzdHZWumt/7fr6uAJ/PHWT+vW3BRf+l4Vr43lk7N3vq2W/thZvfxKkF++d35DpfJqmAFq/FURt9ah/wbPhBYRvMlqdruUrRF3IobyH1Vb6vhBatPMANL6EiTT+B/wb1qcKNZ/O2lWnOxRtWaWY=,iv:IthT8Z5iaYowcp9PmrrkD6YtcKCUv1I6EZDJW5k3NEI=,tag:9hgQ3RM+PjD8u74bCn4gnw==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1
@@ -268,14 +268,14 @@ sops:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHQjhFYVU4dXM1b1U1Q21U
-        enJqSVlwcmpUOFYvek1lUFd0d1BVUzhWR0hJCkxNWXR1NGlxTHFaSnNJSks5eU5a
-        b1ljODNxTzgzY2R3aC8wNVdEVkIwQlkKLS0tIExDckM0OVo0U1hHemZvd0pXLzJn
-        dEhiTlRpQUQzRlNRakttNENGV3F2bWcKoAYVPlI2Zx5jyss6PC+0MkSyl6CpGX78
-        t7hoKpaEWTTaNhgohxUmkzybOQsDc3vgqdaGJtZzb0jcwTS+5MxyRQ==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBFVTRwWWQwSHdtU2o1ZURi
+        NnVSbjlVNEhoNXZkNnBpWlAzS20wb2JNNEQ4CnUxbXZtSnBsY0NCOW1rTTd5ZVNn
+        TXVpdFNVQW5qUkx3eGFJMTE3M0ZHNmsKLS0tIDZxSzFLZmZUdWRJQ2N5a0hRU1h0
+        L2NGTjVwMkxvdE5zanZBY0hMUTFyTzQK16kyoEDUrcx8L10jdNaMqs1BIe5HT2VO
+        E6ZuLIVJ8AcfhAQtHp/nx2nvimVf7leFzgGkgehnAeUnpjxThV26ng==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-12T11:22:49Z"
-  mac: ENC[AES256_GCM,data:MCCuFGSobIwoaup3rO2AFDUI27fTg9KjMRYrNpwntjjE7EkXxIIAKfMTO1b+qg45oI6O7sdtZ+Lo0JTdHT47yJ3WgkCQlGN3xbEHi1HraVGWYCGENJvG8x4O/0YSgvFzEiPoRsp3PVRJZqltOkZEo4HXRZO4g1TpMqYfGADTvCs=,iv:9LlfKnY1cFh4isEbgnt0vqoKWyL7laE7ZIs/jjTLrAg=,tag:zF/W2T5mGY4PEiUic+twOQ==,type:str]
+  lastmodified: "2026-03-12T11:36:10Z"
+  mac: ENC[AES256_GCM,data:8k/oyS7qTS/zmVOF25TS8vdbdZzdHZWumt/7fr6uAJ/PHWT+vW3BRf+l4Vr43lk7N3vq2W/thZvfxKkF++d35DpfJqmAFq/FURt9ah/wbPhBYRvMlqdruUrRF3IobyH1Vb6vhBatPMANL6EiTT+B/wb1qcKNZ/O2lWnOxRtWaWY=,iv:IthT8Z5iaYowcp9PmrrkD6YtcKCUv1I6EZDJW5k3NEI=,tag:9hgQ3RM+PjD8u74bCn4gnw==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1

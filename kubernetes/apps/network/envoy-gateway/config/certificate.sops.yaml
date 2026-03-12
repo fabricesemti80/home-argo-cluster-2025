@@ -1,18 +1,18 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: k8s-krapulax-dev-production
+  name: krapulax-dev-production
 spec:
   dnsNames:
-    - k8s.krapulax.dev
-    - '*.k8s.krapulax.dev'
+    - krapulax.dev
+    - '*.krapulax.dev'
   duration: 160h
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   privateKey:
     algorithm: ECDSA
-  secretName: k8s-krapulax-dev-production-tls
+  secretName: krapulax-dev-production-tls
   usages:
     - digital signature
 sops:
@@ -20,14 +20,14 @@ sops:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA2d1RVUmkyUkwrT2dXWnRI
-        RWZlSk91Q0J5bFNxTG1kUENTTWMrckhJU1RVCm9UVjJ5RVVmY2FLd2VSZTJmdUEx
-        bWZCTlQ4UGdkc25Kak12RHZHSThYa0EKLS0tIGVBSmlHMDBvNG9Sd3ROb2p6SE5Y
-        c2xJN3diUThmbldVMHVlTDRaNnhaS1UK5t+8nPxlNEPwEghCVUiEEqldpUu3Pqm8
-        XbjunlddYGwybbrlOF14Vxxp/WJ1+T5EDFwtG7251Azdzzn8N8y88A==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVT1JtbzNXMGIzNE9acG4v
+        bzFHYWJCaSt3bkgrY0hBSUlJcmI5SnNWT3hnCnJxWXZsMGtrMXFVRVJmbkVDeFdw
+        RHBkcy9aVzd0NjRpN2xETytxREh2T1kKLS0tIFdObjhtL1oxNndrcVNUQk9sNjll
+        M016RURqdVloUUp1dkR0SmJ3WDNnQVkKFiucB28vDzuQVOXYvEpmgyF0U43Zno1d
+        tUohkfeKKgJmQqNF8AYiB2qQK2D8PvXx8yKHeANoa4QFNTG7YnvMZg==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-12T11:22:49Z"
-  mac: ENC[AES256_GCM,data:HPkG6mWYFrMJ2S1f8bnEURTKa0+b4fZ2J1Ijc3Jqq/3ODPFqNflNLbbVHvljbsu+fID0WGq2lNGwgiMSrG4ZhbPbchzTPQNEkZHWYB/kr4XsRo1EemspeIBDakeDPr+LZDWcKtit3WHTS5mH4k1TcMDP9CSealFkJ4jeg50pldM=,iv:oWzpglWn1K7Edne8L5rDDekLtvf9aG4gLrUt79rZf9c=,tag:pS0S2f5/8KkbAc8rr+8ynQ==,type:str]
+  lastmodified: "2026-03-12T11:36:10Z"
+  mac: ENC[AES256_GCM,data:gVpY8VQdzr0YLL/8oxIJuKgXTVFwmL+WF69Jd70iUEa+If6AJlZC8o3bQ0uwpNEsqkn3FJDvnU4yMI7uSgSC8mzUxGhPYGh07cWxsXmWavhNLUNE7nH1KJhE+8bycJlI1JtHChLXbs+8/VOjHTaXIdzTKDaRSw4QvXU8IQgPews=,iv:AufXUrw8M8NMg7VCej1MK7VARs/CxlhEdLOvuW9kfuQ=,tag:S4i7IhYAQkTttvpoD98r/Q==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1

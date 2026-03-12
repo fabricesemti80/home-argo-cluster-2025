@@ -16,20 +16,20 @@ spec:
               key: api-token
         selector:
           dnsZones:
-            - k8s.krapulax.dev
+            - krapulax.dev
 sops:
   age:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBiWnlnVmU5ZWZhZGJ6cmIx
-        dXlWOTNVZTVHWVpadEVqN3BCMjY3cmJXM1Z3Cno4Z0w4dndTRDhsSWhHUTFkVlVV
-        WUVCbGFNN2pZU3lIY2NJdUJIdWNzSEEKLS0tIGQxT2I1SGpJcEx2MzNlc2FSSXNm
-        RVhMcW84R053MldiUG5jSlBZcWUxbjQKc+z6kRoGyNzEYTUhLwYcvQAvFPD1IizO
-        0dTWYQ6Yt4w9UPuClldWSW/fAuZROQSJmdTtRynaG4k4R2hTzaofIA==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBISHBTdVc2STlnQ202dmZr
+        NFpxS2t4OXhRZ2dFWmhaT1BLN0NKdk9SelJRCmloV2J5UUlZTjU5SXgrRXlzdUE2
+        NGM3dUY1bHMvdEpEMkZBczFVQ0tUWG8KLS0tIGp1TGdtcUN4ZGJzTkZmUWMxN09T
+        VXdVRHhuR0t3WTh1L3I4U1V2RGRZaWsKpm+PqrPmI1CsAzPzqN6Pgo60KN5M0vvl
+        dwVLydll3BXM4l4WoMXndPFhh+IOeQ4b0CcnfSIoupjAA71FFiQchw==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-12T11:22:49Z"
-  mac: ENC[AES256_GCM,data:IXU2e8m9K+lUeGoUSmg1VvlMldANzfzdOo9p/xM6NzGtaoCxdF11pV7qjjnKUCp0PT6t0GAwStZJLIZtmEueL5dh4J0J2B9PvJ9SH3zHaSeKSIdpoqYKpZXgAoA7RMAYYopeRI1GdOzR05LZQpdREFWJU+/XrM7U8MkuIDdFJqs=,iv:zmSgoMEB9O81VgHtUF6gBsdOiFP7053LXOp2MgdKoiY=,tag:V6R1ca/JB0hfTls0HzIGRA==,type:str]
+  lastmodified: "2026-03-12T11:36:10Z"
+  mac: ENC[AES256_GCM,data:t8WsQrwzeFnYql5EgjvAF+dKJDrRzQD0hg2enGfdbWC9dltrwNVlm91wZX9hFOsg8Vklpo2PWC9f/2vWWSUvgqS9Ika9EmuV9JpddpDzrYrXsogM0X4eMFti3vyj0I/rj9KC+QwbpebHeFEIt6lqppQlhQ84EsFGQ7jpT1eos4o=,iv:ymNysluBiKju8qANbYDP+fw3IJsthfNjsWytgWKGSf0=,tag:7YU9rLux5ay7TLR0sHW0Vw==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1

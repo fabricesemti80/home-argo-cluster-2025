@@ -7,7 +7,7 @@ spec:
     - name: envoy-external
       namespace: kube-system
   hostnames:
-    - argo.k8s.krapulax.dev
+    - argo.krapulax.dev
   rules:
     - backendRefs:
         - name: argocd-server
@@ -17,14 +17,14 @@ sops:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBydVBnb0gxNDlkTjV4SkNK
-        TjhlTjdYaXlWSGJ3VzdNZGxaUHJDM2dsYm00CjNIWVFreFprNHFUMS83alU2anpY
-        UnN2b3Q0alp5SjRzaXNHVWR0M3NuVE0KLS0tICtOYUdZVzBCU1VIbWJWbEJSTVhv
-        RVdqcEtPcFZQM1pDUGxERDhtdE9uOW8KVNDPpLAOiu4Gw5ZNAMjWqxISR2bWYxll
-        4NI//OZt3rQ4PZd7C4Z4BYe/osUqoynFbMpO6g4t7lV3FoWa3sDBvQ==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBQUHc3ZC9EeUNJTE9yZGhP
+        Mmplai9FVXFIaTVBRzhuMHVwWlRITStaSTNjCmlCYnplb0NYb3lQUkxXVWNjeW5m
+        UWhTZ0ZiYzRjKzVCRFArL2JkbDZuQnMKLS0tIEk2bXMyK2d5empVbER0SDFCTHl6
+        aENDTkNVYmZaYURqY0crZnZibk5KcDAKOhtGca2LFloGFz7M2kTjMjU81EqSbSuD
+        nPcG+VBvlGWeiUbGQPLXJSb0N8gECJH6lrhrs7mg2pog4atJDjr4BQ==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-12T11:22:49Z"
-  mac: ENC[AES256_GCM,data:3tIBI/Y+CvKi2N0BAfqeX2Z/DGQUDLFU3sINz2IMZebehRAS6PUiJ+Yd1dBtBBuGasjvoNwxhoW0+I56XYu8TevOj17qCVPA8p/M88IrGtgiST+F1XNWIhrbeyQJ6HD+NRLNPmbnWRryvXrYG2Awaa19e+LQgEQZ8QNGEInFHq0=,iv:Z/0it7iaLPkIiqQ+dFc2ZyXoQPgd2Uv0jPgkmwNi+/0=,tag:gw9+6SSueTmv72agxtYzWg==,type:str]
+  lastmodified: "2026-03-12T11:36:10Z"
+  mac: ENC[AES256_GCM,data:QcauqCznFX7P2/c0229qJQ6CVcPwWQR753RFEQfe0BnNNCXTbT6Gwa95mzMDvc2IUkRY4CYIsJOc1i0ZjmaDxCeZccfxh5dtOj1EDMHryE31YJOy99LC2NufaffuaAfgRLkkP+isfHRO9SDC7eiAIxDzr1L6vVAmvWKXi7Dh6as=,iv:OGhYiPyF0moRyorY9JRM53s0eCYumhNDgpM81/xlikQ=,tag:SfZkxrOA7rbUfgtBPAgjEA==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1
