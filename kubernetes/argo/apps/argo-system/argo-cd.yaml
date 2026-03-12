@@ -11,7 +11,7 @@ metadata:
 spec:
   project: kubernetes
   sources:
-    - repoURL: "https://github.com/.git"
+    - repoURL: "https://github.com/fabricesemti80/home-argo-cluster-2025.git"
       path: kubernetes/apps/argo-system/argo-cd
       targetRevision: main
       ref: repo

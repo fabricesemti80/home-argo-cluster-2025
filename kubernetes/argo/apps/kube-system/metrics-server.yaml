@@ -9,7 +9,7 @@ metadata:
 spec:
   project: kubernetes
   sources:
-    - repoURL: "https://github.com/.git"
+    - repoURL: "https://github.com/fabricesemti80/home-argo-cluster-2025.git"
       path: kubernetes/apps/kube-system/metrics-server
       targetRevision: main
       ref: repo
