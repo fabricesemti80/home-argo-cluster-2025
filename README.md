@@ -501,6 +501,14 @@ If this repo is too hot to handle or too cold to hold check out these following 
 
 Having issues with your cluster? Check the [Troubleshooting Guide](./docs/troubleshooting.md) for common problems and solutions.
 
+## 📐 Architecture
+
+Want to understand how the cluster works? See the [Architecture Guide](./docs/architecture.md) for detailed diagrams and explanations.
+
+## 📦 Adding Applications
+
+Want to add new applications to your cluster? See the [Adding Applications Guide](./docs/adding-applications.md) for a step-by-step walkthrough.
+
 ## 🤝 Thanks
 
 Big shout out to [onedr0p](https://github.com/onedr0p)
