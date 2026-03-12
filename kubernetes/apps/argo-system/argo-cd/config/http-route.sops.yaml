@@ -5,7 +5,7 @@ metadata:
 spec:
   parentRefs:
     - name: envoy-external
-      namespace: kube-system
+      namespace: network
   hostnames:
     - argo.krapulax.dev
   rules:
@@ -23,8 +23,8 @@ sops:
         MkdHRGZVYUxkTE0zdW1HNG1WeVlISXcKm62j7Y540VWF0uWNk8nXKr47si8A4xhj
         UA6vozbhP79FYTyDGUVsqmGUkUWO6RvxUHfnYDo+bJKBrmr5gb20og==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-12T16:43:43Z"
-  mac: ENC[AES256_GCM,data:IbDtyosDHmF146XPLHVC8dzNw+ahj2FlQZLLzbcO4gXImj8mclGIbXMh7wZg2fYSKp+owPY7ItgObwyGCJL797cO0mjhLjIz/oTvZYGzyWQM5JJaP3L5t4rb7dTQy5bRMaxRv4/cN1HChiWUXXmZI/nBszkWkzWijADz3lV1aIM=,iv:6jXbSzU7n3BDfMOJ33L4RsH+4lauMkyuQKxY6uT2vVE=,tag:jPjpSJLNz8Tc/F9jpPNrWw==,type:str]
+  lastmodified: "2026-03-12T17:08:13Z"
+  mac: ENC[AES256_GCM,data:LPXaLeo+iUf378YeoVXIDUEj3MPOFrxPbis2I26whe1Gl8fWkCBjbZRJ8RmRYSOZMnJeW/yeUYLqPE2nvvKfR2fafNu6ck/7ezVYEPdCus+4e+ySpIxeF76n/oQeU0TQ5e+AgM0wA+N9qGEP21nFrrHz9HuUAbKyLHIKnzcgFmw=,iv:0Td0rIJR3qhtZjkXt4HRHXA/DhpbZNxaduznDC0LM8Q=,tag:ZFiKX7Se8AuY3upIm2e7+Q==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1
