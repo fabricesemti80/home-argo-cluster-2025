@@ -114,20 +114,26 @@ This approach is ideal for Proxmox environments and eliminates the need for manu
 > [!WARNING]
 > If any of the commands fail with `command not found` or `unknown command` it means `mise` is either not installed, activated or it could be configured incorrectly.
 
-1. Create a Cloudflare API token for use with cloudflared and external-dns by reviewing the official [documentation](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/) and following the instructions below.
+1. Create a Cloudflare API token for use with external-dns by reviewing the official [documentation](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/) and following the instructions below.
 
    - Click the blue `Use template` button for the `Edit zone DNS` template.
    - Name your token `kubernetes`
-   - Under `Permissions`, click `+ Add More` and add permissions `Zone - DNS - Edit` and `Account - Cloudflare Tunnel - Read`
+   - Under `Permissions`, click `+ Add More` and add permissions `Zone - DNS - Edit` and `Account - Cloudflare Tunnel - Read/Write`
    - Limit the permissions to a specific account and/or zone resources and then click `Continue to Summary` and then `Create Token`.
    - **Save this token somewhere safe**, you will need it later on.
 
-2. Create the Cloudflare Tunnel:
+2. Setup Doppler project:
+   - Create a Doppler project named `home-argo-cluster-2025`
+   - Add the following secrets:
+     - `CF_API_TOKEN` - Cloudflare API token
+     - `CF_ACCOUNT_ID` - Cloudflare account ID
+     - `CF_ZONE_ID` - Zone ID for your domain
+     - `DOPPLER_TOKEN` - Doppler service token (create in Doppler dashboard → Project → Service Tokens)
 
-    ```sh
-    cloudflared tunnel login
-    cloudflared tunnel create --credentials-file cloudflare-tunnel.json kubernetes
-    ```
+3. The Cloudflare Tunnel is managed via Terraform in this repo. The Terraform code will:
+   - Read the existing `kubernetes` tunnel from Cloudflare
+   - Save credentials to `cloudflare-tunnel.json`
+   - Sync tunnel credentials to Doppler (`TUNNEL_CREDENTIALS`, `TUNNEL_ID`)
 
 ### Stage 5: Cluster configuration
 

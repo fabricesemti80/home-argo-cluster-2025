@@ -24,7 +24,18 @@ tasks:
   plan:
     desc: Generate OpenTofu execution plan
     dir: '{{.ROOT_DIR}}/terraform'
-    cmd: tofu plan -out=tfplan
+    cmds:
+      - |
+        cd {{.ROOT_DIR}}
+        export CF_API_TOKEN=$(doppler secrets get CF_API_TOKEN --project home-argo-cluster-2025 --plain)
+        export CF_ACCOUNT_ID=$(doppler secrets get CF_ACCOUNT_ID --project home-argo-cluster-2025 --plain)
+        export DOPPLER_TOKEN=$(doppler secrets get DOPPLER_TOKEN --project home-argo-cluster-2025 --plain)
+        cd {{.ROOT_DIR}}/terraform
+        tofu plan -out=tfplan \
+          -var="cf_api_token=$CF_API_TOKEN" \
+          -var="cf_account_id=$CF_ACCOUNT_ID" \
+          -var="doppler_token=$DOPPLER_TOKEN" \
+          -var="tunnel_secret=$(cat {{.ROOT_DIR}}/cloudflare-tunnel.json | grep -o '"TunnelSecret":"[^"]*"' | cut -d'"' -f4)"
     preconditions:
       - which tofu
       - test -d {{.ROOT_DIR}}/terraform/.terraform
@@ -32,11 +43,21 @@ tasks:
   apply:
     desc: Apply OpenTofu configuration to create VMs (includes plan step)
     dir: '{{.ROOT_DIR}}/terraform'
-    cmd: |
-      echo "Generating execution plan..."
-      tofu plan -out=tfplan
-      echo "Applying configuration..."
-      tofu apply tfplan
+    cmds:
+      - |
+        cd {{.ROOT_DIR}}
+        export CF_API_TOKEN=$(doppler secrets get CF_API_TOKEN --project home-argo-cluster-2025 --plain)
+        export CF_ACCOUNT_ID=$(doppler secrets get CF_ACCOUNT_ID --project home-argo-cluster-2025 --plain)
+        export DOPPLER_TOKEN=$(doppler secrets get DOPPLER_TOKEN --project home-argo-cluster-2025 --plain)
+        cd {{.ROOT_DIR}}/terraform
+        echo "Generating execution plan..."
+        tofu plan -out=tfplan \
+          -var="cf_api_token=$CF_API_TOKEN" \
+          -var="cf_account_id=$CF_ACCOUNT_ID" \
+          -var="doppler_token=$DOPPLER_TOKEN" \
+          -var="tunnel_secret=$(cat {{.ROOT_DIR}}/cloudflare-tunnel.json | grep -o '"TunnelSecret":"[^"]*"' | cut -d'"' -f4)"
+        echo "Applying configuration..."
+        tofu apply tfplan
     preconditions:
       - which tofu
       - test -d {{.ROOT_DIR}}/terraform/.terraform

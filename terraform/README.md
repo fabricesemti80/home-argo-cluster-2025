@@ -234,6 +234,44 @@ talosctl --talosconfig=<(terraform output -raw talos_client_configuration) healt
 task tofu:destroy
 ```
 
+## Cloudflare Tunnel Management
+
+The Terraform configuration also manages the Cloudflare Tunnel for this cluster:
+
+### Overview
+
+The `cloudflare_tunnel.tf` module:
+- Reads the existing `kubernetes` tunnel from Cloudflare
+- Syncs tunnel credentials to Doppler (`TUNNEL_CREDENTIALS`, `TUNNEL_ID`)
+- Writes credentials to `cloudflare-tunnel.json` in the repo root
+
+### Prerequisites
+
+1. **Doppler project** `home-argo-cluster-2025` with these secrets:
+   - `CF_API_TOKEN` - Cloudflare API token with `Zone:DNS:Edit` + `Account:Cloudflared Tunnel:Write`
+   - `CF_ACCOUNT_ID` - Cloudflare account ID
+   - `CF_ZONE_ID` - Zone ID for your domain
+   - `DOPPLER_TOKEN` - Doppler service token (create in Project → Settings → Service Tokens)
+
+2. **Existing Cloudflare Tunnel** named `kubernetes` must exist in your Cloudflare account
+
+### Running Tunnel Management
+
+```bash
+# Plan changes
+task tofu:plan
+
+# Apply changes
+task tofu:apply
+```
+
+### Secrets Synced to Doppler
+
+| Secret | Description | Type |
+|--------|-------------|------|
+| `TUNNEL_CREDENTIALS` | Full tunnel credentials JSON | JSON |
+| `TUNNEL_ID` | Tunnel UUID | String |
+
 ## Multi-Host Distribution
 
 VMs are automatically distributed across Proxmox hosts by specifying different `proxmox_node` values in `nodes.auto.tfvars`:
