@@ -1,0 +1,45 @@
+---
+csiConfig:
+  - clusterID: proxmox-ceph
+    monitors: &monitors
+      - "10.0.70.10:6789"
+      - "10.0.70.11:6789"
+      - "10.0.70.12:6789"
+provisioner:
+  name: provisioner
+  replicaCount: 2
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+nodeplugin:
+  name: plugin
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+serviceAccounts:
+  nodeplugin:
+    name: ceph-csi-nodeplugin
+  provisioner:
+    name: ceph-csi-provisioner
+rbac:
+  create: true
+  name: ceph-csi
+storageClass:
+  create: true
+  name: ceph-rbd
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+  pool: vm-storage
+  imageFeatures: layering
+  reclaimPolicy: Delete
+  allowVolumeExpansion: true
+secret:
+  create: false
