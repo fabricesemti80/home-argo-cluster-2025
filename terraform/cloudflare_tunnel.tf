@@ -22,17 +22,10 @@ variable "tunnel_secret" {
   default     = ""
 }
 
-variable "credentials_file" {
-  description = "Path to existing credentials file"
-  type        = string
-  default     = "./../cloudflare-tunnel.json"
-}
-
 variable "doppler_token" {
   description = "Doppler token"
   type        = string
   sensitive   = true
-  default     = ""
 }
 
 provider "cloudflare" {
@@ -43,31 +36,44 @@ provider "doppler" {
   doppler_token = var.doppler_token
 }
 
-data "cloudflare_zero_trust_tunnel_cloudflared" "existing" {
-  account_id = var.cf_account_id
-  name       = var.tunnel_name
+# Tunnel Secret - use provided secret or generate new one
+resource "random_id" "tunnel_secret" {
+  byte_length = 35
 }
 
-locals {
-  tunnel_id     = data.cloudflare_zero_trust_tunnel_cloudflared.existing.id
-  account_tag   = var.cf_account_id
-  tunnel_secret = var.tunnel_secret != "" ? var.tunnel_secret : jsondecode(file(var.credentials_file)).TunnelSecret
-  tunnel_name   = var.tunnel_name
+# Create the Tunnel
+resource "cloudflare_tunnel" "tunnel" {
+  account_id = var.cf_account_id
+  name       = var.tunnel_name
+  secret     = var.tunnel_secret != "" ? var.tunnel_secret : random_id.tunnel_secret.b64_std
+}
 
+# Tunnel Token for deployment
+locals {
+  actual_secret = var.tunnel_secret != "" ? var.tunnel_secret : random_id.tunnel_secret.b64_std
+  tunnel_id     = cloudflare_tunnel.tunnel.id
+  account_tag   = var.cf_account_id
+  tunnel_token = base64encode(jsonencode({
+    a = var.cf_account_id
+    t = local.tunnel_id
+    s = local.actual_secret
+  }))
   credentials_json = jsonencode({
     AccountTag   = local.account_tag
     TunnelID     = local.tunnel_id
-    TunnelSecret = local.tunnel_secret
-    TunnelName   = local.tunnel_name
+    TunnelSecret = local.actual_secret
+    TunnelName   = var.tunnel_name
   })
 }
 
 resource "local_file" "credentials" {
+  count    = var.doppler_token != "" ? 1 : 0
   content  = local.credentials_json
   filename = pathexpand("${path.module}/../cloudflare-tunnel.json")
 }
 
 resource "doppler_secret" "tunnel_credentials" {
+  count      = var.doppler_token != "" ? 1 : 0
   config     = "dev"
   project    = "home-argo-cluster-2025"
   name       = "TUNNEL_CREDENTIALS"
@@ -76,10 +82,19 @@ resource "doppler_secret" "tunnel_credentials" {
 }
 
 resource "doppler_secret" "tunnel_id" {
+  count   = var.doppler_token != "" ? 1 : 0
   config  = "dev"
   project = "home-argo-cluster-2025"
   name    = "TUNNEL_ID"
   value   = local.tunnel_id
+}
+
+resource "doppler_secret" "tunnel_token" {
+  count   = var.doppler_token != "" ? 1 : 0
+  config  = "dev"
+  project = "home-argo-cluster-2025"
+  name    = "TUNNEL_TOKEN"
+  value   = local.tunnel_token
 }
 
 output "tunnel_id" {

@@ -26,18 +26,11 @@ tasks:
     dir: '{{.ROOT_DIR}}/terraform'
     cmds:
       - |
-        cd {{.ROOT_DIR}}
-        export CF_API_TOKEN=$(doppler secrets get CF_API_TOKEN --project home-argo-cluster-2025 --plain)
-        export CF_ACCOUNT_ID=$(doppler secrets get CF_ACCOUNT_ID --project home-argo-cluster-2025 --plain)
-        export DOPPLER_TOKEN=$(doppler secrets get DOPPLER_TOKEN --project home-argo-cluster-2025 --plain)
         cd {{.ROOT_DIR}}/terraform
-        tofu plan -out=tfplan \
-          -var="cf_api_token=$CF_API_TOKEN" \
-          -var="cf_account_id=$CF_ACCOUNT_ID" \
-          -var="doppler_token=$DOPPLER_TOKEN" \
-          -var="tunnel_secret=$(cat {{.ROOT_DIR}}/cloudflare-tunnel.json | grep -o '"TunnelSecret":"[^"]*"' | cut -d'"' -f4)"
+        doppler run --project home-argo-cluster-2025 --config dev --name-transformer tf-var -- tofu plan -out=tfplan
     preconditions:
       - which tofu
+      - which doppler
       - test -d {{.ROOT_DIR}}/terraform/.terraform
 
   apply:
@@ -45,27 +38,24 @@ tasks:
     dir: '{{.ROOT_DIR}}/terraform'
     cmds:
       - |
-        cd {{.ROOT_DIR}}
-        export CF_API_TOKEN=$(doppler secrets get CF_API_TOKEN --project home-argo-cluster-2025 --plain)
-        export CF_ACCOUNT_ID=$(doppler secrets get CF_ACCOUNT_ID --project home-argo-cluster-2025 --plain)
-        export DOPPLER_TOKEN=$(doppler secrets get DOPPLER_TOKEN --project home-argo-cluster-2025 --plain)
         cd {{.ROOT_DIR}}/terraform
         echo "Generating execution plan..."
-        tofu plan -out=tfplan \
-          -var="cf_api_token=$CF_API_TOKEN" \
-          -var="cf_account_id=$CF_ACCOUNT_ID" \
-          -var="doppler_token=$DOPPLER_TOKEN" \
-          -var="tunnel_secret=$(cat {{.ROOT_DIR}}/cloudflare-tunnel.json | grep -o '"TunnelSecret":"[^"]*"' | cut -d'"' -f4)"
+        doppler run --project home-argo-cluster-2025 --config dev --name-transformer tf-var -- tofu plan -out=tfplan
         echo "Applying configuration..."
-        tofu apply tfplan
+        doppler run --project home-argo-cluster-2025 --config dev --name-transformer tf-var -- tofu apply tfplan
     preconditions:
       - which tofu
+      - which doppler
       - test -d {{.ROOT_DIR}}/terraform/.terraform
 
   destroy:
     desc: Destroy VMs and clean up resources
     dir: '{{.ROOT_DIR}}/terraform'
-    cmd: tofu destroy
+    cmds:
+      - |
+        cd {{.ROOT_DIR}}/terraform
+        doppler run --project home-argo-cluster-2025 --config dev --name-transformer tf-var -- tofu destroy -auto-approve
     preconditions:
       - which tofu
+      - which doppler
       - test -d {{.ROOT_DIR}}/terraform/.terraform
