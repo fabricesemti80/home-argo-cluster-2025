@@ -137,6 +137,12 @@ This approach is ideal for Proxmox environments and eliminates the need for manu
 
 ### Stage 5: Cluster configuration
 
+> [!TIP]
+> **Using Terraform for VM provisioning?** Here's the workflow:
+> 1. Run `task tofu:apply` to create VMs - this automatically updates `nodes.yaml` with the MAC addresses from Proxmox
+> 2. Run `task configure` to regenerate Talos configs with the correct MAC addresses
+> This ensures your Talos configs match the actual VM MAC addresses.
+
 1. Generate the config files from the sample files:
 
     ```sh
