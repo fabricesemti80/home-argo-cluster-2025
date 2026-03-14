@@ -7,9 +7,9 @@ metadata:
 spec:
   parentRefs:
     - name: envoy-internal
-      namespace: envoy-gateway
+      namespace: network
     - name: envoy-external
-      namespace: envoy-gateway
+      namespace: network
   hostnames:
     - "nginx-test.krapulax.dev"
   rules:
