@@ -1,0 +1,30 @@
+csiConfig:
+  - clusterID: a74bdf84-c6e5-4a3c-acf2-6c307f5c15a4
+    monitors:
+      - 10.0.70.10:6789
+      - 10.0.70.11:6789
+      - 10.0.70.12:6789
+    adminID: admin
+    adminKey: ENC[AES256_GCM,data:govaHpO0g2PKKo+/nQhWufj5R08YxtT9vYXKeO5exqm6FtvHX/5bTg==,iv:MUsjNLbVbgpRv7NCI+/2Qd51B4I3Fh8kMxbf01i9L9U=,tag:ytxj5UEzCWpwY3pPTQy9VQ==,type:str]
+cephFS:
+  kernelMountOptions: ms_mode=prefercrc
+provisioner:
+  replicaCount: 3
+nodeplugin:
+  replicaCount: 3
+sops:
+  age:
+    - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAvWk1vRUZtRU9oaU52b1Fq
+        dHFnUXZkcTFtY0oybUJGaENGZTB1ajAyZHhzCnZXbnpoNnMwTDlqNHM5bmVEQTls
+        dXZjSmsxUVNOdldFM29EM0JqQmprK1UKLS0tIFJtTDhnNXliZlc0QWFoNkZYN2lT
+        NjZ2QUgyR2E5dTR3OUJUQ1VKOEkvS0kK/DZJpHviyNGEYVI9UFrN5ILMJDbCBaUk
+        JQo9rHA5+Oq699aQRKlH313x0p7M0Hn9YuRjKZizI5YZ3ydtIpkpow==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2026-03-14T16:30:55Z"
+  mac: ENC[AES256_GCM,data:pPi9JORzGRQ8a6j6YFcCU53w5WE3URmFJuAQT9xcFszaR0IabCu+0akq6h/Cb8SlfZo+KxnimI0PnYMXTMx+Gda8XUF9ykJ25VUuCTt9YKPBj74aQ2TnvVz1UZ3E5kVSaLU2f7A4ZOusFZHqkCLDy8tEW5pFiEThfe3CfR0RO/I=,iv:q41XJAnhH7Uj4THG2cHabbvuKbkChHNnSqhKnpLSxy0=,tag:J7bsJI2aqI+MQTyyfTD+lw==,type:str]
+  encrypted_regex: ^(adminKey|userKey|.*Key)$
+  mac_only_encrypted: true
+  version: 3.12.1

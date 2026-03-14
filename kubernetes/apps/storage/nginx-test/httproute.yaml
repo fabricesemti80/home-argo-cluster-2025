@@ -1,0 +1,22 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: HTTPRoute
+metadata:
+  name: nginx-test-route
+  namespace: storage
+spec:
+  parentRefs:
+    - name: envoy-internal
+      namespace: envoy-gateway
+  hostnames:
+    - "nginx-test.k8s.krapulax.dev" # Example hostname for accessing the test app
+  rules:
+    - matches:
+        - path:
+            type: Prefix
+            value: /
+      backendRefs:
+        - name: nginx-test-service
+          port: 80
+          kind: Service
+          group: ""
