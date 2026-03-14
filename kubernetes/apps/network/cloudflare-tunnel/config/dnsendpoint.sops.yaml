@@ -8,19 +8,23 @@ spec:
       recordType: CNAME
       targets:
         - c153a412-005f-4c07-8b89-34ec5628005a.cfargotunnel.com
+    - dnsName: nginx-test.krapulax.dev
+      recordType: CNAME
+      targets:
+        - c153a412-005f-4c07-8b89-34ec5628005a.cfargotunnel.com
 sops:
   age:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBTY1d0azVZbGxtek1iUXlm
-        QmFobTBUS1EwQWc2Y2NUNzlwSVBRTzVtdHpBCjhES0NvUGdPb0NTaFdhc29oL1Rr
-        N0swSnBOSzNUY3JyeFlQTWtZdEFxUW8KLS0tIDdJaDZxUCtoMmU3NjNyVDJ4R3N6
-        NkJiaENuSG1KV1pVUEFjUkMyWUpIcUEK4Oe58a2jgegmbP+tuRs3+yjAm9dQQhua
-        2DbBGkqKJ6PUCOdMiUwI0kRFRPRT/xzxdQhqU0JWlICmC+Z078/TBw==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBUN3NEWjF5dEc1MzBqUE5m
+        aXpndzdnZFZoNjI3bGQ0cmhrdHdha0pUSjFrCis0MWQwOW52SFBmQzVyMmkxK2FP
+        SWZ4dWZXSytXQi83UmVER1djcGVlWnMKLS0tIER1Vm5aWWZwdytsciswNGFHWktr
+        YlRWMk5scjFudDB5czFRNGdTaDlLNzgKUTKHnNCBSFzhuv73J1VMM3agvVIRcbKp
+        rjOz97j3/tkPK7esAMytrctQzubzwMPrb1D1yULqfKcv/+5yOqFQwQ==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-14T16:30:55Z"
-  mac: ENC[AES256_GCM,data:gXpw4GOrrqht1INOlOHxL+h0U+CUpsNaWCENAmSb272U+0wzxvYkBuabrAUUZ4b/YMjUEUxZTxPWBbEke8VRE3ErY2JJ45Uzvzys/0QK3PSwQ97nDY1oU2/yrBaNXXMJ4s9PXvqD1FQyKyorkQAZ0Tr3ilLVeylCV65bEiD5Aeg=,iv:7roXTCbKhse934LTqmLtdavdV7fzcg6b4i5VJa3nanQ=,tag:rCpJ9AIlmHNJRkA71v+qHw==,type:str]
+  lastmodified: "2026-03-14T17:15:39Z"
+  mac: ENC[AES256_GCM,data:kDxbSmrIWWdBOYpCuDhsNWnTTNNfU0oX7lBeAcXv0BkWDpDMM99Rc3ET5SQN9VqTykjFCesIe/qE5joO1TI/Cub+KVmtsCbm1q2/OCiKfd5OVi9/FvLDctPYSuWEKSC5rXE7vXiwWbCkbp2LyIl/wEZ8cpkJ0ULFR466wnTMQBc=,iv:0E62j6rsPUiQRF0yrXexfT8GYKju+om2wsyYcLrX1eg=,tag:8CX0y2Sz7L27qc8MGEl5rg==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1
