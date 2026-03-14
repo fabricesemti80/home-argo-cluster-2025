@@ -144,6 +144,12 @@ class Plugin(makejinja.plugin.Plugin):
         data.setdefault('repository_visibility', 'public')
         data.setdefault('cilium_loadbalancer_mode', 'dsr')
 
+        # Set default Ceph network configuration (secondary NIC for storage traffic)
+        data.setdefault('ceph_network', {
+            'vlan_id': 70,
+            'cidr': '10.0.70.0/24',
+        })
+
         # If all BGP keys are set, enable BGP
         bgp_keys = ['cilium_bgp_router_addr', 'cilium_bgp_router_asn', 'cilium_bgp_node_asn']
         bgp_enabled = all(data.get(key) for key in bgp_keys)

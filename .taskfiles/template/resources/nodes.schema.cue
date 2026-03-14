@@ -19,11 +19,12 @@ import (
 	address:       	 net.IPv4
 	controller:    	 bool
 	disk:          	 string
-	mac_addr:      	 =~"^([0-9a-f]{2}[:]){5}([0-9a-f]{2})$"
-	schematic_id:  	 =~"^[a-z0-9]{64}$"
-	mtu?:          	 >=1450 & <=9000
-	secureboot?:   	 bool
-	encrypt_disk?: 	 bool
+	mac_addr:          =~"^([0-9a-f]{2}[:]){5}([0-9a-f]{2})$"
+	ceph_mac_addr?:    =~"^([0-9a-f]{2}[:]){5}([0-9a-f]{2})$"
+	schematic_id:      =~"^[a-z0-9]{64}$"
+	mtu?:              >=1450 & <=9000
+	secureboot?:       bool
+	encrypt_disk?:     bool
 	kernel_modules?: [...string]
 }
 
