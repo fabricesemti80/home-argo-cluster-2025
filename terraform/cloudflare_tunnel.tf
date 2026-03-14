@@ -54,16 +54,20 @@ resource "random_id" "tunnel_secret" {
 }
 
 # Create the Tunnel
-resource "cloudflare_tunnel" "tunnel" {
+resource "cloudflare_zero_trust_tunnel_cloudflared" "tunnel" {
   account_id = var.cf_account_id
   name       = var.tunnel_name
   secret     = var.tunnel_secret != "" ? var.tunnel_secret : random_id.tunnel_secret.b64_std
+
+  lifecycle {
+    ignore_changes = [secret]
+  }
 }
 
 # Tunnel Token for deployment
 locals {
   actual_secret = var.tunnel_secret != "" ? var.tunnel_secret : random_id.tunnel_secret.b64_std
-  tunnel_id     = cloudflare_tunnel.tunnel.id
+  tunnel_id     = cloudflare_zero_trust_tunnel_cloudflared.tunnel.id
   account_tag   = var.cf_account_id
   tunnel_token = base64encode(jsonencode({
     a = var.cf_account_id
@@ -118,27 +122,8 @@ output "account_tag" {
   value = local.account_tag
 }
 
-# DNS Records - Tunnel CNAMEs
+# DNS Records
+# Note: DNS for krapulax.dev (echo, argo, external) is managed by external-dns in-cluster
+# via the DNSEndpoint CRD and HTTPRoute annotations.
 # Tunnel ingress rules are managed via the cloudflared ConfigMap in Kubernetes
 # (kubernetes/apps/network/cloudflare-tunnel/config/config.sops.yaml)
-resource "cloudflare_record" "tunnel_wildcard" {
-  count   = var.doppler_token != "" ? 1 : 0
-  zone_id = local.cf_zone_id
-  name    = "*"
-  type    = "CNAME"
-  content = "${cloudflare_tunnel.tunnel.id}.cfargotunnel.com"
-  proxied = true
-  ttl     = 1
-  comment = "Wildcard Tunnel (Managed by Terraform)"
-}
-
-resource "cloudflare_record" "tunnel_root" {
-  count   = var.doppler_token != "" ? 1 : 0
-  zone_id = local.cf_zone_id
-  name    = "@"
-  type    = "CNAME"
-  content = "${cloudflare_tunnel.tunnel.id}.cfargotunnel.com"
-  proxied = true
-  ttl     = 1
-  comment = "Root Tunnel (Managed by Terraform)"
-}
