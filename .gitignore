@@ -21,9 +21,15 @@ talosconfig
 Thumbs.db
 .kiro/
 # OpenTofu / Terraform
+terraform.tfstate
+terraform.tfstate.backup
 terraform/.terraform/
 terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
+terraform/terraform.tfstate.*.backup
 terraform/tfplan
 terraform/*.auto.tfvars
 !terraform/*.auto.tfvars.example
+
+# Talos
+talos/clusterconfig/*.yaml
