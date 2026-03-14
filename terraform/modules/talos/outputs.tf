@@ -5,12 +5,13 @@ output "nodes" {
   value = {
     for node in proxmox_virtual_environment_vm.talos_node :
     node.name => {
-      vm_id             = node.vm_id
-      vm_name           = node.name
-      dhcp_ipv4_address = local.vm_ips[node.name]
-      node_name         = node.node_name
-      mac_address       = length(node.mac_addresses) > 0 ? node.mac_addresses[0] : null
-      network_details   = local.vm_network_details[node.name]
+      vm_id                 = node.vm_id
+      vm_name               = node.name
+      dhcp_ipv4_address     = local.vm_ips[node.name]
+      node_name             = node.node_name
+      mac_address           = length(node.mac_addresses) > 0 ? node.mac_addresses[0] : null
+      mac_address_secondary = length(node.mac_addresses) > 1 ? node.mac_addresses[1] : null
+      network_details       = local.vm_network_details[node.name]
     }
   }
 }
@@ -20,13 +21,14 @@ output "control_plane_nodes" {
   value = {
     for node in proxmox_virtual_environment_vm.talos_node :
     node.name => {
-      vm_id             = node.vm_id
-      vm_name           = node.name
-      dhcp_ipv4_address = local.vm_ips[node.name]
-      node_name         = node.node_name
-      is_controller     = true
-      mac_address       = length(node.mac_addresses) > 0 ? node.mac_addresses[0] : null
-      network_details   = local.vm_network_details[node.name]
+      vm_id                 = node.vm_id
+      vm_name               = node.name
+      dhcp_ipv4_address     = local.vm_ips[node.name]
+      node_name             = node.node_name
+      is_controller         = true
+      mac_address           = length(node.mac_addresses) > 0 ? node.mac_addresses[0] : null
+      mac_address_secondary = length(node.mac_addresses) > 1 ? node.mac_addresses[1] : null
+      network_details       = local.vm_network_details[node.name]
     }
     if[for n in var.nodes : n.controller if n.name == node.name][0] == true
   }
@@ -37,13 +39,14 @@ output "worker_nodes" {
   value = {
     for node in proxmox_virtual_environment_vm.talos_node :
     node.name => {
-      vm_id             = node.vm_id
-      vm_name           = node.name
-      dhcp_ipv4_address = local.vm_ips[node.name]
-      node_name         = node.node_name
-      is_controller     = false
-      mac_address       = length(node.mac_addresses) > 0 ? node.mac_addresses[0] : null
-      network_details   = local.vm_network_details[node.name]
+      vm_id                 = node.vm_id
+      vm_name               = node.name
+      dhcp_ipv4_address     = local.vm_ips[node.name]
+      node_name             = node.node_name
+      is_controller         = false
+      mac_address           = length(node.mac_addresses) > 0 ? node.mac_addresses[0] : null
+      mac_address_secondary = length(node.mac_addresses) > 1 ? node.mac_addresses[1] : null
+      network_details       = local.vm_network_details[node.name]
     }
     if[for n in var.nodes : n.controller if n.name == node.name][0] == false
   }
