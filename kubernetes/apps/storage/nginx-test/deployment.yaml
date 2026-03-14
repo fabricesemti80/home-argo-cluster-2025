@@ -46,7 +46,7 @@ spec:
           command: ["/bin/bash", "-c"]
           args:
             - |
-              cat > /usr/share/nginx/html/index.html << 'EOF'
+              cat > /usr/share/nginx/html/index.html << EOF
               <!DOCTYPE html>
               <html>
               <head>
