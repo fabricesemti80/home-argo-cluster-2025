@@ -80,13 +80,14 @@ tasks:
 
   render-configs:
     internal: true
-    cmd: makejinja
+    cmd: doppler run --project home-argo-cluster-2025 --config dev -- makejinja
     env:
       PYTHONDONTWRITEBYTECODE: '1'
     preconditions:
       - test -f {{.TEMPLATE_DIR}}/scripts/plugin.py
       - test -f {{.MAKEJINJA_CONFIG_FILE}}
       - which makejinja
+      - which doppler
 
   encrypt-secrets:
     internal: true
