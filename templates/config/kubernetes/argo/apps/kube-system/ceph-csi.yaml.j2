@@ -13,9 +13,9 @@ spec:
       path: kubernetes/apps/kube-system/ceph-csi
       targetRevision: #{ repository_branch }#
       ref: repo
-    - repoURL: ghcr.io/ceph/csi-charts
+    - repoURL: https://ceph.github.io/csi-charts
       chart: ceph-csi-cephfs
-      targetRevision: v3.12.0
+      targetRevision: v3.12.3
       helm:
         releaseName: ceph-csi
         valueFiles:
