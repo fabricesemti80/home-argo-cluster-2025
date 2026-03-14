@@ -10,7 +10,7 @@ spec:
   project: kubernetes
   sources:
     - repoURL: "https://github.com/fabricesemti80/home-argo-cluster-2025.git"
-      path: kubernetes/apps/kube-system/ceph-csi
+      path: kubernetes/apps/storage/ceph-csi
       targetRevision: main
       ref: repo
     - repoURL: https://ceph.github.io/csi-charts
@@ -19,10 +19,10 @@ spec:
       helm:
         releaseName: ceph-csi
         valueFiles:
-          - $repo/kubernetes/apps/kube-system/ceph-csi/values.sops.yaml
+          - $repo/kubernetes/apps/storage/ceph-csi/values.sops.yaml
   destination:
     name: in-cluster
-    namespace: kube-system
+    namespace: storage
   syncPolicy:
     automated:
       allowEmpty: true

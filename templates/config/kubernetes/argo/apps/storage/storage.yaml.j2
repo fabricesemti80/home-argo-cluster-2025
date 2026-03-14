@@ -9,12 +9,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "https://github.com/fabricesemti80/home-argo-cluster-2025.git"
-    path: kubernetes/components/storage
-    targetRevision: main
+    repoURL: "https://github.com/#{ repository_name }#.git"
+    path: kubernetes/apps/storage
+    targetRevision: #{ repository_branch }#
   destination:
     name: in-cluster
-    namespace: default
+    namespace: storage
   syncPolicy:
     automated:
       allowEmpty: true
