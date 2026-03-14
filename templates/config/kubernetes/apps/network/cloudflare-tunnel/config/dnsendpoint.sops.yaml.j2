@@ -8,3 +8,6 @@ spec:
     - dnsName: "external.#{ cloudflare_domain }#"
       recordType: CNAME
       targets: ["#{ cloudflare_tunnel_id() }#.cfargotunnel.com"]
+    - dnsName: "nginx-test.#{ cloudflare_domain }#"
+      recordType: CNAME
+      targets: ["#{ cloudflare_tunnel_id() }#.cfargotunnel.com"]
