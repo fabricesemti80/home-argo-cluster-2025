@@ -1,0 +1,30 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: echo
+spec:
+  parentRefs:
+    - name: envoy-external
+      namespace: network
+  hostnames:
+    - echo.krapulax.dev
+  rules:
+    - backendRefs:
+        - name: echo
+          port: 8080
+sops:
+  age:
+    - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBqYnMvYllxcXQwN3NhWHAz
+        OGFEZVhtSkZYQ1RoSGZiVkhKOUhtTTJCMFdBCmJHS3VZRFlnT25CMHdjWUFoQUh3
+        YkRxVWxiTzZFYXhJWjZ2RHFiN3Bqam8KLS0tIGlGUWNpbFQwbHcvRzg2ZERIK0xL
+        a2ZIcFN3YUVLVVBVV0s0c0JVS3lCTG8KJQppYPFheenqAC0nz2mcCKJ5Pm+o+TGz
+        QxyoQSuBH79Ps2M8pmGotSC5khfZg4y57tqVqjOGotx1dOi3wLfuYw==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2026-03-14T00:32:14Z"
+  mac: ENC[AES256_GCM,data:7u4T+tENZfeKanJFpVrpBzEUUDSN8oiLXn6DtjFtRxWWuaZ+627YXnXhsnppg87kBSiRieDMoVPy80jZr5UaN6abWfj+Nl3vPgh9IH1wDFCX8HAcrW7icUv95PGVLyDWXWIkSD/JfNd7UFWXCgCbLDF2SVivkPK7c7wmQVFM7Jw=,iv:F9MjVZw3pD4GeaWZpHHunL6GcpoenHrec9Wh4JWRkX4=,tag:DrjZzojSa3H0fBBl636YEQ==,type:str]
+  encrypted_regex: ^(data|stringData)$
+  mac_only_encrypted: true
+  version: 3.12.1
