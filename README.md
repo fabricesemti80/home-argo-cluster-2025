@@ -194,6 +194,44 @@ See the [Terraform README](./terraform/README.md) for detailed setup instruction
     task bootstrap:talos
     ```
 
+   The bootstrap process installs Talos Linux on each node and initializes Kubernetes:
+
+   ```mermaid
+   flowchart TD
+       A[task bootstrap:talos] --> B[talhelper genconfig]
+       B --> C[Generate node configs]
+       C --> D{talosctl apply config}
+       D --> E[k8s-ctrl-01]
+       D --> F[k8s-ctrl-02]
+       D --> G[k8s-ctrl-03]
+       D --> H[k8s-wrkr-01]
+       D --> I[k8s-wrkr-02]
+       D --> J[k8s-wrkr-03]
+       
+       E --> K[Bootstrap etcd]
+       F --> K
+       G --> K
+       
+       K --> L[Init control plane]
+       L --> M[Start Kubernetes API]
+       
+       M --> N[Worker nodes join]
+       H --> N
+       I --> N
+       J --> N
+       
+       N --> O[Cluster Ready]
+       
+       style K fill:#f9f,stroke:#333
+       style L fill:#f9f,stroke:#333
+       style O fill:#9f9,stroke:#333
+   ```
+
+   - **Gen config**: Creates Talos machine configs from talconfig.yaml
+   - **Apply config**: Pushes config to each node via talosctl
+   - **Bootstrap**: Initializes etcd cluster on control plane nodes
+   - **Join**: Worker nodes join the cluster
+
     > [!NOTE]
     > This is idempotent, you can re-run it safely if interrupted or if errors occur during bootstrap.
 
@@ -225,6 +263,36 @@ See the [Terraform README](./terraform/README.md) for detailed setup instruction
     ```sh
     task bootstrap:apps
     ```
+
+   The bootstrap process works in stages:
+
+   ```mermaid
+   flowchart TD
+       A[task bootstrap:apps] --> B[wait_for_nodes]
+       B --> C[apply_namespaces]
+       C --> D[apply_sops_secrets]
+       D --> E[apply_crds]
+       E --> F[cleanup_stuck_releases]
+       F --> G[helmfile sync]
+       
+       G --> H[cilium → kube-system]
+       G --> I[coredns → kube-system]
+       G --> J[argo-cd → argo-system]
+       
+       J --> K[sync_argo_apps]
+       K --> L[AppProject kubernetes]
+       K --> M[Applications]
+       
+       M --> N[ArgoCD pulls from Git]
+       N --> O[Deploys network apps]
+       
+       H -.-> |waits for CNI| O
+       I -.-> |depends on cilium| O
+   ```
+
+   - **Steps 1-5**: Core infrastructure (namespaces, secrets, CRDs, helm releases)
+   - **Step 6**: ArgoCD syncs apps from your Git repository
+   - **Step 7**: ArgoCD deploys the actual workloads (cloudflare-tunnel, dns, gateways)
 
    > [!NOTE]
    > During bootstrap you will see `CrashLoopBackOff` on kube-scheduler and kube-controller-manager, `Init:0/6` on cilium pods, and `Pending` on coredns and argo pods. The VIP (`kubectl`) may also become temporarily unreachable. **This is all expected** — once cilium finishes initializing, networking comes up and everything else cascades into a healthy state. If `kubectl` times out, connect directly to a control plane node: `kubectl get pods -A --server=https://<control-plane-ip>:6443`.
