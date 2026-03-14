@@ -4,9 +4,6 @@
 # It is not intended to be used with helmfile apply or helmfile sync.
 
 helmDefaults:
-  args:
-    - --include-crds
-    - --no-hooks
 
 releases:
   - name: cloudflare-dns
@@ -16,7 +13,7 @@ releases:
 
   - name: envoy-gateway
     namespace: network
-    chart: oci://mirror.gcr.io/envoyproxy/gateway-helm
+    chart: oci://docker.io/envoyproxy/gateway-helm
     version: v1.7.0
 
   - name: kube-prometheus-stack
