@@ -12,22 +12,41 @@ With this approach, you'll gain a solid foundation to build and manage your Kube
 
 ## ✨ Features
 
-A Kubernetes cluster deployed with [Talos Linux](https://github.com/siderolabs/talos) and an opinionated implementation of [Argo](https://github.com/argoproj/argo-cd) using [GitHub](https://github.com/) as the Git provider, [sops](https://github.com/getsops/sops) to manage secrets and [cloudflared](https://github.com/cloudflare/cloudflared) to access applications external to your local network.
+A Kubernetes cluster deployed with [Talos Linux](https://github.com/siderolabs/talos) and [Argo CD](https://github.com/argoproj/argo-cd) for GitOps-based management.
 
-- **Required:** Some knowledge of [Containers](https://opencontainers.org/), [YAML](https://noyaml.com/), [Git](https://git-scm.com/), and a **Cloudflare account** with a **domain**.
-- **Included components:** [argo](https://github.com/argoproj/argo-cd), [cilium](https://github.com/cilium/cilium), [cert-manager](https://github.com/cert-manager/cert-manager), [spegel](https://github.com/spegel-org/spegel), [reloader](https://github.com/stakater/Reloader), [envoy-gateway](https://github.com/envoyproxy/gateway), [external-dns](https://github.com/kubernetes-sigs/external-dns) and [cloudflared](https://github.com/cloudflare/cloudflared).
+### Included Components
 
-**Other features include:**
+| Category | Components |
+|----------|------------|
+| Networking | Cilium, Envoy Gateway, External DNS, Cloudflare Tunnel |
+| Observability | Metrics Server, Reloader |
+| Security | cert-manager, SOPS |
+| GitOps | Argo CD |
 
-- Dev env managed w/ [mise](https://mise.jdx.dev/)
-- Workflow automation w/ [GitHub Actions](https://github.com/features/actions)
-- Dependency automation w/ [Renovate](https://www.mend.io/renovate)
+### Requirements
 
-Does this sound cool to you? If so, continue to read on! 👇
+- **Knowledge:** Containers, YAML, Git
+- **Infrastructure:** Cloudflare account with a domain
+- **Tools:** Managed via [Mise](https://mise.jdx.dev/)
+
+### Additional Features
+
+- Dev environment managed with [Mise](https://mise.jdx.dev/)
+- Workflow automation with [GitHub Actions](https://github.com/features/actions)
+- Dependency automation with [Renovate](https://www.mend.io/renovate)
 
 ## 🚀 Let's Go!
 
-There are **6 stages** outlined below for completing this project, make sure you follow the stages in order.
+Follow these **6 stages** in order to deploy your cluster:
+
+1. **Hardware Configuration** - Plan your cluster topology
+2. **Machine Preparation** - Prepare nodes (manual or Terraform)
+3. **Local Workstation** - Set up development tools
+4. **Cloudflare & Doppler** - Configure external access
+5. **Cluster Configuration** - Generate Kubernetes manifests
+6. **Bootstrap** - Install Talos, Kubernetes, and Argo
+
+---
 
 ### Stage 1: Hardware Configuration
 
@@ -43,9 +62,11 @@ These guidelines provide a strong baseline, but there are always exceptions and 
 > If you have **3 or more nodes** it is recommended to make 3 of them controller nodes for a highly available control plane. This project configures **all nodes** to be able to run workloads. **Worker nodes** are therefore **optional**.
 >
 > **Minimum system requirements**
-> | Role    | Cores    | Memory        | System Disk               |
-> |---------|----------|---------------|---------------------------|
-> | Control/Worker | 4 | 16GB | 256GB SSD/NVMe |
+> | Role           | Cores | Memory | System Disk     |
+> |----------------|-------|--------|------------------|
+> | Control/Worker | 4     | 16GB   | 256GB SSD/NVMe   |
+
+#### Option A: Manual Setup
 
 1. Head over to the [Talos Linux Image Factory](https://factory.talos.dev) and follow the instructions. Be sure to only choose the **bare-minimum system extensions** as some might require additional configuration and prevent Talos from booting without it. Depending on your CPU start with the Intel/AMD system extensions (`i915`, `intel-ucode` & `mei` **or** `amdgpu` & `amd-ucode`), you can always add system extensions after Talos is installed and working.
 
@@ -53,32 +74,24 @@ These guidelines provide a strong baseline, but there are always exceptions and 
 
 3. Flash the Talos ISO or RAW image to a USB drive and boot from it on your nodes.
 
-4. Verify with `nmap` that your nodes are available on the network. (Replace `192.168.1.0/24` with the network your nodes are on, e.g., `10.0.40.0/24` for Proxmox environments.)
+4. Verify with `nmap` that your nodes are available on the network:
 
     ```sh
     nmap -p 50000 --open 192.168.1.0/24
     ```
 
-
-### Alternative: Automated VM Provisioning with Terraform
+#### Option B: Automated VM Provisioning with Terraform
 
 If you prefer automated VM provisioning instead of manual setup, this project includes Terraform configuration for deploying Talos Linux VMs on Proxmox infrastructure with automatic static IP configuration.
 
-See the [Terraform README](./terraform/README.md) for detailed setup instructions, including:
+See the [Terraform README](./terraform/README.md) for detailed setup instructions.
 
-- Proxmox API token configuration
-- Node definitions with static IPs
-- Multi-host VM distribution
-- Automatic cluster bootstrap
-
-This approach is ideal for Proxmox environments and eliminates the need for manual ISO flashing and IP configuration.
-
-### Stage 2: Local Workstation
+### Stage 3: Local Workstation
 
 > [!TIP]
 > It is recommended to set the visibility of your repository to `Public` so you can easily request help if you get stuck.
 
-1. Create a new repository by clicking the green `Use this template` button at the top of this page, then clone the new repo you just created and `cd` into it. Alternatively you can use the [GitHub CLI](https://cli.github.com/) ...
+1. Create a new repository by clicking the green `Use this template` button at the top of this page, then clone the new repo you just created and `cd` into it. Alternatively you can use the [GitHub CLI](https://cli.github.com/):
 
     ```sh
     export REPONAME="home-ops"
@@ -102,38 +115,38 @@ This approach is ideal for Proxmox environments and eliminates the need for manu
 
    📍 _**Having trouble compiling Python?** Try running `mise settings python.compile=0` and then run these commands again_
 
-5. Logout of the GitHub Container Registry as this may cause authorization problems in future steps when using the public registry:
+5. Logout of the GitHub Container Registry as this may cause authorization problems in future steps:
 
     ```sh
     docker logout ghcr.io
     helm registry logout ghcr.io
     ```
 
-### Stage 4: Cloudflare configuration
+### Stage 4: Cloudflare & Doppler Configuration
 
 > [!WARNING]
 > If any of the commands fail with `command not found` or `unknown command` it means `mise` is either not installed, activated or it could be configured incorrectly.
 
-1. Create a Cloudflare API token for use with external-dns by reviewing the official [documentation](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/) and following the instructions below.
+1. Create a Cloudflare API token by reviewing the official [documentation](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/):
 
-   - Click the blue `Use template` button for the `Edit zone DNS` template.
+   - Click the blue `Use template` button for the `Edit zone DNS` template
    - Name your token `kubernetes`
-   - Under `Permissions`, click `+ Add More` and add permissions `Zone - DNS - Edit` and `Account - Cloudflare Tunnel - Read/Write`
-   - Limit the permissions to a specific account and/or zone resources and then click `Continue to Summary` and then `Create Token`.
-   - **Save this token somewhere safe**, you will need it later on.
+   - Add permissions: `Zone - DNS - Edit` and `Account - Cloudflare Tunnel - Read/Write`
+   - Limit to your account/zone and create the token
+   - **Save this token somewhere safe**
 
 2. Setup Doppler project:
    - Create a Doppler project named `home-argo-cluster-2025`
-   - Add the following secrets:
+   - Add these secrets:
      - `CF_API_TOKEN` - Cloudflare API token
      - `CF_ACCOUNT_ID` - Cloudflare account ID
      - `CF_ZONE_ID` - Zone ID for your domain
-     - `DOPPLER_TOKEN` - Doppler service token (create in Doppler dashboard → Project → Service Tokens)
+     - `DOPPLER_TOKEN` - Doppler service token (Project → Service Tokens)
 
-3. The Cloudflare Tunnel is managed via Terraform in this repo. The Terraform code will:
-   - Read the existing `kubernetes` tunnel from Cloudflare
-   - Save credentials to `cloudflare-tunnel.json`
-   - Sync tunnel credentials to Doppler (`TUNNEL_CREDENTIALS`, `TUNNEL_ID`)
+3. Terraform manages the Cloudflare Tunnel:
+   - Reads the existing `kubernetes` tunnel from Cloudflare
+   - Saves credentials to `cloudflare-tunnel.json`
+   - Syncs to Doppler (`TUNNEL_CREDENTIALS`, `TUNNEL_ID`, `TUNNEL_TOKEN`)
 
 ### Stage 5: Cluster configuration
 
@@ -181,10 +194,14 @@ This approach is ideal for Proxmox environments and eliminates the need for manu
     task bootstrap:talos
     ```
 
-   > [!NOTE]
-   > This is idempotent, you can re-run it safely if interrupted or if errors occur during bootstrap.
+    > [!NOTE]
+    > This is idempotent, you can re-run it safely if interrupted or if errors occur during bootstrap.
 
-    Verify the cluster is ready before proceeding:
+    > [!IMPORTANT]
+    > After Talos bootstrap completes, **remove the Talos ISO** from each VM to prevent the VM from booting from the ISO on future reboots:
+    > - Proxmox: Select VM → Hardware → CD/DVD → Remove
+
+   Verify the cluster is ready before proceeding:
 
     ```sh
     # Check all nodes are available and ready

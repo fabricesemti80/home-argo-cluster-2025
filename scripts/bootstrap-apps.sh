@@ -115,6 +115,33 @@ function apply_crds() {
     log info "CRDs applied successfully"
 }
 
+# Clean up stuck helm releases
+function cleanup_stuck_releases() {
+    log debug "Cleaning up stuck helm releases"
+
+    local stuck_releases
+    stuck_releases=$(helm ls -A --pending 2>/dev/null | tail -n +1 || true)
+
+    if [[ -z "${stuck_releases}" ]]; then
+        log info "No stuck helm releases found"
+        return
+    fi
+
+    log warn "Found stuck helm releases, cleaning up..."
+
+    while IFS= read -r line; do
+        if [[ -z "${line}" ]] || [[ "${line}" == "NAME" ]]; then
+            continue
+        fi
+        release=$(echo "${line}" | awk '{print $1}')
+        namespace=$(echo "${line}" | awk '{print $2}')
+        log info "Removing stuck release" "release=${release}" "namespace=${namespace}"
+        helm uninstall "${release}" -n "${namespace}" &>/dev/null || true
+    done <<< "${stuck_releases}"
+
+    log info "Stuck helm releases cleaned up"
+}
+
 # Sync Helm releases
 function sync_helm_releases() {
     log debug "Syncing Helm releases"
@@ -172,6 +199,7 @@ function main() {
     apply_namespaces
     apply_sops_secrets
     apply_crds
+    cleanup_stuck_releases
     sync_helm_releases
     sync_argo_apps
 
