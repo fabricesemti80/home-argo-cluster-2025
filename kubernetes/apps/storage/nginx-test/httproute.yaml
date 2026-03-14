@@ -15,10 +15,8 @@ spec:
   rules:
     - matches:
         - path:
-            type: Prefix
+            type: PathPrefix
             value: /
       backendRefs:
         - name: nginx-test-service
           port: 80
-          kind: Service
-          group: ""
