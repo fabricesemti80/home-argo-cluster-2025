@@ -8,6 +8,8 @@ spec:
   parentRefs:
     - name: envoy-internal
       namespace: envoy-gateway
+    - name: envoy-external
+      namespace: envoy-gateway
   hostnames:
     - "nginx-test.krapulax.dev"
   rules:
