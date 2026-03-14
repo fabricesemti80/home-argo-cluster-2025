@@ -121,7 +121,7 @@ resource "proxmox_virtual_environment_vm" "talos_node" {
   }
 
   lifecycle {
-    ignore_changes = [disk[0].file_id]
+    ignore_changes = [disk[0].file_id, cdrom[0].file_id]
   }
 
   depends_on = [proxmox_virtual_environment_download_file.talos_iso]

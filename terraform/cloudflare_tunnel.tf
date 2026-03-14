@@ -9,6 +9,7 @@ variable "cf_account_id" {
   type        = string
 }
 
+
 variable "tunnel_name" {
   description = "Cloudflare tunnel name"
   type        = string
@@ -34,6 +35,17 @@ provider "cloudflare" {
 
 provider "doppler" {
   doppler_token = var.doppler_token
+}
+
+# Fetch Cloudflare configuration from Doppler
+data "doppler_secrets" "cloudflare" {
+  count   = var.doppler_token != "" ? 1 : 0
+  config  = "dev"
+  project = "home-argo-cluster-2025"
+}
+
+locals {
+  cf_zone_id = var.doppler_token != "" ? data.doppler_secrets.cloudflare[0].map.CF_ZONE_ID : ""
 }
 
 # Tunnel Secret - use provided secret or generate new one
@@ -104,4 +116,29 @@ output "tunnel_id" {
 
 output "account_tag" {
   value = local.account_tag
+}
+
+# DNS Records - Tunnel CNAMEs
+# Tunnel ingress rules are managed via the cloudflared ConfigMap in Kubernetes
+# (kubernetes/apps/network/cloudflare-tunnel/config/config.sops.yaml)
+resource "cloudflare_record" "tunnel_wildcard" {
+  count   = var.doppler_token != "" ? 1 : 0
+  zone_id = local.cf_zone_id
+  name    = "*"
+  type    = "CNAME"
+  content = "${cloudflare_tunnel.tunnel.id}.cfargotunnel.com"
+  proxied = true
+  ttl     = 1
+  comment = "Wildcard Tunnel (Managed by Terraform)"
+}
+
+resource "cloudflare_record" "tunnel_root" {
+  count   = var.doppler_token != "" ? 1 : 0
+  zone_id = local.cf_zone_id
+  name    = "@"
+  type    = "CNAME"
+  content = "${cloudflare_tunnel.tunnel.id}.cfargotunnel.com"
+  proxied = true
+  ttl     = 1
+  comment = "Root Tunnel (Managed by Terraform)"
 }
