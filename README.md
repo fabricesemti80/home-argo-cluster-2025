@@ -335,6 +335,12 @@ See the [Terraform README](./terraform/README.md) for detailed setup instruction
    > [!NOTE]
    > `task reconcile` requires the `argocd` CLI to be logged in first. If you see `Argo CD server address unspecified`, run the `argocd login` command above.
 
+   📍 _If the app-of-apps bootstrap resources are missing (e.g. cert-manager or other apps not showing in Argo), you can re-apply them independently:_
+
+    ```sh
+    task sync-argo-bootstrap
+    ```
+
 3. Check TCP connectivity to both the internal and external gateways:
 
    📍 _The variables are only placeholders, replace them with your actual values_

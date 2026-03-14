@@ -27,8 +27,22 @@ tasks:
 
   default: task --list
 
+  sync-argo-bootstrap:
+    desc: Apply the Argo CD app-of-apps bootstrap resources (apps, repositories, settings)
+    cmds:
+      - kubectl --namespace argo-system apply --server-side --filename {{.ROOT_DIR}}/kubernetes/components/common/settings.yaml
+      - kubectl --namespace argo-system apply --server-side --filename {{.ROOT_DIR}}/kubernetes/components/common/repositories.yaml
+      - kubectl --namespace argo-system apply --server-side --filename {{.ROOT_DIR}}/kubernetes/components/common/apps.yaml
+    preconditions:
+      - test -f {{.KUBECONFIG}}
+      - test -f {{.ROOT_DIR}}/kubernetes/components/common/apps.yaml
+      - test -f {{.ROOT_DIR}}/kubernetes/components/common/repositories.yaml
+      - test -f {{.ROOT_DIR}}/kubernetes/components/common/settings.yaml
+      - which kubectl
+
   reconcile:
     desc: Force Argo to pull in changes from your Git repository
+    deps: [sync-argo-bootstrap]
     cmd: argocd app list --project kubernetes -o name | xargs -I {} argocd app wait {} --sync --timeout 300
     preconditions:
       - test -f {{.KUBECONFIG}}
