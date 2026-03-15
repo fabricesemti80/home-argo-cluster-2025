@@ -19,7 +19,7 @@ spec:
       helm:
         releaseName: envoy-gateway
         valueFiles:
-          - https://raw.githubusercontent.com/fabricesemti80/home-argo-cluster-2025/main/kubernetes/apps/network/envoy-gateway/values.yaml
+          - $repo/kubernetes/apps/network/envoy-gateway/values.yaml
   destination:
     name: in-cluster
     namespace: network
