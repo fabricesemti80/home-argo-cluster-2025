@@ -9,22 +9,20 @@ metadata:
 spec:
   project: kubernetes
   sources:
+    - repoURL: "https://github.com/fabricesemti80/home-argo-cluster-2025.git"
+      path: kubernetes/apps/network/envoy-gateway
+      targetRevision: main
+      ref: repo
     - repoURL: docker.io/envoyproxy
       chart: gateway-helm
       targetRevision: v1.7.0
       helm:
         releaseName: envoy-gateway
+        valueFiles:
+          - https://raw.githubusercontent.com/fabricesemti80/home-argo-cluster-2025/main/kubernetes/apps/network/envoy-gateway/values.yaml
   destination:
     name: in-cluster
     namespace: network
-  ignoreDifferences:
-    - group: apiextensions.k8s.io
-      kind: CustomResourceDefinition
-      name: grpcroutes.gateway.networking.k8s.io
-      jqPathExpressions:
-        - .spec.versions
-        - .status.storedVersions
-        - .metadata.annotations
   syncPolicy:
     automated:
       allowEmpty: true

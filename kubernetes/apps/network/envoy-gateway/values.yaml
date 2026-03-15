@@ -1,0 +1,4 @@
+---
+# Disable CRD installation - managed separately to avoid version conflicts
+crds:
+  enabled: false

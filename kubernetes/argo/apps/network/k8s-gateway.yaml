@@ -19,14 +19,6 @@ spec:
   destination:
     name: in-cluster
     namespace: network
-  ignoreDifferences:
-    - group: apiextensions.k8s.io
-      kind: CustomResourceDefinition
-      name: grpcroutes.gateway.networking.k8s.io
-      jqPathExpressions:
-        - .spec.versions
-        - .status.storedVersions
-        - .metadata.annotations
   syncPolicy:
     automated:
       allowEmpty: true
