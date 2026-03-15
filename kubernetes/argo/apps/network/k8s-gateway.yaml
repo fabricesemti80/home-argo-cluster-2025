@@ -10,9 +10,6 @@ spec:
   project: kubernetes
   sources:
     - repoURL: "https://github.com/fabricesemti80/home-argo-cluster-2025.git"
-      path: kubernetes/apps/network/k8s-gateway/config
-      targetRevision: main
-    - repoURL: "https://github.com/fabricesemti80/home-argo-cluster-2025.git"
       path: kubernetes/apps/network/k8s-gateway
       targetRevision: main
       ref: repo
@@ -26,6 +23,10 @@ spec:
   destination:
     name: in-cluster
     namespace: network
+  ignoreDifferences:
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      name: grpcroutes.gateway.networking.k8s.io
   syncPolicy:
     automated:
       allowEmpty: true
