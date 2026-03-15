@@ -9,17 +9,13 @@ metadata:
 spec:
   project: kubernetes
   sources:
-    - repoURL: "https://github.com/fabricesemti80/home-argo-cluster-2025.git"
-      path: kubernetes/apps/network/k8s-gateway
-      targetRevision: main
-      ref: repo
     - repoURL: https://ori-edge.github.io/k8s_gateway
       chart: k8s-gateway
       targetRevision: 2.4.0
       helm:
         releaseName: k8s-gateway
         valueFiles:
-          - $repo/kubernetes/apps/network/k8s-gateway/values.sops.yaml
+          - https://raw.githubusercontent.com/fabricesemti80/home-argo-cluster-2025/main/kubernetes/apps/network/k8s-gateway/values.sops.yaml
   destination:
     name: in-cluster
     namespace: network

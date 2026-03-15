@@ -1,7 +1,0 @@
----
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
-# k8s-gateway is deployed via Helm chart only
-# GRPCRoute CRD is managed separately
-buildMetadata: [originAnnotations]
