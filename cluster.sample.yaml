@@ -1,6 +1,6 @@
 ---
 # -- The network CIDR for the nodes.
-# (REQUIRED) / (e.g. 192.168.1.0/24)
+# (REQUIRED) / (e.g. "10.0.40.0/24")
 node_cidr: ""
 
 # -- DNS servers to use for the cluster.
@@ -84,5 +84,13 @@ cloudflare_gateway_addr: ""
 # cilium_bgp_node_asn: ""
 
 # -- Argo CD Admin password to login
-#    (REQUIRED) / (NOTE: `htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/' ; echo`)
+#    (REQUIRED) / (NOTE: Generate with `htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/' ; echo`)
 argo_password: ""
+
+# -- Ceph storage network configuration (secondary NIC, for storage traffic separation).
+#    Each node gets an IP in this range derived from the last octet of its primary address
+#    (e.g. 10.0.40.90 → 10.0.70.90). Mirrors the Terraform ceph_network variable.
+#    (OPTIONAL) / Remove or comment out this block to disable the secondary interface.
+# ceph_network:
+#   vlan_id: 70          # (REQUIRED if ceph_network enabled) / VLAN ID for the storage network (1-4094)
+#   cidr: "10.0.70.0/24" # (REQUIRED if ceph_network enabled) / CIDR for the storage network
