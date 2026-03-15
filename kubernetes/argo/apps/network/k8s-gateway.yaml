@@ -10,6 +10,9 @@ spec:
   project: kubernetes
   sources:
     - repoURL: "https://github.com/fabricesemti80/home-argo-cluster-2025.git"
+      path: kubernetes/apps/network/k8s-gateway/config
+      targetRevision: main
+    - repoURL: "https://github.com/fabricesemti80/home-argo-cluster-2025.git"
       path: kubernetes/apps/network/k8s-gateway
       targetRevision: main
       ref: repo

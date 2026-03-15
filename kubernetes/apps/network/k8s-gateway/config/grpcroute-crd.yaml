@@ -1,0 +1,129 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: grpcroutes.gateway.networking.k8s.io
+spec:
+  group: gateway.networking.k8s.io
+  names:
+    kind: GRPCRoute
+    listKind: GRPCRouteList
+    plural: grpcroutes
+    shortNames:
+    - grpcroute
+    singular: grpcroute
+  scope: Namespaced
+  versions:
+  - name: v1alpha2
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        description: "GRPCRoute provides a way to route gRPC requests."
+        type: object
+        required:
+        - spec
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: "Spec defines the desired state of GRPCRoute."
+            type: object
+            required:
+            - parentRefs
+            properties:
+              hostnames:
+                description: "Hostnames define the host headers that match this GRPCRoute."
+                type: array
+                items:
+                  type: string
+              parentRefs:
+                description: "ParentRefs references the resources this route wants to be attached to."
+                type: array
+                items:
+                  type: object
+                  required:
+                  - name
+                  properties:
+                    group:
+                      type: string
+                    kind:
+                      type: string
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+                    sectionName:
+                      type: string
+                    port:
+                      type: integer
+              rules:
+                description: "Rules define how requests are routed."
+                type: array
+                items:
+                  type: object
+                  properties:
+                    backendRefs:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          group:
+                            type: string
+                          kind:
+                            type: string
+                          name:
+                            type: string
+                          namespace:
+                            type: string
+                          port:
+                            type: integer
+                          weight:
+                            type: integer
+                    matches:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          method:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+                              service:
+                                type: string
+                              method:
+                                type: string
+          status:
+            type: object
+            properties:
+              parents:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    parentRef:
+                      type: object
+                    controllerName:
+                      type: string
+                    conditions:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                          status:
+                            type: string
+                          reason:
+                            type: string
+                          message:
+                            type: string
+                          observedGeneration:
+                            type: integer
+                          lastTransitionTime:
+                            type: string
