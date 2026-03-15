@@ -1,0 +1,19 @@
+grafana:
+  adminUser: admin
+  adminPassword: my-grafana-pa55w0rd
+sops:
+  age:
+    - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBXajFjRVFhcTd5cmh5eGdp
+        RXRkVFQ4cmUzYkZraWt5cXlUZDZkOVlEVEhJClBZNjhQVC9ZMXhLVmVGV3hFRHZo
+        ZGt4M0FZdUEvTDk2cTRzNk9ZUlNpRVEKLS0tIEIzdWFZWENnYnI1TWM4alJIdCtN
+        ZjhFTXRMZDBpM3ZTYTgxTnZqWE13ZnMKQyYrc5IV1qtCVc8jTRto8VbZj0TxSXhi
+        DTkbmafmbjnR/ri8AnHtUxra5zVN+tl2jvw/jvv1nT/DGyDScNthzQ==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2026-03-15T19:34:55Z"
+  mac: ENC[AES256_GCM,data:1aeXN3lMmJPHUcgcxyjbFn0qgb0iQZhdRiJnaAMSli/IObO7/zfSXJp0lVKhQyumWUGULk0VwflSdG9OO9YjdB175QKMrabM08mHsR1+19yOwtoSknDm4LHDMIqP98xkInENn0fml32BILsOGdCRMwlJsg3sWk0TFrmEaAGQ98o=,iv:k3cIJGAvUEjfvEDjZWSwUHvVHGYzBNlCNyWbez0yN+U=,tag:f4ST5i2rbs8/+i3yBsB2Nw==,type:str]
+  encrypted_regex: ^(data|stringData)$
+  mac_only_encrypted: true
+  version: 3.12.1

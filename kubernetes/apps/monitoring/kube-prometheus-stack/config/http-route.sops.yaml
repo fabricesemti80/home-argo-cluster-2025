@@ -1,0 +1,30 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: grafana
+spec:
+  parentRefs:
+    - name: envoy-internal
+      namespace: network
+  hostnames:
+    - grafana.krapulax.dev
+  rules:
+    - backendRefs:
+        - name: kube-prometheus-stack-grafana
+          port: 80
+sops:
+  age:
+    - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSByMWJlVTN5aFNZU1JwQ2lB
+        b0RBazgxeFRwcG9MUlJETmxlUzE5dllJSWtBCmpXZ0pTODJGYzNSYmNyVERQSDd5
+        ejVZVUpmdForL0FsWUJMUzEvc2hjNkkKLS0tIHFoMEVZYlRmZ2NpWjdHYjNaODZD
+        a0VMTjl6bks5VmdWZFhlanhDVnlRY1EKF4u9ncahPrpvEkt2L4uoPGC1a6OdALP3
+        P3WuC5nu96Vc2CoJuR/6gTTxqQh+R3pm19yBrMEEHL5W9vv4u8c8EQ==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2026-03-15T19:34:55Z"
+  mac: ENC[AES256_GCM,data:pgEjWxNHTQaX8fwLyujyw22dsO6+htXIWvE8u5RJcB16aiRCLcU0Cma5XZjbqLCbQpTb5xzvBLHSnHmAXvlJQr+6A14LYQROvYNObckaJH5tYqbaQEXSLYWHVlErDbteWOiD7GmaH144ayQLuLFXK9kvWl7sO6HQt44M5TEO0BQ=,iv:QhUw2pbviuI9KkxEB75FuRTETboZPR2qCh/E6MU6ebw=,tag:aa9VXXaUWsb3fu7kZu1Ncg==,type:str]
+  encrypted_regex: ^(data|stringData)$
+  mac_only_encrypted: true
+  version: 3.12.1

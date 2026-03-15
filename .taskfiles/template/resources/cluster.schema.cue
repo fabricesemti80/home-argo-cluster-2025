@@ -27,6 +27,8 @@ import (
 	cilium_bgp_node_asn?: string & !=""
 	cilium_loadbalancer_mode?: *"dsr" | "snat"
 	argo_password: string
+	grafana_admin_user: string & !=""
+	grafana_admin_password: string & !=""
 	ceph_network?: {
 		vlan_id: int & >0 & <=4094
 		cidr:    net.IPCIDR

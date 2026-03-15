@@ -87,6 +87,14 @@ cloudflare_gateway_addr: ""
 #    (REQUIRED) / (NOTE: Generate with `htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/' ; echo`)
 argo_password: ""
 
+# -- Grafana admin username for the kube-prometheus-stack dashboard
+#    (REQUIRED) / (e.g. "admin")
+grafana_admin_user: ""
+
+# -- Grafana admin password for the kube-prometheus-stack dashboard
+#    (REQUIRED) / (e.g. "my-grafana-password")
+grafana_admin_password: ""
+
 # -- Ceph storage network configuration (secondary NIC, for storage traffic separation).
 #    Each node gets an IP in this range derived from the last octet of its primary address
 #    (e.g. 10.0.40.90 → 10.0.70.90). Mirrors the Terraform ceph_network variable.
