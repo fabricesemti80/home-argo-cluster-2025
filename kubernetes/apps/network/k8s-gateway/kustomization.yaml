@@ -1,0 +1,5 @@
+---
+# Minimal kustomization for valueFiles reference
+# GRPCRoute CRD is managed separately
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
