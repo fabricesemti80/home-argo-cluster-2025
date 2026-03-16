@@ -27,6 +27,7 @@ import (
 	cilium_bgp_node_asn?: string & !=""
 	cilium_loadbalancer_mode?: *"dsr" | "snat"
 	argo_password: string
+	doppler_service_token: string
 	grafana_admin_user: string & !=""
 	grafana_admin_password: string & !=""
 	ceph_network?: {

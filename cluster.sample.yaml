@@ -87,6 +87,11 @@ cloudflare_gateway_addr: ""
 #    (REQUIRED) / (NOTE: Generate with `htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/' ; echo`)
 argo_password: ""
 
+# -- Doppler service token for the Doppler Kubernetes Operator
+#    (REQUIRED) / (NOTE: Generate at https://dashboard.doppler.com → Project → Access → Service Tokens)
+#    (REF: https://docs.doppler.com/docs/kubernetes-operator)
+doppler_service_token: ""
+
 # -- Grafana admin username for the kube-prometheus-stack dashboard
 #    (REQUIRED) / (e.g. "admin")
 grafana_admin_user: ""
