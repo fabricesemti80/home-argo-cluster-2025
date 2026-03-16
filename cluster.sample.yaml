@@ -87,6 +87,14 @@ cloudflare_gateway_addr: ""
 #    (REQUIRED) / (NOTE: Generate with `htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/' ; echo`)
 argo_password: ""
 
+# -- Docker Hub username for authenticated image pulls (avoids rate limits)
+#    (OPTIONAL) / (NOTE: Create an access token at https://hub.docker.com/settings/security)
+# dockerhub_username: ""
+
+# -- Docker Hub access token (NOT your password — use a Personal Access Token)
+#    (OPTIONAL) / (NOTE: Free tier gets 200 pulls/6h vs 100 anonymous)
+# dockerhub_token: ""
+
 # -- Doppler service token for the Doppler Kubernetes Operator
 #    (REQUIRED) / (NOTE: Generate at https://dashboard.doppler.com → Project → Access → Service Tokens)
 #    (REF: https://docs.doppler.com/docs/kubernetes-operator)

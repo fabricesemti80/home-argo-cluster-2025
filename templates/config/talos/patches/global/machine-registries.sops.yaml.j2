@@ -1,0 +1,9 @@
+#% if dockerhub_username and dockerhub_token %#
+machine:
+  registries:
+    config:
+      registry-1.docker.io:
+        auth:
+          username: "#{ dockerhub_username }#"
+          password: "#{ dockerhub_token }#"
+#% endif %#

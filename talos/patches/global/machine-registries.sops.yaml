@@ -1,0 +1,23 @@
+machine:
+  registries:
+    config:
+      registry-1.docker.io:
+        auth:
+          username: ENC[AES256_GCM,data:NPqzPy8F5g==,iv:8QQHz+fztKMIi4Wu2MsRfbNBiQCUYiJJ7FE3vrulcmA=,tag:X/ka5A1+yBDGBFSm37YL2Q==,type:str]
+          password: ENC[AES256_GCM,data:sz/8eaAzLaVTdshvDi7U2QSjvW4tzC4A8TMBpPqHbG7GElWE,iv:Ze3PrdV+sDYEIWsOVt9SEDspdD2Ys94DEFMmuRITXjk=,tag:3VAU5Sm1MKd1ihfoMW5mrQ==,type:str]
+sops:
+  age:
+    - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBZZUdkWndtNWZ6K3h3SnlH
+        MXFtOXYzZUh4eHN3YVJGbFZ6QldUVmJwb1FVCmJpNTFXbExtYll2Z2ZESHRLY0c0
+        MTJiTGt4b1JnSWlydXlTb3pRZWVJOUUKLS0tIHdrOVVaaVF1ZkFDWDBVMTFiZGZt
+        am9Jd1hXT3I4WWtyQU42UFpJTWZLT28KxhPxCGmqaBQpeV2s82cotXLOh5N+nqmR
+        ASMDvskymaxz+M0BBkVhSzL+/l0757tULsn7pkIQPMy5hJECN5/0RQ==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2026-03-16T20:06:36Z"
+  mac: ENC[AES256_GCM,data:9MWM6UX18xLTh6vX057YivkkmYxlZ2MyNJYkfOnuC1gJJ0oEIUdgzZ+AGUDI4nMP8OWeirSQLqaMAOlbf5XWhzFaFhCTNB6reRSZJmEmwyAhsy6+WDhDY6UdXehd2X+59SZ0nwQf/63kO3LrIZPE5pbiL0vYIJujPY0snJeceEw=,iv:Wn9GcEzeC+un3BLbpmRxsKjl+oFgT+Y+d/+KB9Od1tc=,tag:UJQP75HjeZG9CLojBdWc2Q==,type:str]
+  unencrypted_suffix: _unencrypted
+  mac_only_encrypted: true
+  version: 3.12.1
