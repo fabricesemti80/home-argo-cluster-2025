@@ -5,7 +5,7 @@ csiConfig:
       - 10.0.70.11:6789
       - 10.0.70.12:6789
     adminID: admin
-    adminKey: ENC[AES256_GCM,data:PZ9yuJcQZTcFkwSmOJBapmknFd/p2YPNrQn2Fwi31ns3XpM84zgnqg==,iv:JSvzK3u/ArcuFryu70xqWz9oJoQjKW70ctKNdO7Br5A=,tag:hL/sxs3GtV9FWpMKHDBrtA==,type:str]
+    adminKey: ENC[AES256_GCM,data:ZNGURZamMQDDrGjucn5fEUQivAQKZOS1SDljX+CphGZXI8s5AOEp/g==,iv:PW/4USOUqjBExM92rCI73KH3jMWBk83LdM5543+2kGs=,tag:jdbq9+Mr2AM2Rbbe2ReXwA==,type:str]
 cephFS:
   kernelMountOptions: ms_mode=prefercrc
 provisioner:
@@ -17,14 +17,14 @@ sops:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBMdVptYVhidHd4d1RYSGVB
-        cVk4SGtlWnM4RUUwM294ak9KZzY4OUxVRG5NCmxWaUFjdUt2MldkdUtMNU5zRDV3
-        Z09jS2FGMTIxWTZwSWJxL3djNU5xeTAKLS0tIFNvTU03ang4OGJwNlMvMkxYT3cv
-        OVVGbWtETVhkOHF1ZVVHWGtVNHlURW8KAJEIUoWtMqwY5+uOApa1Udx/zmOq+2g9
-        cLidcLkOpnE0bTJcNKtfJXp0NiX4oVKOkdCgdcBntTgD14a9ACs20w==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBxUG15eEYxM3VnWk5sQkxj
+        QlNBWXVaeUIxNCtzbWNkRFVhMmlQK1NzOFhrCmZlMldmZm1zTmRpUEF5Q0V5bnNM
+        NlZUZWovczdpVG1LQUJqUFNOZk1MZ28KLS0tIFFseWJuSlBTMlhSQjNGd3o0bDhY
+        cjBNU2tRczBZZjVDWEF3U0FrMWQ0cWsKcPKqiaCD+71SAfLrLWRATAjExroJ183w
+        TdDuv5Dx5TqoTYBz0dgguUEYHGRWWBhDW9BkWwTcYR1g/F9ockpZhw==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-16T20:06:36Z"
-  mac: ENC[AES256_GCM,data:+miiSXmWftMFkz0qEnJvZhryvWVv/VMTlxuOz9yYdEppjBvFUU7WRivmbHcFTlEjO9LuQxrZWs7CTpBPE2pWLIXMuNEwhYpGZiSTxjIaJtlDayagRpXG69SCMsOuSd6gL0AwGhUgP0+kv08TqY8P4sfh+FK5WHMsM4AZCwPgKoc=,iv:xPaNJ3iWBbLmsjjNI+74tHaIoUKeruNdBrwaFiGF+4M=,tag:yuAFiu/Re7sQt56EPdtByQ==,type:str]
+  lastmodified: "2026-03-17T07:48:13Z"
+  mac: ENC[AES256_GCM,data:YM86XjHEyZO4tk+HwZHU6mtEwH7Y7bscdU97OgKxAsyhd5aNZ6OiBzAZGof/rT4vRMx1zmz3MuA6up8FPFAaxg8KjrWJsFfZQ5KtPefGfbq/5hP8sDtS7tdXy9xHdOXNDUz2JamhtteNbgFPaHT0F5MRdIIlH6e2CaxvD8aG8Z0=,iv:ohOMLWvAr3Nl+k8omx55frzI/d/P2c/ZP2Fa0LE1yZM=,tag:/LPTgHC5nxeT+l8v19S/Wg==,type:str]
   encrypted_regex: ^(adminKey|userKey|.*Key)$
   mac_only_encrypted: true
   version: 3.12.1
