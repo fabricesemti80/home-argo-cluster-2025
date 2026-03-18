@@ -1,0 +1,30 @@
+---
+image:
+  repository: jellyfin/jellyfin
+  tag: "10.10.3"
+  pullPolicy: IfNotPresent
+
+service:
+  main:
+    type: ClusterIP
+    ports:
+      http:
+        port: 8096
+
+persistence:
+  # Application config/data - on Ceph for durability and snapshotting
+  config:
+    enabled: true
+    storageClass: cephfs
+    size: 10Gi
+    accessMode: ReadWriteOnce
+  # Media library - NFS mount, read-only to protect source files
+  media:
+    enabled: true
+    existingClaim: jellyfin-media
+    readOnly: false
+
+# Secrets from Doppler (JELLYFIN_USER, JELLYFIN_PASS, JELLYFIN_API)
+envFrom:
+  - secretRef:
+      name: jellyfin-secret
