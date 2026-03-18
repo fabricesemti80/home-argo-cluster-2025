@@ -28,3 +28,14 @@ persistence:
 envFrom:
   - secretRef:
       name: jellyfin-secret
+
+# Jellyfin is slow to start, especially on first boot
+livenessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  failureThreshold: 5
+
+readinessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  failureThreshold: 5
