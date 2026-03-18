@@ -1,0 +1,30 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: argo
+spec:
+  parentRefs:
+    - name: envoy-external
+      namespace: network
+  hostnames:
+    - argo.krapulax.dev
+  rules:
+    - backendRefs:
+        - name: argocd-server
+          port: 80
+sops:
+  age:
+    - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBvaGIzR084cjdjblMwNTRy
+        dVgwVEZ0MHhLNjN3cnRUSm1PMjM0ekNBZ21FClZ2SGtaMWlPOUMrajcyZEhxeDU3
+        dy9hL0NrZnRjcUwxZ1R0a2FRaFh5cGcKLS0tIHFjblJ2OUVmT0hUY1RsbllYL3dW
+        UVNiempDUVh6akp1ZFNjbDIzYlZBV1kKXl0p2vnvG+vB+E784bLLjono2969QxL8
+        Duz01QGZzFr+p6qqLF/vvgJ4SiqnvO/flS1NKlwT1sihqhOMCIFrfQ==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2026-03-18T19:57:36Z"
+  mac: ENC[AES256_GCM,data:M0MvNdL2Ye38O6Te1BiIfv90PdLCkrlApEMDCnfuap2eYmqR0LuI/rpzvWpN9cbaUNyh0Pw45dERdIlfNoa6yv2XoxjW0l1Q4BxFjN8aPUe3gqdXSpULS9g+K4Ad/TsuNuLUZpdApyQRLBaiWcJpO1hI3RW2tX7/J2bTd9/D96w=,iv:oqkns+re8diLrGIQ+w6ZIe0Ka34ULqUg3d3fg0q5PS8=,tag:ULq7C4ba0wn2jm6lKaS6HQ==,type:str]
+  encrypted_regex: ^(data|stringData)$
+  mac_only_encrypted: true
+  version: 3.12.1
