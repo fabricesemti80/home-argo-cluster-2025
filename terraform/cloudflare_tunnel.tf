@@ -122,6 +122,43 @@ output "account_tag" {
   value = local.account_tag
 }
 
+# Cloudflare Access Applications
+# These bypass Cloudflare Zero Trust for apps that have their own authentication.
+
+# ArgoCD webhook - bypass so GitHub can POST without auth
+resource "cloudflare_zero_trust_access_policy" "argo_webhook_bypass" {
+  account_id       = var.cf_account_id
+  name             = "Argo Webhook Bypass"
+  decision         = "bypass"
+  session_duration = "30m"
+
+  include {
+    everyone = true
+  }
+}
+
+resource "cloudflare_zero_trust_access_application" "argo_webhook" {
+  account_id             = var.cf_account_id
+  name                   = "Argo Webhook"
+  domain                 = "argo.krapulax.dev/api/webhook"
+  type                   = "self_hosted"
+  session_duration       = "30m"
+  skip_interstitial      = true
+  auto_redirect_to_identity = false
+  policies               = [cloudflare_zero_trust_access_policy.argo_webhook_bypass.id]
+}
+
+# Jellyfin - bypass so clients/apps can connect without Cloudflare auth interception
+resource "cloudflare_zero_trust_access_application" "jellyfin" {
+  account_id             = var.cf_account_id
+  name                   = "Jellyfin"
+  domain                 = "jellyfin.krapulax.dev"
+  type                   = "self_hosted"
+  session_duration       = "720h"
+  auto_redirect_to_identity = false
+  policies               = [cloudflare_zero_trust_access_policy.argo_webhook_bypass.id]
+}
+
 # DNS Records
 # Note: DNS for krapulax.dev (echo, argo, external) is managed by external-dns in-cluster
 # via the DNSEndpoint CRD and HTTPRoute annotations.
