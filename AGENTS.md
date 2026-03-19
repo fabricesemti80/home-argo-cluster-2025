@@ -349,6 +349,7 @@ This project has no traditional unit tests. Validation is done via:
 - `kubeconfig`, `age.key`, `cloudflare-tunnel.json`, `github-deploy.key` are gitignored
 - Use `task reconcile` after pushing changes to force Argo sync
 - When significant changes are made to the cluster or infrastructure, document them in `docs/`
+- **Templates are the source of truth**: Any change to a generated file under `kubernetes/` MUST also be applied to its corresponding template under `templates/`. Generated files are overwritten by `task configure` — template-only fixes are permanent, file-only fixes are not.
 
 ## Troubleshooting
 
