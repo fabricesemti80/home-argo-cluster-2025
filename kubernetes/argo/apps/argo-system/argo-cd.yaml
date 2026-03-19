@@ -6,8 +6,6 @@ metadata:
   namespace: argo-system
   annotations:
     argocd.argoproj.io/sync-wave: '0'
-  labels:
-    argocd.argoproj.io/instance: argo
 spec:
   project: kubernetes
   sources:
