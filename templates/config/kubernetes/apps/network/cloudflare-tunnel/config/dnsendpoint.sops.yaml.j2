@@ -11,6 +11,3 @@ spec:
     - dnsName: "nginx-test.#{ cloudflare_domain }#"
       recordType: CNAME
       targets: ["#{ cloudflare_tunnel_id() }#.cfargotunnel.com"]
-    - dnsName: "grafana.#{ cloudflare_domain }#"
-      recordType: CNAME
-      targets: ["external.#{ cloudflare_domain }#"]
