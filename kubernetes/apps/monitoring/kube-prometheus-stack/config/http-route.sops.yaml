@@ -11,20 +11,21 @@ spec:
   rules:
     - backendRefs:
         - name: kube-prometheus-stack-grafana
+          namespace: monitoring
           port: 80
 sops:
   age:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA3Z2NxWkxYYUNTMW9JNmJy
-        RHVSNUFCZVkxOWJ3VFhpM2pieGlteFVYZVZ3CjZ5U09vYThvUlg4bEI5MHhZcGNa
-        b3dwT0ZaMXJ0cDQxK1NDNVhmWVIya2cKLS0tIDJLR2M1N1VoQUFqbVVVVDBITEtE
-        TCtqc2ovVlN6TnZORE1aR2x3eWJ5bUEKZjnoS7Oi2pMJYioW8chCXZ7mTFtKq/u6
-        i9/WN8jnVao1KLYPaJuXjZpEFG7ZT8+jhoRhAlQFC4oNuKKmuln65Q==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBxb1JYSmJEYkNUSDlVNmJs
+        UjlkSFgraDJzWmFtVnBWTEN5cnZIdlFiR1hNCnVJNUp3Mnl6T3AxTEloc296L3I2
+        dDRaUFc0RTYxamU5NlQrbFBjckZTRXMKLS0tIEhmVk55aTRRMVEzVXNUajQxNEJl
+        N0Exai9jcVZya1Z1WGpIQlFTT1pPOVUK/POJgEUZarbpW+ZQbKKOZ/+V+s0RlvuI
+        G/8XLENXLInb/xmpB59KKqcfHZfN80xqE0hIEaoWUsG/Jta7lQ1kXA==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-18T19:57:36Z"
-  mac: ENC[AES256_GCM,data:XleOvPxXQ1L6M9glwO/0T96oEtzeC9rBE9aFIuVhaSLX+icxoMCCsPbuq5IzHViG+0203SQJgGPuQXjlMuyw3Nvg2Byv9GB1vVlTPsKqTco8hx+Rekt6cI2bLIP5PCyADe8OD1NJUfN+I10ply7v8/RmeqHPRNI+1IZflWk6+Pc=,iv:r5uXxf6u0wfNp7XDQfpe1FgzSrmpU6o6p8HTlEe3q0c=,tag:c9Kb/jPlUqjtgIWPd9t5LQ==,type:str]
+  lastmodified: "2026-03-19T09:48:31Z"
+  mac: ENC[AES256_GCM,data:7XL/9B5yVcYEM0NcC5vk7W1I/xGKUmL5TBf2NKIGgyKaKuvJ+DUo83+6luoMD6JwL0682ZvcRnNt32tLykfbPrQsaHW/8IHAkTfvvH3+kHmP/KZZS+WBOwuj4S4FDww98FTsmX02m1pWBPozZxu/UqBqaMv+owWncxWpoDnxbk0=,iv:D/3TkOm0szEL2zTDYSY9yXziaM+Ay68mh+tqFZlTTgE=,tag:Glsb0Hcyg52PgbklXX/0Hg==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1

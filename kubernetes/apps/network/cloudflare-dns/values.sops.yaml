@@ -7,10 +7,11 @@ env:
         name: cloudflare-dns-secret
         key: api-token
 extraArgs:
-   - --cloudflare-dns-records-per-page=1000
-   - --cloudflare-proxied
-   - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
-   - --crd-source-kind=DNSEndpoint
+  - --cloudflare-dns-records-per-page=1000
+  - --cloudflare-proxied
+  - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
+  - --crd-source-kind=DNSEndpoint
+  - --gateway-name=envoy-external
 triggerLoopOnEvent: true
 policy: sync
 sources:
@@ -29,14 +30,14 @@ sops:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBJM3dBRFFxZ3NzaysxWS9i
-        OHpkQkZBRUdBZDJydTM0bWZKNUVBVHplNVg4ClBFVmVXVTBSdnh1VGpBV1VYMnVZ
-        R29QVVJkc3A1bmEzaWdtQUdWdFAzQjQKLS0tIE9qcDZaOHFHN29lUzY4VFV5NWp2
-        dU9aNzIvTmp2anF6S0NHeGR0UHFxV1kKr2T+027IveT2QC8A/a65iof+upCoSJgT
-        D7eH12sKRJggdwyfcSk8PBaKrVdPKKDSccZGwV61bHnTt55uIDYlvg==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBYYWhjckd0UDJ6d0VUcDZp
+        VlUwUVBlZjBwbExQL0pOUGpjRUwyK0RpN2hRCmVTRklzNFMxTHVTNzUvVC9nVlpq
+        RjdlRWE4L2plTDdjK1d2aUlrb1BXOHcKLS0tIFVsUHRyd0ErODVqckcrV1NUZUlt
+        WEorYlZ6cmlQZ0h4aDBSdkoxK3JOc1EKKZpXXvBByiPKRoqW3KY8tWegq4v23mHe
+        YjaywKIa+RVXavQfPjrFjYs3+96sefq5fPC/W+sJAYlb+3ewU270eg==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-18T19:57:36Z"
-  mac: ENC[AES256_GCM,data:lPJ4w4JtW5BBzDFQY/uKEoGZH1rfsVCN/0s5hND1GjHRV8CJYuM6a90Ubg3KkaicxEP5TpZoo3Rn144fMXq+ib3ZQJAYcVPvb9r2rUkpcR4DJxhQSKqWC3EcSCl84a0XUMwbv6tQANpioUGtrqFa8d1B/cCAsGXs2KzUi65bk0c=,iv:rNhskC0nkI6Rs2v/Bwf0Vh831+iRcbsEDXVEfRmvyzY=,tag:Pd3ma1BxiilgMRcNbyD6Bg==,type:str]
+  lastmodified: "2026-03-19T09:48:31Z"
+  mac: ENC[AES256_GCM,data:mMQZv1zrWvLSMxJWmWnBTprz1x58RmOCxJgEt+QJ/PUo6eYToQbt4KKissf9ps+h921dIJELQZOiMdErxq1nYd0CqVMV4DAiLvc+Uu/xyDDRPyTIPMhiZZjfSGJkV+rIDyIxQayJa18Soo4H45OtfCzSJ+WG2OSSyKad7oc+r6U=,iv:cd4NUKmgS5sFBmh3LZXvkMv3iE7wEiuxsH5uTHxcljs=,tag:TrdZz3Bfs7eLY6v7E+5fqQ==,type:str]
   encrypted_regex: ^(data|stringData)$
   mac_only_encrypted: true
   version: 3.12.1

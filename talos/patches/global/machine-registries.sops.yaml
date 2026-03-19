@@ -3,21 +3,21 @@ machine:
     config:
       registry-1.docker.io:
         auth:
-          username: ENC[AES256_GCM,data:CW1++cQozA==,iv:5I7rk1kcUWAoNgMX1BZgTbGSVC21JFzjjyEMmboheIw=,tag:b6eWuQo8FM3W6gmEWEBNIw==,type:str]
-          password: ENC[AES256_GCM,data:VQ995ot2qvcRAGahzMmgERqhGB7U2pWji24/t1EEG1NejYPW,iv:hvgvBdyUevUFYmTTspoRfIWOltkF9Y9VNDPd0WlJdtA=,tag:6+CErIhI89c620mS9rRmnw==,type:str]
+          username: ENC[AES256_GCM,data:kqCClye/Nw==,iv:ypGezEHid4/8QZ5oOrpg57afVLyvw08m9KylEFnkI1U=,tag:THV/9O70yqLivwjJuhQ09Q==,type:str]
+          password: ENC[AES256_GCM,data:fU9g/bp9DHpYgQ0/2voS2ObdPZXtXscoG/aZWqwHWO91QUnF,iv:Wt5aqwT2sflLArooFPJ5CLsvtyZz2mGu1QDn60/XvHY=,tag:5RRMEHgcjTjZOJFwcVjvlg==,type:str]
 sops:
   age:
     - recipient: age1saea3t7l67lavg0ardepzys6egp50g82uvks98pk53xdlj57uf8sa2arcs
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBSQm5IelhoYUhNMGJHN3I3
-        V2I0WW4wZWNPRFVyOTNHZVFhZWdEZWFUd0VVCk9iOG5SV3FOVlloZWNXSUx2T0xH
-        L2h1NUpBelRxY0FVRWNacnUyME1TQVUKLS0tIEN4TmI1TVNBQWNqUDhUVWpGNUJO
-        VXR1cUEzaDJ5eFl5V2N4UHNaRENIZDAKoXru1McQW3eHEac0BlBneFD51x+ilqpB
-        i0KnP5UmnmhIG8ZjNnH1U4nb9gH7r7aEdTRJf/jkeZ7+4YXg3DWCDw==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBseERwNkl1Vk5pY21EdTJL
+        M2RrNWltRmtlTUE0SW5PNnlLYkc4YUhNeUhnClQyQlVhUmtpRGQvTFREMnQ1VUhF
+        Z0xXb1oxY0duK004WjJoNFNCbFYvL2MKLS0tIGxjdUJrR0xwZWlLcnJNdEg1M25z
+        cWQrV2haYTJ1TkwrL1dpdlVkOExsdDAK+5uc6a0gFagpxMB95v8WJq9Q75cGwdzE
+        bQoWfxm9tI30nBywpYDBuTb3IRwOAzk/R38MusDAXcZdynwSPFYHdQ==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2026-03-18T19:57:36Z"
-  mac: ENC[AES256_GCM,data:op2t2QnwHLmsfc7l1sop3h1uG/2tncbVJxldPC7MD2/6FxCUeJzhg6fnuAySFBjk1WfQT8IZGzxmbAGjlmuNvGvqUDXjWnbEhdEVuYNQfCSCjSn/8TgUbVT23N3x7/oTTge1dWO96v1JauO/ZWcfaxtC/GN4VUtDn6wiPDieBVE=,iv:27+C8bgNMv/oBD2ZlW7YnFz31rnYuh5NsE8aNAqZeRg=,tag:t6mMePqfm9cP8bvNIrkBrQ==,type:str]
+  lastmodified: "2026-03-19T09:48:31Z"
+  mac: ENC[AES256_GCM,data:b4S9/JCmiJMhfYkY8NtRKJgqikFXhk2Y0XkxYgyrUEyDzgsLiFkHxa/oXJsSfM/wINFqpRDElOcLg9AfPE5kwDeEj0C7w+os7C4kz3bzlZrThizUIm3VRkpYRONnEHvoJrvPDcn4ZHDqTkNtyLRZT9Wdfzn/U+Jp5lZ3Z+zGMd0=,iv:HhQB8Rp7++dddZmLCuE041G0e/LfRXJ6H9ie5VOescU=,tag:bM3sU+FGwb1lxvXh3XFzJw==,type:str]
   unencrypted_suffix: _unencrypted
   mac_only_encrypted: true
   version: 3.12.1
