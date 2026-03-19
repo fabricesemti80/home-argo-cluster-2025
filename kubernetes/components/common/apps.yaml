@@ -40,3 +40,4 @@ spec:
       jsonPointers:
         - /spec/syncPolicy
         - /status
+        - /metadata/labels
