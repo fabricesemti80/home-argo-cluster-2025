@@ -11,16 +11,6 @@ spec:
     - dnsName: "nginx-test.#{ cloudflare_domain }#"
       recordType: CNAME
       targets: ["#{ cloudflare_tunnel_id() }#.cfargotunnel.com"]
----
-apiVersion: externaldns.k8s.io/v1alpha1
-kind: DNSEndpoint
-metadata:
-  name: internal-gateway
-spec:
-  endpoints:
-    - dnsName: "internal.#{ cloudflare_domain }#"
-      recordType: A
-      targets: ["#{ cluster_gateway_addr }#"]
     - dnsName: "grafana.#{ cloudflare_domain }#"
       recordType: CNAME
-      targets: ["internal.#{ cloudflare_domain }#"]
+      targets: ["external.#{ cloudflare_domain }#"]
