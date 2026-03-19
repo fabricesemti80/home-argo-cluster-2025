@@ -6,7 +6,7 @@ crds:
 configs:
   params:
     server.insecure: true
-    controller.diff.server.side: true
+    controller.diff.server.side: false
   cm:
     statusbadge.enabled: true
     kustomize.buildOptions: "--enable-alpha-plugins --enable-exec"
