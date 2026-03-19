@@ -24,6 +24,12 @@ persistence:
     existingClaim: jellyfin-media
     readOnly: false
 
+# Run as root to ensure full NFS share access
+podSecurityContext:
+  runAsUser: 0
+  runAsGroup: 0
+  fsGroup: 0
+
 # Secrets from Doppler (JELLYFIN_USER, JELLYFIN_PASS, JELLYFIN_API)
 envFrom:
   - secretRef:
