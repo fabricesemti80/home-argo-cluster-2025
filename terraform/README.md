@@ -272,6 +272,31 @@ task tofu:apply
 | `TUNNEL_CREDENTIALS` | Full tunnel credentials JSON | JSON |
 | `TUNNEL_ID` | Tunnel UUID | String |
 
+## Management VM
+
+The root Terraform configuration now also defines a standalone management VM alongside the Talos cluster.
+
+### Current Defaults
+
+- Name: `deep-thought-01`
+- VM ID: `4100`
+- Proxmox node: `pve-2`
+- Template VM: `9008`
+- Static IP: `10.0.40.100/24`
+- User: `fs`
+- Authorized keys:
+  - `~/.ssh/id_macbook_fs.pub`
+  - `~/.ssh/fs_home_rsa.pub`
+
+### Outputs
+
+Use the following to inspect the planned or applied management VM metadata:
+
+```bash
+tofu output management_vm
+tofu output management_vm_authorized_key_paths
+```
+
 ## Multi-Host Distribution
 
 VMs are automatically distributed across Proxmox hosts by specifying different `proxmox_node` values in `nodes.auto.tfvars`:
@@ -373,10 +398,16 @@ If they don't match, update `talos_version` in `nodes.auto.tfvars` to match your
 
 ```
 terraform/
-├── main.tf                      # Root configuration (uses talos module)
-├── variables.tf                 # Root variable definitions
+├── main.tf                      # Minimal root entrypoint
+├── proxmox_talos.tf             # Talos root module + Proxmox provider
+├── cloudflare_tunnel.tf         # Existing cluster tunnel config
+├── management_vm.tf             # Standalone management VM
+├── talos_variables.tf           # Talos-related root variables
+├── management_variables.tf      # Management VM variables
 ├── versions.tf                  # OpenTofu and provider versions
-├── outputs.tf                   # Root output definitions
+├── talos_outputs.tf             # Talos-related outputs
+├── management_outputs.tf        # Management VM outputs
+├── outputs.tf                   # Minimal output entrypoint
 ├── proxmox.auto.tfvars          # Proxmox configuration
 ├── nodes.auto.tfvars            # Node definitions with static IPs
 ├── modules/

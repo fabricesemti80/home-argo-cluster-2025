@@ -138,25 +138,25 @@ resource "cloudflare_zero_trust_access_policy" "argo_webhook_bypass" {
 }
 
 resource "cloudflare_zero_trust_access_application" "argo_webhook" {
-  account_id             = var.cf_account_id
-  name                   = "Argo Webhook"
-  domain                 = "argo.krapulax.dev/api/webhook"
-  type                   = "self_hosted"
-  session_duration       = "30m"
-  skip_interstitial      = true
+  account_id                = var.cf_account_id
+  name                      = "Argo Webhook"
+  domain                    = "argo.krapulax.dev/api/webhook"
+  type                      = "self_hosted"
+  session_duration          = "30m"
+  skip_interstitial         = true
   auto_redirect_to_identity = false
-  policies               = [cloudflare_zero_trust_access_policy.argo_webhook_bypass.id]
+  policies                  = [cloudflare_zero_trust_access_policy.argo_webhook_bypass.id]
 }
 
 # Jellyfin - bypass so clients/apps can connect without Cloudflare auth interception
 resource "cloudflare_zero_trust_access_application" "jellyfin" {
-  account_id             = var.cf_account_id
-  name                   = "Jellyfin"
-  domain                 = "jellyfin.krapulax.dev"
-  type                   = "self_hosted"
-  session_duration       = "720h"
+  account_id                = var.cf_account_id
+  name                      = "Jellyfin"
+  domain                    = "jellyfin.krapulax.dev"
+  type                      = "self_hosted"
+  session_duration          = "720h"
   auto_redirect_to_identity = false
-  policies               = [cloudflare_zero_trust_access_policy.argo_webhook_bypass.id]
+  policies                  = [cloudflare_zero_trust_access_policy.argo_webhook_bypass.id]
 }
 
 # DNS Records

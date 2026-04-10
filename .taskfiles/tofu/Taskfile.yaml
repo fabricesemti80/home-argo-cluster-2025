@@ -59,3 +59,14 @@ tasks:
       - which tofu
       - which doppler
       - test -d {{.ROOT_DIR}}/terraform/.terraform
+
+  rolling-restart-cluster-vms:
+    desc: Reboot cluster VMs through Proxmox one at a time and wait for nodes to recover [PROXMOX_SSH_HOST=required]
+    dir: '{{.ROOT_DIR}}'
+    cmd: bash {{.ROOT_DIR}}/scripts/rolling-proxmox-restart.sh
+    requires:
+      vars: [PROXMOX_SSH_HOST]
+    preconditions:
+      - which kubectl
+      - which ssh
+      - test -f {{.ROOT_DIR}}/kubeconfig
