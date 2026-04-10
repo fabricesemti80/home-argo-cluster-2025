@@ -11,6 +11,14 @@ run = [
   "helm plugin list | grep -q 'diff' || helm plugin install https://github.com/databus23/helm-diff --verify=false"
 ]
 
+[tasks.mgmt-init]
+description = "Bootstrap the management host from inside the repo"
+run = "bash scripts/management-init.sh"
+
+[tasks.mgmt-bootstrap]
+description = "Bootstrap deep-thought-01 over SSH from this workstation"
+run = "bash scripts/bootstrap-management-vm.sh"
+
 [tools]
 "python" = "3.14.3" # required:template
 "uv" = "0.10.9" # required:template
