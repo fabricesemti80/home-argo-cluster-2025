@@ -148,17 +148,6 @@ resource "cloudflare_zero_trust_access_application" "argo_webhook" {
   policies                  = [cloudflare_zero_trust_access_policy.argo_webhook_bypass.id]
 }
 
-# Jellyfin - bypass so clients/apps can connect without Cloudflare auth interception
-resource "cloudflare_zero_trust_access_application" "jellyfin" {
-  account_id                = var.cf_account_id
-  name                      = "Jellyfin"
-  domain                    = "jellyfin.krapulax.dev"
-  type                      = "self_hosted"
-  session_duration          = "720h"
-  auto_redirect_to_identity = false
-  policies                  = [cloudflare_zero_trust_access_policy.argo_webhook_bypass.id]
-}
-
 # DNS Records
 # Note: DNS for krapulax.dev (echo, argo, external) is managed by external-dns in-cluster
 # via the DNSEndpoint CRD and HTTPRoute annotations.

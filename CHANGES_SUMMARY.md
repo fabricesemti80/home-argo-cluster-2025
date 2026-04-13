@@ -7,7 +7,7 @@
 
 ## Executive Summary
 
-Performed comprehensive audit of 22 Kubernetes applications for resource management and probe configurations. Found **critical OOM risks** on Prometheus (1059Mi usage vs 256Mi limit) and Jellyfin (386Mi with no limits). Applied emergency fixes to prevent service outages.
+Performed comprehensive audit of Kubernetes applications for resource management and probe configurations. Found **critical OOM risk** on Prometheus (1059Mi usage vs 256Mi limit). Applied emergency fixes to prevent service outages.
 
 ---
 
@@ -17,7 +17,6 @@ Performed comprehensive audit of 22 Kubernetes applications for resource managem
 |--------|---------|--------|
 | `052f2e0` | Echo: probe tuning + 256Mi memory limit | ✅ Applied |
 | `0e05269` | **Prometheus**: 512Mi req / 1.5Gi limit | ✅ Applied & Verified |
-| `0e05269` | **Jellyfin**: 256Mi req / 512Mi limit | ✅ Applied & Verified |
 | `0e05269` | **Cloudflare-tunnel**: probe tuning | ✅ Applied & Verified |
 
 ---
@@ -51,31 +50,7 @@ resources:
 
 ---
 
-### 2. Jellyfin (🔴 CRITICAL - OOM Risk)
-
-**Before:**
-```yaml
-# NO resource limits at all
-Current usage: 372Mi
-```
-
-**After:**
-```yaml
-resources:
-  requests:
-    cpu: 100m
-    memory: 256Mi
-  limits:
-    cpu: 2
-    memory: 512Mi
-```
-
-**Status**: ✅ Pod restarted, running 372Mi / 512Mi  
-**Risk Mitigation**: Allows CPU-intensive transcoding; memory limit prevents OOM kills  
-
----
-
-### 3. Cloudflare Tunnel (🟡 MEDIUM - Probe Timeout Risk)
+### 2. Cloudflare Tunnel (🟡 MEDIUM - Probe Timeout Risk)
 
 **Before:**
 ```yaml
@@ -103,7 +78,7 @@ resources:
 
 ---
 
-### 4. Echo App (🟡 MEDIUM - Probe Timeout Risk)
+### 3. Echo App (🟡 MEDIUM - Probe Timeout Risk)
 
 **Commit**: `052f2e0`
 
@@ -122,7 +97,6 @@ resources:
 | App | Category | Status | Current Usage | Request | Limit | Issues |
 |---|---|---|---|---|---|---|
 | **prometheus** | Monitoring | ✅ Fixed | 989Mi | 512Mi | **1.5Gi** | Was 4.1x over request |
-| **jellyfin** | Media | ✅ Fixed | 372Mi | **256Mi** | **512Mi** | Had no limits |
 | **grafana** | Monitoring | ⚠️ TODO | 309Mi | ❌ None | ❌ None | OOM risk |
 | **cloudflare-tunnel** | Network | ✅ Fixed | 30Mi | **32Mi** | 256Mi | Probe timeout risk |
 | **cloudflare-dns** | Network | ⚠️ TODO | 31Mi | ❌ None | ❌ None | No config |
@@ -171,7 +145,6 @@ resources:
 
 ```
 kubernetes/apps/monitoring/kube-prometheus-stack/values.yaml     # Prometheus: req/limit
-kubernetes/apps/media/jellyfin/values.yaml                       # Jellyfin: req/limit
 kubernetes/apps/network/cloudflare-tunnel/values.yaml            # Tunnel: probes + memory req
 kubernetes/apps/default/echo/values.yaml                         # Echo: probes + memory limit
 AUDIT_SUMMARY.md                                                  # Detailed audit report
@@ -184,7 +157,6 @@ CHANGES_SUMMARY.md                                                # This file
 
 ✅ All fixed apps restarted cleanly  
 ✅ Prometheus: 989Mi / 1.5Gi (healthy)  
-✅ Jellyfin: 372Mi / 512Mi (healthy)  
 ✅ Cloudflare-tunnel: 30Mi / 256Mi (healthy)  
 ✅ Echo: 19Mi / 256Mi (healthy)  
 ✅ All Argo CD applications: **Synced & Healthy**  
@@ -197,7 +169,6 @@ CHANGES_SUMMARY.md                                                # This file
 | Risk | Probability | Impact | Mitigation Applied |
 |---|---|---|---|
 | Prometheus OOM | ✅ ELIMINATED | Monitoring down | 1.5Gi limit |
-| Jellyfin OOM | ✅ ELIMINATED | Service unavailable | 512Mi limit |
 | Tunnel restart loop | ✅ ELIMINATED | Connection loss | Probe delay + threshold |
 | Echo unavailable | ✅ ELIMINATED | Test app down | Probe tuning + memory |
 | System DNS failure | 🟡 MEDIUM | Cluster DNS fails | Phase 2: CoreDNS limits |
@@ -246,4 +217,3 @@ CHANGES_SUMMARY.md                                                # This file
 ✅ Cluster remains fully operational  
 ✅ Full audit report generated  
 ✅ Recommendations documented for Phase 2-4  
-
